@@ -2,14 +2,14 @@ libEntropy.so =
 ENTROPY_OBJS = 
 ENTROPY_H_SRCS = Exception.hh
 ENTROPY_H = $(foreach i,$(ENTROPY_H_SRCS),build/Entropy/$(i))
-ENTROPY_CXXFLAGS = $(CXXFLAGS) -fPIC
-ENTROPY_LDFLAGS = $(LDFLAGS) -shared
+ENTROPY_CXXFLAGS = -fPIC
+ENTROPY_LDFLAGS = -shared
 
 TARGETS = $(ENTROPY_H)
 TESTS = Exception
 
-TEST_FLAGS = $(CXXFLAGS) -Ibuild
-TEST_LDFLAGS = $(LDFLAGS) -pthread -lgtest -lgtest_main -Lbuild #-lEntropy
+TEST_FLAGS = -Ibuild
+TEST_LDFLAGS = -pthread -lgtest -lgtest_main #-lEntropy
 
 libEntropy.so: build/libEntropy.so
 	cp -f build/libEntropy.so $@
