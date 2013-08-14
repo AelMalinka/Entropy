@@ -2,7 +2,7 @@
 	Distributed under the terms of the GNU Lesser General Public License v3
 */
 
-#include <Entropy/Exception.hh>
+#include "Exception.hh"
 #include <gtest/gtest.h>
 
 using namespace std;

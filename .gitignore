@@ -5,9 +5,9 @@
 /configure
 /Makefile.in
 /aclocal.m4
-/install-sh
-/missing
-/compile
+/build-aux
+/config.h.in
+/config.h.in~
 
 config.status
 config.log
