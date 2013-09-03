@@ -1,3 +1,5 @@
+ACLOCAL_AMFLAGS = -I m4
+
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = src/Exception.hh
 
