@@ -15,6 +15,12 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects dist-xz no-dist-gzip])
 AC_PROG_CXX
 AC_LANG_PUSH([C++])
 
+AC_CHECK_HEADERS(
+	[boost/exception/all.hpp boost/throw_exception.hpp],
+	[],
+	[AC_MSG_FAILURE([Boost is required])]
+)
+
 EX_WITH_GTEST
 
 AX_CXX_COMPILE_STDCXX_11([noext])
