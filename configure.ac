@@ -22,9 +22,7 @@ AC_CHECK_HEADERS(
 )
 
 EX_WITH_GTEST
-
-AX_CXX_COMPILE_STDCXX_11([noext])
-AX_APPEND_COMPILE_FLAGS([-Wall -Wextra -Werror -pedantic-errors], [CXXFLAGS])
+EX_FLAGS
 
 AC_LANG_POP([C++])
 AC_CONFIG_HEADERS([config.h])
