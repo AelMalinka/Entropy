@@ -1,12 +1,45 @@
 ACLOCAL_AMFLAGS = -I m4
+AM_CXXFLAGS := -I $(srcdir)/src $(AM_CXXFLAGS)
 
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = src/Exception.hh
 
-testdir = $(builddir)/tests
-check_PROGRAMS = exception
+check_PROGRAMS = exception-init-throw
+exception_init_throw_SOURCES = test/Exception/init-throw.cc
+exception_init_throw_LDADD = -lgtest_main -lgtest
+exception_init_throw_LDFLAGS = -pthread
 
-exception_SOURCES = test/Exception.cc
-exception_CXXFLAGS = -I$(srcdir)/src $(AM_CXXFLAGS)
+EXTRA_DIST = $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in
+TESTSUITE = $(srcdir)/test/testsuite
+TESTSUITE_FILES = $(srcdir)/test/exception.at
 
-TESTS = exception
+$(srcdir)/package.m4: $(top_srcdir)/configure.ac
+	:; {\
+		echo '# Signature of the current package. (auto-generated)' && \
+		echo 'm4_define([AT_PACKAGE_NAME],' && \
+		echo '  [$(PACKAGE_NAME)])' && \
+		echo 'm4_define([AT_PACKAGE_TARNAME],' && \
+		echo '  [$(PACKAGE_TARNAME)])' && \
+		echo 'm4_define([AT_PACKAGE_VERSION],' && \
+		echo '  [$(PACKAGE_VERSION)])' && \
+		echo 'm4_define([AT_PACKAGE_STRING],' && \
+		echo '  [$(PACKAGE_STRING)])' && \
+		echo 'm4_define([AT_PACKAGE_BUGREPORT],' && \
+		echo '  [$(PACKAGE_BUGREPORT)])'; \
+		echo 'm4_define([AT_PACKAGE_URL],' && \
+		echo '  [$(PACKAGE_URL)])'; \
+	} >'$(srcdir)/package.m4'
+
+
+check-local: test/atconfig atlocal $(TESTSUITE)
+	$(SHELL) '$(TESTSUITE)' AUTOTEST_PATH='$(shell pwd)' $(TESTSUITEFLAGS)
+
+clean-local:
+	test ! -f '$(TESTSUITE)' || \
+		$(SHELL) '$(TESTSUITE)' --clean
+
+AUTOM4TE = $(SHELL) $(srcdir)/build-aux/missing --run autom4te
+AUTOTEST = $(AUTOM4TE) --language=autotest
+$(TESTSUITE): $(srcdir)/test/testsuite.at $(TESTSUITE_FILES) $(srcdir)/package.m4
+	$(AUTOTEST) -I '$(srcdir)/test' -I $(srcdir) -o $@.tmp $@.at
+	mv $@.tmp $@

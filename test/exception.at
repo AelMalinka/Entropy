@@ -1,0 +1,4 @@
+AT_BANNER([Exception Tests])
+AT_SETUP([Exception Init])
+AT_CHECK([exception-init-throw], [], [ignore], [ignore])
+AT_CLEANUP
