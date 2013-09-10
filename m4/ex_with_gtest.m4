@@ -17,4 +17,6 @@ AC_DEFUN([EX_WITH_GTEST], [
 				fi]
 			)
 		]
-	)])
+	)
+	AM_CONDITIONAL([GTEST], [test "x$GTEST" != ""])
+])

@@ -4,14 +4,18 @@ AM_CXXFLAGS := -I $(srcdir)/src $(AM_CXXFLAGS)
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = src/Exception.hh
 
-check_PROGRAMS = exception-init-throw
+check_PROGRAMS = 
+
+if GTEST
+check_PROGRAMS += exception-init-throw
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
 exception_init_throw_LDADD = -lgtest_main -lgtest
 exception_init_throw_LDFLAGS = -pthread
+endif
 
-EXTRA_DIST = $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in
 TESTSUITE = $(srcdir)/test/testsuite
 TESTSUITE_FILES = $(srcdir)/test/exception.at
+EXTRA_DIST = $(TESTSUITE_FILES) $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in
 
 $(srcdir)/package.m4: $(top_srcdir)/configure.ac
 	:; {\
@@ -29,7 +33,6 @@ $(srcdir)/package.m4: $(top_srcdir)/configure.ac
 		echo 'm4_define([AT_PACKAGE_URL],' && \
 		echo '  [$(PACKAGE_URL)])'; \
 	} >'$(srcdir)/package.m4'
-
 
 check-local: test/atconfig atlocal $(TESTSUITE)
 	$(SHELL) '$(TESTSUITE)' AUTOTEST_PATH='$(shell pwd)' $(TESTSUITEFLAGS)
