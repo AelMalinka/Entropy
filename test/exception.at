@@ -1,0 +1,5 @@
+AT_BANNER([Exception Tests])
+AT_SETUP([Exception Init])
+AT_SKIP_IF([test -z $GTEST])
+AT_CHECK([exception-init-throw], [], [ignore], [ignore])
+AT_CLEANUP

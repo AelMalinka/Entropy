@@ -12,3 +12,7 @@
 config.status
 config.log
 Makefile
+
+#autotest
+/package.m4
+/test/testsuite
