@@ -12,14 +12,19 @@ libEntropy_la_LDFLAGS = -version-info 0
 check_PROGRAMS = 
 
 if GTEST
-check_PROGRAMS += exception-init-throw
+check_PROGRAMS += exception-init-throw application-run
+
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
 exception_init_throw_LDADD = -lgtest_main -lgtest
 exception_init_throw_LDFLAGS = -pthread
+
+application_run_SOURCES = test/Application/run.cc
+application_run_LDADD = -lgtest_main -lgtest -lEntropy
+application_run_LDFLAGS = -pthread
 endif
 
 TESTSUITE = $(srcdir)/test/testsuite
-TESTSUITE_FILES = $(srcdir)/test/exception.at
+TESTSUITE_FILES = $(srcdir)/test/exception.at $(srcdir)/test/application.at
 EXTRA_DIST = $(TESTSUITE_FILES) $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in
 
 $(srcdir)/package.m4: $(top_srcdir)/configure.ac
