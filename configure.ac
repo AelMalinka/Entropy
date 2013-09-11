@@ -11,6 +11,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_TESTDIR([test])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects dist-xz no-dist-gzip])
+LT_INIT
 
 AC_PROG_CXX
 AC_LANG_PUSH([C++])

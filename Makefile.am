@@ -2,7 +2,12 @@ ACLOCAL_AMFLAGS = -I m4
 AM_CXXFLAGS := -I $(srcdir)/src $(AM_CXXFLAGS)
 
 mainheadersdir = $(includedir)/Entropy
-mainheaders_HEADERS = src/Exception.hh
+mainheaders_HEADERS = src/Exception.hh src/Application.hh
+
+lib_LTLIBRARIES = libEntropy.la
+
+libEntropy_la_SOURCES = src/Application.cc
+libEntropy_la_LDFLAGS = -version-info 0
 
 check_PROGRAMS = 
 

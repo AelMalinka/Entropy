@@ -5,3 +5,4 @@ autoconf
 autoheader
 mkdir -p build-aux
 automake --add-missing
+libtoolize
