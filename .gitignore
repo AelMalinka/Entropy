@@ -9,6 +9,7 @@
 /config.h.in
 /config.h.in~
 
+config.cache
 config.status
 config.log
 Makefile
