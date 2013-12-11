@@ -4,10 +4,10 @@ AM_CXXFLAGS := -I $(srcdir)/src $(AM_CXXFLAGS)
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = src/Exception.hh src/Application.hh
 
-lib_LTLIBRARIES = libEntropy.la
+lib_LTLIBRARIES = libentropy-main.la
 
-libEntropy_la_SOURCES = src/Application.cc
-libEntropy_la_LDFLAGS = -version-info 0
+libentropy_main_la_SOURCES = src/Application.cc
+libentropy_main_la_LDFLAGS = -version-info 0
 
 check_PROGRAMS = 
 
