@@ -5,19 +5,21 @@ AC_DEFUN([EX_WITH_GTEST], [
 		[with_gtest=check]
 	)
 
-	GTEST=
 	AS_IF([test "x$with_gtest" != xno],
 		[
 			test "x$with_gtest" != xyes && LDFLAGS="${LDFLAGS} -L$with_gtest"
-			AC_CHECK_LIB([gtest], [main], [
-					AC_SUBST([GTEST], ["-lgtest -lgtest_main"])
-				],
-				[if test "x$with_gtest" != xcheck; then
+			EX_CHECK_LIBRARY([GTEST], ["gtest/gtest.h"], [gtest], [], [
+				AS_IF([test "x$with_gtest" != xcheck], [
 					AC_MSG_FAILURE(["--with-gtest: gtest not found"])
-				fi],
-				[-pthread]
-			)
+				])
+			])
+			AC_CHECK_LIB([gtest_main], [main], [
+					GTEST_LIBS="-lgtest_main $GTEST_LIBS"
+				], [AS_IF([test "x$with_gtest" != xcheck], [
+					AC_MSG_FAILURE(["--with-gtest: gtest_main not found"])
+				])
+			])
 		]
 	)
-	AM_CONDITIONAL([GTEST], [test "x$GTEST" != ""])
+	AM_CONDITIONAL([GTEST], [test "x$GTEST_LIBS" != x])
 ])

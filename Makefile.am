@@ -9,18 +9,15 @@ lib_LTLIBRARIES = libentropy-main.la
 libentropy_main_la_SOURCES = src/Application.cc
 libentropy_main_la_LDFLAGS = -version-info 0
 
-check_PROGRAMS = 
-
-if GTEST
-check_PROGRAMS += exception-init-throw application-run
-
-exception_init_throw_SOURCES = test/Exception/init-throw.cc
-exception_init_throw_LDADD = -lgtest_main -lgtest
-exception_init_throw_LDFLAGS = -pthread
+check_PROGRAMS = application-run
 
 application_run_SOURCES = test/Application/run.cc
-application_run_LDADD = -lgtest_main -lgtest -lEntropy
-application_run_LDFLAGS = -pthread
+application_run_LDADD = -lentropy-main
+
+if GTEST
+check_PROGRAMS += exception-init-throw
+
+exception_init_throw_SOURCES = test/Exception/init-throw.cc
 endif
 
 TESTSUITE = $(srcdir)/test/testsuite
