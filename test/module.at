@@ -1,0 +1,8 @@
+AT_BANNER([Module Test])
+AT_SETUP([Module Import])
+AT_CHECK_UNQUOTED([LD_LIBRARY_PATH=${BUILD} module-import], [], [[Module::run()
+Module::operator[]: a
+Module::operator[]: 0
+Module::operator = 0
+]])
+AT_CLEANUP
