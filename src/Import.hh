@@ -12,6 +12,7 @@
 	{
 		ENTROPY_EXCEPTION_BASE(ModuleError, "Module Error");
 		ENTROPY_ERROR_INFO(DlOpenError, std::string);
+		ENTROPY_ERROR_INFO(ModuleHandle, void *);
 
 		namespace _internal
 		{
@@ -25,20 +26,26 @@
 			};
 		}
 
-		template<typename Module>
+		template<typename Interface>
 		class Import
 		{
 			public:
 				//2013-12-12 AMR TODO: copy-constructor (copy a new object using previous func handles)
 				Import(const std::string &);
-				Import(Import<Module> &&);
+				Import(const Import<Interface> &);
+				Import(Import<Interface> &&);
 				virtual ~Import();
-				Import<Module> &operator = (Import<Module> &&);
-				Module &operator *();
-				Module *operator->();
+				Import<Interface> &operator = (const Import<Interface> &);
+				Import<Interface> &operator = (Import<Interface> &&);
+				Interface &operator *();
+				Interface *operator->();
+			protected:
+				std::shared_ptr<void> _load(const std::string &) const;
+				template<typename F> F *_load_func(const std::string &) const;
+				std::unique_ptr<Interface, _internal::module_deleter> _new() const;
 			private:
-				std::unique_ptr<void, int (*)(void *)> _dl_handle;
-				std::unique_ptr<Module, _internal::module_deleter> _obj_handle;
+				std::shared_ptr<void> _dl_handle;
+				std::unique_ptr<Interface, _internal::module_deleter> _obj_handle;
 		};
 	}
 
