@@ -9,7 +9,7 @@ lib_LTLIBRARIES = libentropy-main.la
 libentropy_main_la_SOURCES = src/Application.cc src/Import.cc
 libentropy_main_la_LDFLAGS = -version-info 0
 
-check_PROGRAMS = application-run module-import
+check_PROGRAMS = application-run module-import module-import-twice
 
 application_run_SOURCES = test/Application/run.cc
 application_run_LDADD = -lentropy-main
@@ -17,6 +17,10 @@ application_run_LDADD = -lentropy-main
 module_import_SOURCES = test/Module/import.cc
 module_import_LDADD = -lentropy-main
 module_import_DEPENDENCIES = module.so
+
+module_import_twice_SOURCES = test/Module/import-twice.cc
+module_import_twice_LDADD = -lentropy-main
+module_import_twice_DEPENDENCIES = module.so
 
 module.so: $(srcdir)/test/Module/Module.cc $(srcdir)/test/Module/Module.hh libentropy-main.la
 	$(CXX) $(CXXFLAGS) -I $(srcdir)/src $(LIBS) -shared -fPIC -o $@ $(srcdir)/test/Module/Module.cc

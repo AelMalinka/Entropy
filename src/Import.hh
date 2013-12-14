@@ -26,11 +26,11 @@
 			};
 		}
 
+		//2013-12-13 AMR TODO: encapsulate dl* from dlfcn into a Module class
 		template<typename Interface>
 		class Import
 		{
 			public:
-				//2013-12-12 AMR TODO: copy-constructor (copy a new object using previous func handles)
 				Import(const std::string &);
 				Import(const Import<Interface> &);
 				Import(Import<Interface> &&);
