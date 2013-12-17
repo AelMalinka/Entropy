@@ -11,8 +11,10 @@
 	namespace Entropy
 	{
 		ENTROPY_EXCEPTION_BASE(ModuleError, "Module Error");
+		ENTROPY_EXCEPTION(DeleteError, "entropy_delete", ModuleError);
 		ENTROPY_ERROR_INFO(DlOpenError, std::string);
 		ENTROPY_ERROR_INFO(ModuleHandle, void *);
+		ENTROPY_ERROR_INFO(ObjectAddress, void *);
 
 		class Module
 		{
@@ -29,6 +31,19 @@
 				std::shared_ptr<void> _handle;
 		};
 	}
+
+#	define ENTROPY_MODULE(CLASS) unordered_map<void *, shared_ptr<CLASS>> _objects;\
+		extern "C" { \
+		CLASS *entropy_new() {\
+			shared_ptr<CLASS> t(new CLASS);\
+			_objects[t.get()] = t;\
+			return _objects[t.get()].get();\
+		}\
+		void entropy_delete(void *p) {\
+			auto i = _objects.find(p);\
+			if(i == _objects.end()) \
+				ENTROPY_THROW(::Entropy::DeleteError("failed to find object in objects array") << ::Entropy::ObjectAddress(p)); \
+			_objects.erase(i);}}
 
 #	include "Module.impl.hh"
 

@@ -5,10 +5,25 @@
 #include <memory>
 #include <unordered_map>
 #include <iostream>
-#include "Exception.hh"
-#include "module.hh"
+#include "Module.hh"
+#include "interface.hh"
 
 using namespace std;
+
+namespace tests {
+	class Module :
+		public Interface
+	{
+		public:
+			Module();
+			~Module();
+			void run();
+			const string &operator [] (const string &);
+			int operator [] (const int);
+			Interface &operator = (const int);
+	};
+}
+
 using namespace ::tests;
 
 Module::Module() = default;
@@ -37,27 +52,9 @@ Interface &Module::operator = (const int val)
 	return *this;
 }
 
-unordered_map<void *, shared_ptr<Module>> _modules;
-ENTROPY_ERROR_INFO(ModulePointer, void *); 
-ENTROPY_EXCEPTION_BASE(DeleteError, "entropy_delete error");
+ENTROPY_MODULE(Module)
 
-Module *entropy_new() {
-	shared_ptr<Module> t(new Module);
-	_modules[t.get()] = t;
-	return _modules[t.get()].get();
-}
-
-void entropy_delete(void *p) {
-	using namespace Entropy;
-
-	if(_modules.find(p) == _modules.end()) {
-		ENTROPY_THROW(DeleteError("ptr and _module differ") <<
-			ModulePointer(p)
-		);
-	}
-	_modules.erase(p);
-}
-
+extern "C" {
 void foo()
 {
 	cout << "module.so:foo()" << endl;
@@ -66,4 +63,5 @@ void foo()
 void bar()
 {
 	cout << "module.so:bar()" << endl;
+}
 }

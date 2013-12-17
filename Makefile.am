@@ -30,7 +30,7 @@ module_import_copy_SOURCES = test/Module/import-copy.cc
 module_import_copy_LDADD = -lentropy-main
 module_import_copy_DEPENDENCIES = module.so
 
-module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/module.hh $(srcdir)/test/Module/interface.hh libentropy-main.la
+module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh libentropy-main.la
 	$(CXX) $(CXXFLAGS) -I $(srcdir)/src $(LIBS) -shared -fPIC -o $@ $(srcdir)/test/Module/module.cc
 
 clean-local: module-clean
@@ -47,7 +47,7 @@ endif
 TESTSUITE = $(srcdir)/test/testsuite
 TESTSUITE_FILES = $(srcdir)/test/exception.at $(srcdir)/test/application.at $(srcdir)/test/module.at
 EXTRA_DIST = $(TESTSUITE_FILES) $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in\
-	$(srcdir)/test/Module/module.hh $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh
+	$(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh
 
 $(srcdir)/package.m4: $(top_srcdir)/configure.ac
 	:; {\
