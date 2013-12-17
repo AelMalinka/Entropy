@@ -8,15 +8,33 @@ Module::operator = 0
 AT_CLEANUP
 
 AT_SETUP([Module Import Twice])
-AT_XFAIL_IF([test ! -f src/Module.hh])
 AT_CHECK_UNQUOTED([LD_LIBRARY_PATH=${BUILD} module-import-twice], [], [[Module::run()
 Module::operator[]: a
 Module::operator[]: 0
 Module::operator = 0
 Module::run()
+Module::run()
+Module::operator[]: a
+Module::operator[]: a
+Module::operator[]: 0
+Module::operator[]: 0
+Module::operator = 0
+Module::operator = 0
+]])
+AT_CLEANUP
+
+AT_SETUP([Module Import Twice Copy])
+AT_CHECK_UNQUOTED([LD_LIBRARY_PATH=${BUILD} module-import-copy], [], [[Module::run()
 Module::operator[]: a
 Module::operator[]: 0
 Module::operator = 0
+Module::run()
+Module::run()
+Module::operator[]: a
+Module::operator[]: a
+Module::operator[]: 0
+Module::operator[]: 0
+Module::operator = 0
+Module::operator = 0
 ]])
-
 AT_CLEANUP

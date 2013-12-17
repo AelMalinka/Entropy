@@ -3,6 +3,7 @@
 */
 
 #include <memory>
+#include <unordered_map>
 #include <iostream>
 #include "Module.hh"
 #include "Exception.hh"
@@ -36,23 +37,23 @@ Interface &Module::operator = (const int val)
 	return *this;
 }
 
-unique_ptr<Module> _module;
+unordered_map<void *, shared_ptr<Module>> _modules;
 ENTROPY_ERROR_INFO(ModulePointer, void *); 
 ENTROPY_EXCEPTION_BASE(DeleteError, "entropy_delete error");
 
 Module *entropy_new() {
-	_module = unique_ptr<Module>(new Module);
-	return _module.get();
+	shared_ptr<Module> t(new Module);
+	_modules[t.get()] = t;
+	return _modules[t.get()].get();
 }
 
 void entropy_delete(void *p) {
 	using namespace Entropy;
 
-	if(p != _module.get()) {
+	if(_modules.find(p) == _modules.end()) {
 		ENTROPY_THROW(DeleteError("ptr and _module differ") <<
-			ModulePointer(p) <<
-			ModulePointer(_module.get())
+			ModulePointer(p)
 		);
 	}
-	_module.reset();
+	_modules.erase(p);
 }
