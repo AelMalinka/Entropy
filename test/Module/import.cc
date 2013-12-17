@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Import.hh"
 
-#include "Interface.hh"
+#include "interface.hh"
 
 using namespace std;
 using namespace Entropy;

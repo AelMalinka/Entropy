@@ -5,7 +5,7 @@
 #if !defined ENTROPY_TESTS_MODULE_MODULE_INC
 #	define ENTROPY_TESTS_MODULE_MODULE_INC
 
-#	include "Interface.hh"
+#	include "interface.hh"
 
 	namespace tests
 	{
@@ -27,6 +27,8 @@
 	extern "C" {
 		::tests::Module *entropy_new();
 		void entropy_delete(void *);
+		void foo();
+		void bar();
 	}
 	
 #endif

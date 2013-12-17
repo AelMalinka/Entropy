@@ -5,8 +5,8 @@
 #include <memory>
 #include <unordered_map>
 #include <iostream>
-#include "Module.hh"
 #include "Exception.hh"
+#include "module.hh"
 
 using namespace std;
 using namespace ::tests;
@@ -56,4 +56,14 @@ void entropy_delete(void *p) {
 		);
 	}
 	_modules.erase(p);
+}
+
+void foo()
+{
+	cout << "module.so:foo()" << endl;
+}
+
+void bar()
+{
+	cout << "module.so:bar()" << endl;
 }

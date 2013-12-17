@@ -9,10 +9,15 @@
 using namespace Entropy;
 using namespace std;
 
+void _close(void *p) {
+	if(p != nullptr)
+		dlclose(p);
+}
+
 Module::Module(const string &name)
 	: _handle(nullptr)
 {
-	_handle = shared_ptr<void>(dlopen(name.c_str(), RTLD_NOW), &dlclose);
+	_handle = shared_ptr<void>(dlopen(name.c_str(), RTLD_NOW), _close);
 
 	if(_handle == nullptr)
 		ENTROPY_THROW(ModuleError("dlopen error") <<

@@ -1,4 +1,15 @@
 AT_BANNER([Module Test])
+AT_SETUP([Module Run])
+AT_CHECK_UNQUOTED([LD_LIBRARY_PATH=${BUILD} module-run], [], [[module.so:foo()
+module.so:bar()
+module.so:foo()
+module.so:foo()
+module.so:bar()
+module.so:bar()
+Module Error: dlopen error
+]])
+AT_CLEANUP
+
 AT_SETUP([Module Import])
 AT_CHECK_UNQUOTED([LD_LIBRARY_PATH=${BUILD} module-import], [], [[Module::run()
 Module::operator[]: a

@@ -67,8 +67,7 @@
 			virtual ~NAME() throw(); }; \
 			inline NAME::~NAME() throw() = default
 
-		/*	2010-03-05 AMR NOTE: BASE is not checked to be of eventual type Entropy::Exception
-		*/
+//		2010-03-05 AMR TODO: BASE is not checked to be of eventual type Entropy::Exception
 #		define ENTROPY_EXCEPTION(NAME, DESC, BASE) struct NAME : BASE {\
 			NAME() : BASE(DESC, "") {}\
 			NAME(const std::string &What) : BASE(DESC, What) {}\
