@@ -35,7 +35,7 @@
 #	define ENTROPY_MODULE(CLASS) unordered_map<void *, shared_ptr<CLASS>> _objects;\
 		extern "C" { \
 		CLASS *entropy_new() {\
-			shared_ptr<CLASS> t(new CLASS);\
+			::std::shared_ptr<CLASS> t = ::std::make_shared<CLASS>();\
 			_objects[t.get()] = t;\
 			return _objects[t.get()].get();\
 		}\
