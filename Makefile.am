@@ -42,6 +42,8 @@ if GTEST
 check_PROGRAMS += exception-init-throw
 
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
+exception_init_throw_LDADD = $(GTEST_LIBS)
+exception_init_throw_LDFLAGS = $(PTHREAD_LDFLAGS)
 endif
 
 TESTSUITE = $(srcdir)/test/testsuite
