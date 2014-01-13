@@ -6,7 +6,7 @@ m4_pattern_forbid([^AX_])
 m4_pattern_forbid([^EX_])
 
 AC_INIT([Entropy Net], [0.0.1], [bugs@entropy-development.com])
-AC_CONFIG_SRCDIR([src/main.cc])
+AC_CONFIG_SRCDIR([src/Exception.hh])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_TESTDIR([test])
@@ -18,16 +18,35 @@ LT_INIT
 AC_PROG_CXX
 AC_LANG_PUSH([C++])
 
-EX_FLAGS
+AC_CHECK_HEADERS(
+	[	boost/system/error_code.hpp\
+		boost/asio/buffer.hpp\
+		boost/asio/io_service.hpp\
+		boost/asio/basic_streambuf.hpp\
+		boost/asio/ip/tcp.hpp\
+		boost/asio/read.hpp\
+		boost/asio/read_until.hpp\
+		boost/asio/write.hpp\
+	],
+	[],
+	[AC_MSG_FAILURE([Boost is required])]
+)
+
 AX_PTHREAD
 [LIBS="$PTHREAD_LIBS $LIBS"]
 [CFLAGS="$PTHREAD_CFLAGS $CFLAGS"]
 [CXXFLAGS="$PTHREAD_CFLAGS $CXXFLAGS"]
 
+AC_CHECK_LIB([boost_system-mt], [main], [LIBS="-lboost_system-mt $LIBS"], [AC_MSG_FAILURE(["boost::system is required"])])
+
+EX_FLAGS
+
 EX_WITH_ENTROPY
 [LIBS="$ENTROPY_LIBS $LIBS"]
 [LDFLAGS="$ENTROPY_LDFLAGS $LDFLAGS"]
 [CPPFLAGS="$ENTROPY_CPPFLAGS $CPPFLAGS"]
+
+AX_APPEND_COMPILE_FLAGS([-Werror -pedantic-errors], [CXXFLAGS])
 
 AC_LANG_POP([C++])
 AC_CONFIG_HEADERS([config.h])

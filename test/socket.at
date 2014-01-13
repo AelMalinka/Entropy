@@ -1,0 +1,8 @@
+AT_BANNER([Socket Tests])
+AT_SETUP([Echo Server/Client])
+AT_CHECK([socket-echo --server & sleep 1s && socket-echo --client], [], [Connected
+Connected
+Hello!
+Hello!
+])
+AT_CLEANUP
