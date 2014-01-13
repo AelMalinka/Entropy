@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 		cout << e << endl;
 		return EXIT_FAILURE;
 	}
-};
+}
 
 ::Application::Application(const bool client)
 	: _clientserver(client)

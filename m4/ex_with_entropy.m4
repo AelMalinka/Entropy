@@ -6,6 +6,9 @@
 # warranty.
 
 AC_DEFUN([EX_WITH_ENTROPY], [
+	CPPFLAGS_save="$CPPFLAGS"
+	CXXFLAGS_save="$CXXFLAGS"
+	LDFLAGS_save="$LDFLAGS"
 	AC_ARG_WITH([entropy],
 		[AS_HELP_STRING([--with-entropy], [location to look for libentropy-main.so])],
 		[with_entropy=$withval],
@@ -13,7 +16,7 @@ AC_DEFUN([EX_WITH_ENTROPY], [
 	)
 
 	ENTROPY_LIBS=
-	LDFLAGS_save="$LDFLAGS"
+	CXXFLAGS="$CXXFLAGS -Wno-pedantic"
 	test "x$with_entropy" != xcheck && LDFLAGS="-L${with_entropy}/lib"
 	AC_CHECK_LIB([entropy-main], [main], [
 			AC_SUBST([ENTROPY_LIBS], ["-lentropy-main"])
@@ -21,9 +24,7 @@ AC_DEFUN([EX_WITH_ENTROPY], [
 		],
 		AC_MSG_FAILURE(["--with-entropy: entropy-main not found"])
 	)
-	LDFLAGS="$LDFLAGS_save"
 	ENTROPY_CPPFLAGS=
-	CPPFLAGS_save="$CPPFLAGS"
 	test "x$with_entropy" != xcheck && CPPFLAGS="-I${with_entropy}/include"
 	AC_CHECK_HEADER([Entropy/Exception.hh], [
 			AC_SUBST([ENTROPY_CPPFLAGS], ["$CPPFLAGS"])
@@ -31,4 +32,6 @@ AC_DEFUN([EX_WITH_ENTROPY], [
 		AC_MSG_FAILURE(["--with-entropy: Entropy/Exception.hh not found"])
 	)
 	CPPFLAGS="$CPPFLAGS_save"
+	CXXFLAGS="$CXXFLAGS_save"
+	LDFLAGS="$LDFLAGS_save"
 ])
