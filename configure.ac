@@ -21,17 +21,29 @@ AC_PROG_CXX
 AC_LANG_PUSH([C++])
 
 AC_CHECK_HEADERS(
-	[boost/exception/all.hpp boost/throw_exception.hpp],
+	[	boost/asio/connect.hpp\
+		boost/asio/io_service.hpp\
+		boost/asio/ip/tcp.hpp\
+		boost/asio/read.hpp\
+		boost/asio/read_until.hpp\
+		boost/asio/streambuf.hpp\
+		boost/asio/write.hpp\
+		boost/exception/all.hpp\
+		boost/system/error_code.hpp\
+		boost/throw_exception.hpp\
+	],
 	[],
 	[AC_MSG_FAILURE([Boost is required])]
 )
 
-EX_FLAGS
 AX_PTHREAD
 [LIBS="$PTHREAD_LIBS $LIBS"]
 [CFLAGS="$PTHREAD_CFLAGS $CFLAGS"]
 [CXXFLAGS="$PTHREAD_CFLAGS $CXXFLAGS"]
 
+AC_CHECK_LIB([boost_system-mt], [main], [LIBS="-lboost_system-mt $LIBS"], [AC_MSG_FAILURE(["boost::system is required"])])
+
+EX_FLAGS
 EX_WITH_GTEST
 
 AC_LANG_POP([C++])
