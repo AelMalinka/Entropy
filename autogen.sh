@@ -1,8 +1,8 @@
 #!/bin/bash
 
 mkdir -p build-aux
-aclocal -I m4
 libtoolize
+aclocal -I m4
 autoconf
 autoheader
 automake --add-missing
