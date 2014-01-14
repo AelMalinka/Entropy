@@ -4,3 +4,4 @@ AT_COLOR_TESTS
 m4_include([exception.at])
 m4_include([application.at])
 m4_include([module.at])
+m4_include([net.at])

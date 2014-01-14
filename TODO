@@ -1,3 +1,5 @@
-tracing
-logging
-config
+!↑ ::Net testing
+	gtest? lots of possibly not easily shell scriptable
+↑ logging
+	↑ tracing
+↓ config

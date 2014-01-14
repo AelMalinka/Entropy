@@ -1,36 +1,45 @@
 ACLOCAL_AMFLAGS = -I m4
+# 2014-01-13 AMR NOTE: non-portable assignment
 AM_CXXFLAGS := -I $(srcdir)/src $(AM_CXXFLAGS)
 
 mainheadersdir = $(includedir)/Entropy
-mainheaders_HEADERS = src/Exception.hh src/Application.hh src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh
+mainheaders_HEADERS = src/Exception.hh\
+	src/Application.hh\
+	src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh\
+	src/Net/Exception.hh src/Net/Application.hh src/Net/Protocol.hh src/Net/Socket.hh\
+	src/Net/Protocols/Line.hh
 
-lib_LTLIBRARIES = libentropy-main.la
+lib_LTLIBRARIES = libentropy.la
 
-libentropy_main_la_SOURCES = src/Application.cc src/Module.cc
-libentropy_main_la_LDFLAGS = -version-info 0
+libentropy_la_SOURCES = src/Application.cc src/Module.cc\
+	src/Net/Application.cc src/Net/Socket.cc src/Net/Protocol.cc src/Net/Client.cc src/Net/Server.cc src/Net/Protocols/Line.cc
+libentropy_la_LDFLAGS = -version-info 0
 
-check_PROGRAMS = application-run module-run module-import module-import-twice module-import-copy
+check_PROGRAMS = application-run module-run module-import module-import-twice module-import-copy net-protocol-line
 
 application_run_SOURCES = test/Application/run.cc
-application_run_LDADD = -lentropy-main
+application_run_LDADD = -lentropy
 
 module_run_SOURCES = test/Module/run.cc
-module_run_LDADD = -lentropy-main
+module_run_LDADD = -lentropy
 module_run_DEPENDENCIES = module.so
 
 module_import_SOURCES = test/Module/import.cc
-module_import_LDADD = -lentropy-main
+module_import_LDADD = -lentropy
 module_import_DEPENDENCIES = module.so
 
 module_import_twice_SOURCES = test/Module/import-twice.cc
-module_import_twice_LDADD = -lentropy-main
+module_import_twice_LDADD = -lentropy
 module_import_twice_DEPENDENCIES = module.so
 
 module_import_copy_SOURCES = test/Module/import-copy.cc
-module_import_copy_LDADD = -lentropy-main
+module_import_copy_LDADD = -lentropy
 module_import_copy_DEPENDENCIES = module.so
 
-module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh libentropy-main.la
+net_protocol_line_SOURCES = test/Net/Protocol/line.cc
+net_protocol_line_LDADD = -lentropy
+
+module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh libentropy.la
 	$(CXX) $(CXXFLAGS) -I $(srcdir)/src $(LIBS) -shared -fPIC -o $@ $(srcdir)/test/Module/module.cc
 
 clean-local: module-clean
@@ -47,7 +56,8 @@ exception_init_throw_LDFLAGS = $(PTHREAD_LDFLAGS)
 endif
 
 TESTSUITE = $(srcdir)/test/testsuite
-TESTSUITE_FILES = $(srcdir)/test/exception.at $(srcdir)/test/application.at $(srcdir)/test/module.at
+TESTSUITE_FILES = $(srcdir)/test/exception.at $(srcdir)/test/application.at $(srcdir)/test/module.at $(srcdir)/test/net.at\
+	$(srcdir)/test/Net/protocol.at
 EXTRA_DIST = $(TESTSUITE_FILES) $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in\
 	$(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh
 

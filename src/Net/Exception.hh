@@ -5,7 +5,7 @@
 #if !defined ENTROPY_NET_EXCEPTION_INC
 #	define ENTROPY_NET_EXCEPTION_INC
 
-#	include <Entropy/Exception.hh>
+#	include "../Exception.hh"
 #	include <cstddef>
 
 //	2013-12-24 AMR TODO: convert to std::error_code, possibly newer asio?

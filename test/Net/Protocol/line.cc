@@ -6,9 +6,9 @@
 #include <cstring>
 #include <iostream>
 
-#include "Client.hh"
-#include "Server.hh"
-#include "Protocols/Line.hh"
+#include "Net/Client.hh"
+#include "Net/Server.hh"
+#include "Net/Protocols/Line.hh"
 
 using namespace Entropy;
 using namespace std;
