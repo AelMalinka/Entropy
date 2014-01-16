@@ -43,8 +43,8 @@ AX_PTHREAD
 
 AC_CHECK_LIB([boost_system-mt], [main], [LIBS="-lboost_system-mt $LIBS"], [AC_MSG_FAILURE(["boost::system is required"])])
 
-EX_FLAGS
 EX_WITH_GTEST
+EX_FLAGS
 
 AC_LANG_POP([C++])
 AC_CONFIG_HEADERS([config.h])
