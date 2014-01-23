@@ -1,6 +1,8 @@
 AT_BANNER([Protocol Tests])
 AT_SETUP([Line Server/Client])
-AT_CHECK([net-protocol-line --server & sleep 0.05 && net-protocol-line --client], [], [Connected
+# 2014-01-21 AMR HACK: sleeping to make sure server is listening
+# 2014-01-23 AMR TODO: make client retry or make server hold until listening
+AT_CHECK([net-protocol-line --server & sleep 0.1 && net-protocol-line --client], [], [Connected
 Connected
 Hello!
 Hello!
