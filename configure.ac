@@ -29,6 +29,14 @@ AC_CHECK_HEADERS(
 		boost/asio/streambuf.hpp\
 		boost/asio/write.hpp\
 		boost/exception/all.hpp\
+		boost/log/attributes/constant.hpp\
+		boost/log/common.hpp\
+		boost/log/expressions.hpp\
+		boost/log/sources/severity_channel_logger.hpp\
+		boost/log/support/date_time.hpp\
+		boost/log/utility/setup/common_attributes.hpp\
+		boost/log/utility/setup/console.hpp\
+		boost/log/utility/setup/formatter_parser.hpp\
 		boost/system/error_code.hpp\
 		boost/throw_exception.hpp\
 	],
@@ -42,6 +50,8 @@ AX_PTHREAD
 [CXXFLAGS="$PTHREAD_CFLAGS $CXXFLAGS"]
 
 AC_CHECK_LIB([boost_system-mt], [main], [LIBS="-lboost_system-mt $LIBS"], [AC_MSG_FAILURE(["boost::system is required"])])
+AC_CHECK_LIB([boost_log-mt], [main], [LIBS="-lboost_log-mt $LIBS"], [AC_MSG_FAILURE(["boost::log is requried"])])
+AC_CHECK_LIB([boost_log_setup-mt], [main], [LIBS="-lboost_log_setup-mt $LIBS"], [AC_MSG_FAILURE(["boost::log is requried"])])
 
 EX_WITH_GTEST
 EX_FLAGS
