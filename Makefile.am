@@ -5,10 +5,17 @@ AM_CXXFLAGS := -I $(srcdir)/src $(AM_CXXFLAGS)
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = src/Exception.hh \
 	src/Application.hh \
-	src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh \
-	src/Log.hh src/Log/Init.hh src/Log/Logger.hh src/Log/Severity.hh \
-	src/Net/Exception.hh src/Net/Application.hh src/Net/Protocol.hh src/Net/Socket.hh \
-	src/Net/Protocols/Line.hh
+	src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh
+
+logheadersdir = $(includedir)/Entropy/Log
+logheaders_HEADERS = src/Log.hh src/Log/Init.hh src/Log/Logger.hh src/Log/Severity.hh
+
+netheadersdir = $(includedir)/Entropy/Net
+netheaders_HEADERS = src/Net/Exception.hh src/Net/Application.hh src/Net/Socket.hh \
+	src/Net/Client.hh src/Net/Server.hh src/Net/Protocol.hh
+
+netprotocolsdir = $(includedir)/Entropy/Net/Protocols
+netprotocols_HEADERS = src/Net/Protocols/Line.hh
 
 lib_LTLIBRARIES = libentropy.la
 
