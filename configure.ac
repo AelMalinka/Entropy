@@ -32,7 +32,7 @@ AC_CHECK_HEADERS(
 		boost/log/attributes/constant.hpp\
 		boost/log/common.hpp\
 		boost/log/expressions.hpp\
-		boost/log/sources/severity_channel_logger.hpp\
+dnl		boost/log/sources/severity_channel_logger.hpp\	dnl fails to compile by itself, or without -std=c++11
 		boost/log/support/date_time.hpp\
 		boost/log/utility/setup/common_attributes.hpp\
 		boost/log/utility/setup/console.hpp\
