@@ -1,0 +1,9 @@
+AT_BANNER([Log Tests])
+AT_SETUP([Trivial Logging])
+AT_CHECK([log-trivial], [], [], [stderr])
+AT_CHECK([cut -d: -f 6- stderr], [], [ Application: Info: This is a log line
+ Application: Error: This is a error line
+ Test: Info: This is a 'Test' line
+ Test: Error: This is an error 'Test' line
+])
+AT_CLEANUP
