@@ -3,16 +3,16 @@ ACLOCAL_AMFLAGS = -I m4
 AM_CXXFLAGS := -I $(srcdir)/src $(AM_CXXFLAGS)
 
 mainheadersdir = $(includedir)/Entropy
-mainheaders_HEADERS = src/Exception.hh\
-	src/Application.hh\
-	src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh\
-	src/Log.hh src/Log/Init.hh src/Log/Logger.hh src/Log/Severity.hh\
-	src/Net/Exception.hh src/Net/Application.hh src/Net/Protocol.hh src/Net/Socket.hh\
+mainheaders_HEADERS = src/Exception.hh \
+	src/Application.hh \
+	src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh \
+	src/Log.hh src/Log/Init.hh src/Log/Logger.hh src/Log/Severity.hh \
+	src/Net/Exception.hh src/Net/Application.hh src/Net/Protocol.hh src/Net/Socket.hh \
 	src/Net/Protocols/Line.hh
 
 lib_LTLIBRARIES = libentropy.la
 
-libentropy_la_SOURCES = src/Application.cc src/Module.cc\
+libentropy_la_SOURCES = src/Application.cc src/Module.cc \
 	src/Log/Init.cc src/Log/Logger.cc src/Log/Severity.cc \
 	src/Net/Application.cc src/Net/Socket.cc src/Net/Protocol.cc src/Net/Client.cc src/Net/Server.cc src/Net/Protocols/Line.cc
 libentropy_la_LDFLAGS = -version-info 0
@@ -67,7 +67,7 @@ TESTSUITE = $(srcdir)/test/testsuite
 TESTSUITE_FILES = $(srcdir)/test/log.at $(srcdir)/test/exception.at $(srcdir)/test/application.at \
 	$(srcdir)/test/module.at $(srcdir)/test/net.at \
 	$(srcdir)/test/Net/protocol.at
-EXTRA_DIST = $(TESTSUITE_FILES) $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in\
+EXTRA_DIST = $(TESTSUITE_FILES) $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in \
 	$(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh
 
 $(srcdir)/package.m4: $(top_srcdir)/configure.ac

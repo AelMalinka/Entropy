@@ -21,24 +21,24 @@ AC_PROG_CXX
 AC_LANG_PUSH([C++])
 
 AC_CHECK_HEADERS(
-	[	boost/asio/connect.hpp\
-		boost/asio/io_service.hpp\
-		boost/asio/ip/tcp.hpp\
-		boost/asio/read.hpp\
-		boost/asio/read_until.hpp\
-		boost/asio/streambuf.hpp\
-		boost/asio/write.hpp\
-		boost/exception/all.hpp\
-		boost/log/attributes/constant.hpp\
-		boost/log/common.hpp\
-		boost/log/expressions.hpp\
-dnl		boost/log/sources/severity_channel_logger.hpp\	dnl fails to compile by itself, or without -std=c++11
-		boost/log/support/date_time.hpp\
-		boost/log/utility/setup/common_attributes.hpp\
-		boost/log/utility/setup/console.hpp\
-		boost/log/utility/setup/formatter_parser.hpp\
-		boost/system/error_code.hpp\
-		boost/throw_exception.hpp\
+	[	boost/asio/connect.hpp \
+		boost/asio/io_service.hpp \
+		boost/asio/ip/tcp.hpp \
+		boost/asio/read.hpp \
+		boost/asio/read_until.hpp \
+		boost/asio/streambuf.hpp \
+		boost/asio/write.hpp \
+		boost/exception/all.hpp \
+		boost/log/attributes/constant.hpp \
+		boost/log/common.hpp \
+		boost/log/expressions.hpp \
+dnl		boost/log/sources/severity_channel_logger.hpp \	dnl fails to compile by itself, or without -std=c++11
+		boost/log/support/date_time.hpp \
+		boost/log/utility/setup/common_attributes.hpp \
+		boost/log/utility/setup/console.hpp \
+		boost/log/utility/setup/formatter_parser.hpp \
+		boost/system/error_code.hpp \
+		boost/throw_exception.hpp \
 	],
 	[],
 	[AC_MSG_FAILURE([Boost is required])]
