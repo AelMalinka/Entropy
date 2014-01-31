@@ -13,6 +13,13 @@
 using namespace Entropy;
 using namespace std;
 
+#if !defined _DELIM
+#	define _DELIM
+	const string DELIM = "\n";
+#else
+	const string DELIM = _DELIM;
+#endif
+
 struct Application :
 	public Net::Protocols::Line
 {
@@ -67,7 +74,7 @@ int main(int argc, char *argv[])
 }
 
 ::Application::Application(const bool client)
-	: _clientserver(client)
+	: Line(_DELIM), _clientserver(client)
 {
 	if(_clientserver)
 		_client = unique_ptr<Net::Client>(new Net::Client(*this, "localhost:14242"));
@@ -81,7 +88,7 @@ void ::Application::onConnect(Net::Socket &sock)
 	cout << "Connected" << endl;
 
 	if(_clientserver)
-		sock.Write("Hello!\n");
+		sock.Write("Hello!" + DELIM);
 }
 
 bool ::Application::onMessage(Net::Socket &s, string &&msg)
@@ -89,7 +96,7 @@ bool ::Application::onMessage(Net::Socket &s, string &&msg)
 	cout << msg << endl;
 
 	if(!_clientserver)
-		s.Write(move(msg + "\n"));
+		s.Write(move(msg + DELIM));
 	else
 		return false;
 

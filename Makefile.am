@@ -54,7 +54,8 @@ module_import_copy_DEPENDENCIES = module.so
 net_protocol_line_SOURCES = test/Net/Protocol/line.cc
 net_protocol_line_LDADD = -lentropy
 
-net_protocol_crlf_line_SOURCES = test/Net/Protocol/crlf-line.cc
+net_protocol_crlf_line_SOURCES = test/Net/Protocol/line.cc
+net_protocol_crlf_line_CPPFLAGS = -D_DELIM=\"\r\n\"
 net_protocol_crlf_line_LDADD = -lentropy
 
 module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh libentropy.la
