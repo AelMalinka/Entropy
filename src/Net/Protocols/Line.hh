@@ -18,10 +18,14 @@
 				{
 					public:
 						Line();
+						explicit Line(const std::string &delim);
 						virtual ~Line();
+						// 2014-01-31 AMR TODO: wtf, this is a terrible api
 						virtual bool onMessage(Socket &, std::string &&) = 0;
 						virtual void onConnect(Socket &);
 						void onData(Socket &, std::string &&);
+					private:
+						std::string _delim;
 				};
 			}
 		}

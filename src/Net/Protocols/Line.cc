@@ -9,20 +9,25 @@ using namespace Entropy::Net::Protocols;
 using namespace std;
 
 Line::Line()
-	: Protocol()
+	: Protocol(), _delim("\n")
+{}
+
+Line::Line(const string &delim)
+	: Protocol(), _delim(delim)
 {}
 
 Line::~Line() = default;
 
 void Line::onConnect(Socket &sock)
 {
-	expecting(sock, "\n");
+	expecting(sock, _delim);
 }
 
 void Line::onData(Socket &sock, string &&line)
 {
-	line.pop_back();
+	for(size_t x = 0; x < _delim.size(); x++)
+		line.pop_back();
 
 	if(onMessage(sock, move(line)))
-		expecting(sock, "\n");
+		expecting(sock, _delim);
 }
