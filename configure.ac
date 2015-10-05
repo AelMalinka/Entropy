@@ -54,6 +54,7 @@ AC_CHECK_LIB([boost_log-mt], [main], [LIBS="-lboost_log-mt $LIBS"], [AC_MSG_FAIL
 AC_CHECK_LIB([boost_log_setup-mt], [main], [LIBS="-lboost_log_setup-mt $LIBS"], [AC_MSG_FAILURE(["boost::log is requried"])])
 
 EX_WITH_GTEST
+EX_BASE_FLAGS
 EX_FLAGS
 
 AC_LANG_POP([C++])
