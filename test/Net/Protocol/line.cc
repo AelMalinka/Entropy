@@ -96,7 +96,7 @@ bool ::Application::onMessage(Net::Socket &s, string &&msg)
 	cout << msg << endl;
 
 	if(!_clientserver)
-		s.Write(move(msg + DELIM));
+		s.Write(move(msg) + DELIM);
 	else
 		return false;
 
