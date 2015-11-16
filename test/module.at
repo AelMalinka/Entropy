@@ -49,3 +49,13 @@ Module::operator = 0
 Module::operator = 0
 ]])
 AT_CLEANUP
+
+AT_SETUP([Module Import Python])
+AT_CHECK_UNQUOTED([module-import-python], [], [[PyModule::__init__()
+PyModule::operator[]: a
+PyModule::operator[]: 0
+PyModule::operator[]: = a 0
+PyModule::operator[]: = 0 0
+PyModule::run()
+]])
+AT_CLEANUP
