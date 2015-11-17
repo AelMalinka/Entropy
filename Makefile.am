@@ -80,7 +80,7 @@ module.py: $(srcdir)/test/Module/module.py
 clean-local: module-clean
 .PHONY: module-clean
 module-clean:
-	rm -f module.so
+	rm -f module.so module.py module.pyo module.pyc
 
 if GTEST
 check_PROGRAMS += exception-init-throw
