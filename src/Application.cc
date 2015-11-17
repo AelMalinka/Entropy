@@ -1,5 +1,5 @@
 /*	Copyright 2010 Michael Thomas (malinka) <malinka@entropy-development.com>
-	Distributed under the terms of the GNU Lesser General Pulbic License v3
+	Distributed under the terms of the GNU Affero General Pulbic License v3
 */
 
 #include "Application.hh"

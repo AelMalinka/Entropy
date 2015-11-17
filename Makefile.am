@@ -1,5 +1,5 @@
 # Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
-# Distributed under the terms of the GNU Lesser General Public License v3
+# Distributed under the terms of the GNU Affero General Public License v3
 
 ACLOCAL_AMFLAGS = -I m4
 # 2014-01-13 AMR NOTE: non-portable assignment
