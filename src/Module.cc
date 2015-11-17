@@ -1,33 +1,32 @@
-/*	Copyright 2013 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+/*	Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
 	Distributed under the terms of the GNU Lesser General Public License v3
 */
 
 #include "Module.hh"
 
-#include <dlfcn.h>
-
 using namespace Entropy;
 using namespace std;
 
-void _close(void *p) {
-	if(p != nullptr)
-		dlclose(p);
-}
-
 Module::Module(const string &name)
-	: _handle(nullptr)
 {
-	_handle = shared_ptr<void>(dlopen(name.c_str(), RTLD_NOW), _close);
+	using internal::ModuleType;
 
-	if(_handle == nullptr)
-		ENTROPY_THROW(ModuleError("dlopen error") <<
-			DlOpenError(dlerror())
+	auto type = ""s;
+	if(name.find(".") != string::npos)
+		type = name.substr(name.find("."), name.size() - name.find("."));
+
+	if(type == ".so")
+	{
+		_type = ModuleType::Dl;
+		_module = DlModule(name);
+	}
+	else if(type == ".py")
+	{
+		_type = ModuleType::Py;
+		_module = PyModule(name);
+	}
+	else
+		ENTROPY_THROW(ModuleError("Failed to determine module") <<
+			ModuleName(name)
 		);
 }
-
-Module::Module(const Module &) = default;
-Module::Module(Module &&) = default;
-Module::~Module() = default;
-
-Module &Module::operator = (const Module &) = default;
-Module &Module::operator = (Module &&) = default;

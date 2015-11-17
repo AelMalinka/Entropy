@@ -21,7 +21,8 @@ AC_PROG_CXX
 AC_LANG_PUSH([C++])
 
 AC_CHECK_HEADERS(
-	[	boost/asio/connect.hpp \
+	[	boost/any.hpp \
+		boost/asio/connect.hpp \
 		boost/asio/io_service.hpp \
 		boost/asio/ip/tcp.hpp \
 		boost/asio/read.hpp \

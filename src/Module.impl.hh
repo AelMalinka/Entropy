@@ -1,4 +1,4 @@
-/*	Copyright 2013 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+/*	Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
 	Distributed under the terms of the GNU Lesser General Public License v3
 */
 
@@ -6,26 +6,40 @@
 #	define ENTROPY_MODULE_IMPL
 
 #	include "Module.hh"
-#	include <dlfcn.h>
+
+#	include "Module/DlModule.hh"
+#	include "Module/PyModule.hh"
 
 	namespace Entropy
 	{
-		template<typename F>
-		F &Module::get(const std::string &name) const
+		template<typename F> F &Module::get(const std::string &name) const
 		{
-			using std::function;
+			using internal::ModuleType;
+			using boost::any_cast;
 
-			F *addr;
+			F *f = nullptr;
 
-			//2013-12-12 AMR NOTE: Source: https://groups.google.com/d/msg/comp.lang.c++.moderated/BRVEES2ypvE/ov2hUcVl2NMJ
-			*(void **)(&addr) = dlsym(_handle.get(), name.c_str());
-			if(addr == nullptr)
-				ENTROPY_THROW(ModuleError("dlsym error") <<
-					DlOpenError(dlerror()) <<
-					ModuleHandle(_handle.get())
-				);
+			DlModule dl;
+			PyModule py;
 
-			return *addr;
+			switch(_type)
+			{
+				case ModuleType::Dl:
+					dl = any_cast<DlModule>(_module);
+					f = dl.get<F>(name);
+				break;
+				case ModuleType::Py:
+					py = any_cast<PyModule>(_module);
+					f = py.get<F>(name);
+				break;
+				default:
+				break;
+			}
+
+			if(f == nullptr)
+				ENTROPY_THROW(ModuleError("Invalid ModuleType"));
+
+			return *f;
 		}
 	}
 

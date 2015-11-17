@@ -1,4 +1,4 @@
-/*	Copyright 2013 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+/*	Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
 	Distributed under the terms of the GNU Lesser General Public License v3
 */
 
@@ -7,43 +7,30 @@
 
 #	include "Exception.hh"
 #	include <memory>
+#	include <boost/any.hpp>
 
 	namespace Entropy
 	{
-		ENTROPY_EXCEPTION_BASE(ModuleError, "Module Error");
-		ENTROPY_EXCEPTION(DeleteError, "entropy_delete", ModuleError);
-		ENTROPY_ERROR_INFO(DlOpenError, std::string);
-		ENTROPY_ERROR_INFO(ModuleHandle, void *);
-		ENTROPY_ERROR_INFO(ObjectAddress, void *);
+		namespace internal
+		{
+			enum class ModuleType
+			{
+				Dl,
+				Py,
+				Pl
+			};
+		}
 
 		class Module
 		{
 			public:
-				Module(const std::string &);
-				Module(const Module &);
-				Module(Module &&);
-				virtual ~Module();
+				explicit Module(const std::string &);
 				template<typename F> F &get(const std::string &) const;
-				Module &operator = (const Module &);
-				Module &operator = (Module &&);
-			protected:
 			private:
-				std::shared_ptr<void> _handle;
+				internal::ModuleType _type;
+				boost::any _module;
 		};
 	}
-
-#	define ENTROPY_MODULE(CLASS) unordered_map<void *, shared_ptr<CLASS>> _objects;\
-		extern "C" { \
-		CLASS *entropy_new() {\
-			::std::shared_ptr<CLASS> t = ::std::make_shared<CLASS>();\
-			_objects[t.get()] = t;\
-			return _objects[t.get()].get();\
-		}\
-		void entropy_delete(void *p) {\
-			auto i = _objects.find(p);\
-			if(i == _objects.end()) \
-				ENTROPY_THROW(::Entropy::DeleteError("failed to find object in objects array") << ::Entropy::ObjectAddress(p)); \
-			_objects.erase(i);}}
 
 #	include "Module.impl.hh"
 

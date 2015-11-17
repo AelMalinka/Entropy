@@ -15,18 +15,14 @@
 		{
 			public:
 				Import(const std::string &);
-				Import(const Import<Interface> &);
-				Import(Import<Interface> &&);
 				virtual ~Import();
-				Import<Interface> &operator = (const Import<Interface> &);
-				Import<Interface> &operator = (Import<Interface> &&);
 				Interface &operator *();
 				Interface *operator->();
 			protected:
-				std::unique_ptr<Interface, std::function<void(void *)>> _new() const;
+				std::shared_ptr<Interface> _new() const;
 			private:
 				Module _module;
-				std::unique_ptr<Interface, std::function<void(void *)>> _obj;
+				std::shared_ptr<Interface> _obj;
 		};
 	}
 

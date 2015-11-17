@@ -31,7 +31,7 @@ int main()
 		bool success = false;
 
 		try {
-			Module c("unknown-module");
+			Module c("unknown-module.so");
 		} catch (ModuleError &e) {
 			cout << e.what() << endl;
 			success = true;

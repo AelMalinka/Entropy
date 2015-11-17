@@ -9,10 +9,7 @@
 
 	namespace Entropy
 	{
-		template<typename Interface> Import<Interface>::Import(Import<Interface> &&) = default;
 		template<typename Interface> Import<Interface>::~Import() = default;
-		template<typename Interface> Import<Interface> &Import<Interface>::operator = (const Import<Interface> &) = default;
-		template<typename Interface> Import<Interface> &Import<Interface>::operator = (Import<Interface> &&) = default;
 
 		template<typename Interface>
 		Import<Interface>::Import(const std::string &name)
@@ -22,22 +19,29 @@
 		}
 
 		template<typename Interface>
-		Import<Interface>::Import(const Import<Interface> &o)
-			: _module(o._module), _obj()
+		std::shared_ptr<Interface> Import<Interface>::_new() const
 		{
-			_obj = _new();
-		}
-
-		template<typename Interface>
-		std::unique_ptr<Interface, std::function<void(void *)>> Import<Interface>::_new() const
-		{
-			using std::unique_ptr;
+			using std::shared_ptr;
 			using std::function;
 
 			function<Interface *()> t_new = _module.get<Interface *()>("entropy_new");
 			function<void(void *)> t_delete = _module.get<void(void *)>("entropy_delete");
 
-			return unique_ptr<Interface, function<void(void *)>>(t_new(), t_delete);
+			Interface *ptr = nullptr;
+			
+			try
+			{
+				ptr = t_new();
+
+				return shared_ptr<Interface>(ptr, t_delete);
+			}
+			catch(...)
+			{
+				if(ptr != nullptr)
+					t_delete(ptr);
+			}
+
+			return shared_ptr<Interface>(nullptr, t_delete);
 		}
 		template<typename Interface>
 		Interface &Import<Interface>::operator * ()
