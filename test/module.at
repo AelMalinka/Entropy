@@ -1,3 +1,6 @@
+# Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Lesser General Public License v3
+
 AT_BANNER([Module Test])
 AT_SETUP([Module Run])
 AT_CHECK_UNQUOTED([LD_LIBRARY_PATH=${BUILD} module-run], [], [[module.so:foo()

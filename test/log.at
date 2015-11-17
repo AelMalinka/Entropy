@@ -1,3 +1,6 @@
+# Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Lesser General Public License v3
+
 AT_BANNER([Log Tests])
 AT_SETUP([Trivial Logging])
 AT_CHECK([log-trivial], [], [], [stderr])

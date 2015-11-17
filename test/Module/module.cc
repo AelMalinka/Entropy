@@ -1,5 +1,5 @@
 /*	Copyright 2013 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
-	Distributed under the terms of the GNU General Lesser Public License v3
+	Distributed under the terms of the GNU Lesser General Public License v3
 */
 
 #include <memory>

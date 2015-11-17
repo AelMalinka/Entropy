@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Lesser General Public License v3
 
 mkdir -p build-aux
 libtoolize

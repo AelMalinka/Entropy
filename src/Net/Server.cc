@@ -1,5 +1,5 @@
 /*	Copyright 2014 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
-	Distributed under the terms of the GNU Affero General Public License v3
+	Distributed under the terms of the GNU Lesser General Public License v3
 */
 
 #include "Server.hh"
