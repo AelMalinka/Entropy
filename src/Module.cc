@@ -12,8 +12,8 @@ Module::Module(const string &name)
 	using internal::ModuleType;
 
 	auto type = ""s;
-	if(name.find(".") != string::npos)
-		type = name.substr(name.find("."), name.size() - name.find("."));
+	if(name.rfind(".") != string::npos)
+		type = name.substr(name.rfind("."), name.size() - name.rfind("."));
 
 	if(type == ".so")
 	{
