@@ -75,12 +75,12 @@ module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh li
 	$(CXX) $(CXXFLAGS) -I $(srcdir)/src $(LIBS) -shared -fPIC -o $@ $(srcdir)/test/Module/module.cc
 
 module.py: $(srcdir)/test/Module/module.py
-	cp $< $@
+	$(LN_S) $< $@
 
 clean-local: module-clean
 .PHONY: module-clean
 module-clean:
-	rm -f module.so module.py module.pyo module.pyc
+	$(RM) module.so module.py module.pyo module.pyc
 
 if GTEST
 check_PROGRAMS += exception-init-throw

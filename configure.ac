@@ -15,6 +15,13 @@ AM_INIT_AUTOMAKE([-Wall foreign subdir-objects dist-xz no-dist-gzip])
 AM_PROG_AR
 LT_INIT
 
+AC_PROG_MKDIR_P
+AC_PROG_LN_S
+EX_PYTHON
+[LIBS="$PYTHON_LIBS $LIBS"]
+[CFLAGS="$PYTHON_CPPFLAGS $CFLAGS"]
+[CXXFLAGS="$PYTHON_CPPFLAGS $CXXFLAGS"]
+
 AC_CHECK_LIB(dl, dlopen, [], [AC_MSG_FAILURE(["failed to find -ldl"])])
 
 AC_PROG_CXX
