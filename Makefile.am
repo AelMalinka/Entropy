@@ -8,6 +8,7 @@ AM_CXXFLAGS := -I $(srcdir)/src $(AM_CXXFLAGS)
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = src/Exception.hh \
 	src/Application.hh \
+	src/String.hh src/String.impl.hh \
 	src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh
 
 logheadersdir = $(includedir)/Entropy/Log
@@ -83,16 +84,20 @@ module-clean:
 	$(RM) module.so module.py module.pyo module.pyc
 
 if GTEST
-check_PROGRAMS += exception-init-throw
+check_PROGRAMS += exception-init-throw string-basic
 
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
 exception_init_throw_LDADD = $(GTEST_LIBS)
 exception_init_throw_LDFLAGS = $(PTHREAD_LDFLAGS)
+
+string_basic_SOURCES = test/String/basic.cc
+string_basic_LDADD = $(GTEST_LIBS)
+string_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 endif
 
 TESTSUITE = $(srcdir)/test/testsuite
 TESTSUITE_FILES = $(srcdir)/test/log.at $(srcdir)/test/exception.at $(srcdir)/test/application.at \
-	$(srcdir)/test/module.at $(srcdir)/test/net.at \
+	$(srcdir)/test/module.at $(srcdir)/test/net.at $(srcdir)/test/string.at \
 	$(srcdir)/test/Net/protocol.at
 EXTRA_DIST = $(TESTSUITE_FILES) $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in \
 	$(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh $(srcdir)/test/Module/module.py
