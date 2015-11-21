@@ -9,30 +9,25 @@ AC_DEFUN([EX_PYTHON], [
 		[with_python=$withval],
 		[with_python=check]
 	)
+	dnl 2015-11-21 AMR TODO: add version check and check python as well
 	AS_IF([test "x$with_python" != xno], [
 		m4_foreach(ver, [
-			[python],
 			[python3],
-			[python2],
 			[python3.5],
 			[python3.4],
-			[python3.3],
-			[python2.7]],
+			[python3.3]],
 		[
-			[python_bin=]ver
-			AC_PATH_PROG([PYTHON], ver)
+			AS_IF([test "x$PYTHON_LIBS" == x], [
+				[python_bin=]ver
+				AC_PATH_PROG([PYTHON], ver)
+				[PYTHON_CPPFLAGS=-I`$PYTHON -c "from distutils import sysconfig; print(sysconfig.get_config_vars('CONFINCLUDEPY')[0])"`
+				old_flags=$CPPFLAGS; CPPFLAGS=$PYTHON_CPPFLAGS]
+				EX_CHECK_LIBRARY([PYTHON], [Python.h], $python_bin)
+				[CPPFLAGS=$old_flags]
+			])
 		])
-		AC_ARG_VAR([PYTHON], [python interpreter])
-		python_version=`$PYTHON -V 2>&1 | $GREP "^Python " | $SED 's/Python //'`
-		AS_IF([test `echo $python_version | $SED -e 's,\..*\..*,,'` -le 2], [[
-			PYTHON_CPPFLAGS=-I`$PYTHON -c "from distutils import sysconfig; print sysconfig.get_config_vars('CONFINCLUDEPY')[0]"`
-		]], [[
-			PYTHON_CPPFLAGS=-I`$PYTHON -c "from distutils import sysconfig; print(sysconfig.get_config_vars('CONFINCLUDEPY'))"`
-		]])
-		[old_flags=$CPPFLAGS; CPPFLAGS=$PYTHON_CPPFLAGS]
-		EX_CHECK_LIBRARY([PYTHON], [Python.h], $python_bin)
-		[CPPFLAGS=$old_flags]
 	])
+	AC_ARG_VAR([PYTHON], [python interpreter])
 	AS_IF([test "x$with_python" != xcheck -a "x$with_python" != xno -a "x$PYTHON_LIBS" == x], [AC_MSG_FAILURE(["python requested but not found"])])
 	AM_CONDITIONAL([PYTHON], [test "x$PYTHON_LIBS" != x])
 ])
