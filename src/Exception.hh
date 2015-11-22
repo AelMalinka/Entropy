@@ -47,19 +47,6 @@
 				Exception(const std::string &Type, const std::string &Desc);
 		};
 
-		inline std::ostream &operator << (std::ostream &os, const std::exception &e)
-		{
-			using std::endl;
-			using boost::diagnostic_information;
-			os << e.what();
-#			if defined DEBUG
-				std::string s = diagnostic_information(e);
-				s = s.substr(0, s.size() - 1);
-				os << endl << s;
-#			endif
-			return os;
-		}
-
 #		define ENTROPY_EXCEPTION_BASE(NAME, DESC) struct NAME : ::Entropy::Exception {\
 			NAME() : ::Entropy::Exception(DESC, "") {} \
 			NAME(const std::string &What) : ::Entropy::Exception(DESC, What) {} \
@@ -134,6 +121,22 @@
 		{
 			return ExceptionBase::what();
 		}
+	}
+
+	template<typename charT>
+	inline std::basic_ostream<charT> &operator << (std::basic_ostream<charT> &os, const std::exception &e)
+	{
+		os << e.what();
+#		if defined DEBUG
+			using std::endl;
+			using boost::diagnostic_information;
+			using std::basic_string;
+
+			basic_string<charT> s = diagnostic_information(e);
+			s = s.substr(0, s.size() - 1);
+			os << endl << s;
+#		endif
+		return os;
 	}
 
 #endif
