@@ -2,9 +2,10 @@
 	Distributed under the terms of the GNU Affero General Public License v3
 */
 
+// 2015-11-20 AMR NOTE: python C/API states it requires being included first
+#include "Module.hh"
 #include <cstdlib>
 #include <iostream>
-#include "Module.hh"
 
 using namespace std;
 using namespace Entropy;

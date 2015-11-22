@@ -54,12 +54,21 @@ Module::operator = 0
 AT_CLEANUP
 
 AT_SETUP([Module Import Python])
-AT_XFAIL_IF([test -z "$PYTHON"]) dnl 2015-11-17 AMR TODO: not yet implemented
+AT_SKIP_IF([test -z "$PYTHON"])
+AT_DATA([module.py], [[
+print("PyModule::load()")
+
+class Module:
+	def __init__(self):
+		print("PyModule::__init__()")
+	def __getitem__(self, index):
+		print("PyModule::operator[]:", index)
+	def run(self):
+		print("PyModule::run()")
+]])
 AT_CHECK_UNQUOTED([module-import-python], [], [[PyModule::__init__()
 PyModule::operator[]: a
 PyModule::operator[]: 0
-PyModule::operator[]: = a 0
-PyModule::operator[]: = 0 0
 PyModule::run()
 ]])
 AT_CLEANUP

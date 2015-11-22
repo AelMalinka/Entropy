@@ -2,10 +2,10 @@
 	Distributed under the terms of the GNU Affero General Public License v3
 */
 
+#include "Module.hh"
 #include <memory>
 #include <unordered_map>
 #include <iostream>
-#include "Module.hh"
 #include "interface.hh"
 
 using namespace std;
