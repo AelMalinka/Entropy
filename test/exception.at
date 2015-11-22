@@ -1,0 +1,8 @@
+# Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+AT_BANNER([Exception Tests])
+AT_SETUP([Exception Init])
+AT_SKIP_IF([test -z "$GTEST"])
+AT_CHECK([exception-init-throw], [], [ignore], [ignore])
+AT_CLEANUP

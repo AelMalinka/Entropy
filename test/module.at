@@ -1,0 +1,75 @@
+# Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+AT_BANNER([Module Test])
+AT_SETUP([Module Run])
+AT_CHECK_UNQUOTED([LD_LIBRARY_PATH=${BUILD} module-run], [], [[module.so:foo()
+module.so:bar()
+module.so:foo()
+module.so:foo()
+module.so:bar()
+module.so:bar()
+Module Error: dlopen error
+]])
+AT_CLEANUP
+
+AT_SETUP([Module Import])
+AT_CHECK_UNQUOTED([LD_LIBRARY_PATH=${BUILD} module-import], [], [[Module::run()
+Module::operator[]: a
+Module::operator[]: 0
+Module::operator = 0
+]])
+AT_CLEANUP
+
+AT_SETUP([Module Import Twice])
+AT_CHECK_UNQUOTED([LD_LIBRARY_PATH=${BUILD} module-import-twice], [], [[Module::run()
+Module::operator[]: a
+Module::operator[]: 0
+Module::operator = 0
+Module::run()
+Module::run()
+Module::operator[]: a
+Module::operator[]: a
+Module::operator[]: 0
+Module::operator[]: 0
+Module::operator = 0
+Module::operator = 0
+]])
+AT_CLEANUP
+
+AT_SETUP([Module Import Twice Copy])
+AT_CHECK_UNQUOTED([LD_LIBRARY_PATH=${BUILD} module-import-copy], [], [[Module::run()
+Module::operator[]: a
+Module::operator[]: 0
+Module::operator = 0
+Module::run()
+Module::run()
+Module::operator[]: a
+Module::operator[]: a
+Module::operator[]: 0
+Module::operator[]: 0
+Module::operator = 0
+Module::operator = 0
+]])
+AT_CLEANUP
+
+AT_SETUP([Module Import Python])
+AT_SKIP_IF([test -z "$PYTHON"])
+AT_XFAIL_IF([true])
+AT_DATA([module.py], [[
+print("PyModule::load()")
+
+class Module:
+	def __init__(self):
+		print("PyModule::__init__()")
+	def __getitem__(self, index):
+		print("PyModule::operator[]:", index)
+	def run(self):
+		print("PyModule::run()")
+]])
+AT_CHECK_UNQUOTED([module-import-python], [], [[PyModule::__init__()
+PyModule::operator[]: a
+PyModule::operator[]: 0
+PyModule::run()
+]])
+AT_CLEANUP

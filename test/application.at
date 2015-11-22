@@ -1,0 +1,9 @@
+# Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+AT_BANNER([Application Tests])
+AT_SETUP([Application Run])
+AT_CHECK([application-run --success])
+AT_CHECK([application-run --failure], [1])
+AT_CHECK([application-run], [1])
+AT_CLEANUP

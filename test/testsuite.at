@@ -1,0 +1,15 @@
+# Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+AT_INIT
+AT_COLOR_TESTS
+AT_COPYRIGHT([Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+Distributed under the terms of the GNU Affero General Public License v3])
+
+m4_include([log.at])
+m4_include([exception.at])
+m4_include([application.at])
+m4_include([string.at])
+m4_include([python.at])
+m4_include([module.at])
+m4_include([net.at])

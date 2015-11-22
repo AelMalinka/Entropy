@@ -1,0 +1,20 @@
+# Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+AT_BANNER([Protocol Tests])
+AT_SETUP([Line Server/Client])
+# 2014-01-21 AMR HACK: sleeping to make sure server is listening
+# 2014-01-23 AMR TODO: make client retry or make server hold until listening
+AT_CHECK([net-protocol-line --server & sleep 0.1 && net-protocol-line --client], [], [Connected
+Connected
+Hello!
+Hello!
+])
+AT_CLEANUP
+AT_SETUP([Line Server/Client CRLF])
+AT_CHECK([net-protocol-crlf-line --server & sleep 0.1 && net-protocol-crlf-line --client], [], [Connected
+Connected
+Hello!
+Hello!
+])
+AT_CLEANUP
