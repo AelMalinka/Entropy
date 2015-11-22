@@ -24,6 +24,7 @@ AC_DEFUN([EX_PYTHON], [
 				AC_PATH_PROG([PYTHON], ver)
 				PYTHON_CPPFLAGS="-I`EX_PYTHON_CONFIG([CONFINCLUDEPY])` `EX_PYTHON_CONFIG([CFLAGS]) | $GREP -o -e -fwrapv`"
 				PYTHON_LIBS="`$python_bin-config --libs` `EX_PYTHON_CONFIG([LINKFORSHARED])`"
+				AC_DEFINE([HAVE_PYTHON], [1], [Define to 1 if Python is found])
 			])
 		])
 	])
