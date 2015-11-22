@@ -1,0 +1,20 @@
+# Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+AT_BANNER([Python Tests])
+
+AT_SETUP([Python Object])
+AT_SKIP_IF([test -z "$PYTHON"])
+AT_SKIP_IF([test -z "$GTEST"])
+AT_CHECK([python-object], [], [ignore], [ignore])
+AT_CLEANUP
+
+AT_SETUP([Python Module])
+AT_SKIP_IF([test -z "$PYTHON"])
+AT_SKIP_IF([test -z "$GTEST"])
+AT_DATA([test.py], [[
+def function():
+	return 12
+]])
+AT_CHECK([python-module], [], [ignore], [ignore])
+AT_CLEANUP

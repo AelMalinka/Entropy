@@ -16,8 +16,7 @@ logheaders_HEADERS = src/Log.hh src/Log/Init.hh src/Log/Logger.hh src/Log/Severi
 
 moduleheadersdir = $(includedir)/Module
 moduleheaders_HEADERS = src/Module/BaseModule.hh \
-	src/Module/DlModule.hh src/Module/DlModule.impl.hh \
-	src/Module/PyModule.hh src/Module/PyModule.impl.hh
+	src/Module/DlModule.hh src/Module/DlModule.impl.hh
 
 netheadersdir = $(includedir)/Entropy/Net
 netheaders_HEADERS = src/Net/Exception.hh src/Net/Application.hh src/Net/Socket.hh \
@@ -29,14 +28,27 @@ netprotocols_HEADERS = src/Net/Protocols/Line.hh
 lib_LTLIBRARIES = libentropy.la
 
 libentropy_la_SOURCES = src/Application.cc src/Module.cc \
-	src/Module/BaseModule.cc src/Module/DlModule.cc src/Module/PyModule.cc \
+	src/Module/BaseModule.cc src/Module/DlModule.cc \
 	src/Log/Init.cc src/Log/Logger.cc src/Log/Severity.cc \
 	src/Net/Application.cc src/Net/Socket.cc src/Net/Protocol.cc src/Net/Client.cc src/Net/Server.cc src/Net/Protocols/Line.cc
 libentropy_la_LDFLAGS = -version-info 0
 
+if PYTHON
+moduleheaders_HEADERS += src/Module/PyModule.hh src/Module/PyModule.impl.hh
+
+pythonheadersdir = $(includedir)/Python
+pythonheaders_HEADERS = src/Python/Interpreter.hh \
+	src/Python/Object.hh src/Python/Object.impl.hh \
+	src/Python/Module.hh
+
+libentropy_la_SOURCES += src/Python/Interpreter.cc src/Python/Object.cc \
+	src/Python/Module.cc \
+	src/Module/PyModule.cc
+endif
+
 check_PROGRAMS = log-trivial \
 	application-run \
-	module-run module-import module-import-twice module-import-copy module-import-python \
+	module-run module-import module-import-twice module-import-copy \
 	net-protocol-line net-protocol-crlf-line
 
 log_trivial_SOURCES = test/Log/trivial.cc
@@ -61,10 +73,6 @@ module_import_copy_SOURCES = test/Module/import-copy.cc
 module_import_copy_LDADD = -lentropy
 module_import_copy_DEPENDENCIES = module.so
 
-module_import_python_SOURCES = test/Module/python.cc
-module_import_python_LDADD = -lentropy
-module_import_python_DEPENDENCIES = module.py
-
 net_protocol_line_SOURCES = test/Net/Protocol/line.cc
 net_protocol_line_LDADD = -lentropy
 
@@ -75,13 +83,24 @@ net_protocol_crlf_line_LDADD = -lentropy
 module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh libentropy.la
 	$(CXX) $(CXXFLAGS) -I $(srcdir)/src $(LIBS) -shared -fPIC -o $@ $(srcdir)/test/Module/module.cc
 
-module.py: $(srcdir)/test/Module/module.py
-	$(LN_S) $< $@
+if PYTHON
+if GTEST
+check_PROGRAMS += python-object python-module
 
-clean-local: module-clean
-.PHONY: module-clean
-module-clean:
-	$(RM) module.so module.py module.pyo module.pyc
+python_object_SOURCES = test/Python/object.cc
+python_object_LDADD = -lentropy $(GTEST_LIBS)
+python_object_LDFLAGS = $(PTHREAD_LDFLAGS)
+
+python_module_SOURCES = test/Python/module.cc
+python_module_LDADD = -lentropy $(GTEST_LIBS)
+python_module_LDFLAGS = $(PTHREAD_LDFLAGS)
+endif
+
+check_PROGRAMS += module-import-python
+
+module_import_python_SOURCES = test/Module/python.cc
+module_import_python_LDADD = -lentropy
+endif
 
 if GTEST
 check_PROGRAMS += exception-init-throw string-basic
@@ -98,9 +117,9 @@ endif
 TESTSUITE = $(srcdir)/test/testsuite
 TESTSUITE_FILES = $(srcdir)/test/log.at $(srcdir)/test/exception.at $(srcdir)/test/application.at \
 	$(srcdir)/test/module.at $(srcdir)/test/net.at $(srcdir)/test/string.at \
-	$(srcdir)/test/Net/protocol.at
+	$(srcdir)/test/Net/protocol.at $(srcdir)/test/python.at
 EXTRA_DIST = $(TESTSUITE_FILES) $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in \
-	$(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh $(srcdir)/test/Module/module.py
+	$(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh
 
 $(srcdir)/package.m4: $(top_srcdir)/configure.ac
 	:; {\
