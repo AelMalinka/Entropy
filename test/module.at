@@ -55,6 +55,7 @@ AT_CLEANUP
 
 AT_SETUP([Module Import Python])
 AT_SKIP_IF([test -z "$PYTHON"])
+AT_XFAIL_IF([true])
 AT_DATA([module.py], [[
 print("PyModule::load()")
 

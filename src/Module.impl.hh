@@ -8,38 +8,40 @@
 #	include "Module.hh"
 
 #	include "Module/DlModule.hh"
-#	include "Module/PyModule.hh"
+#	ifdef HAVE_PYTHON
+#		include "Module/PyModule.hh"
+#	endif
 
 	namespace Entropy
 	{
-		template<typename F> F &Module::get(const std::string &name) const
+		template<typename F>
+		std::function<F> Module::get(const std::string &name) const
 		{
 			using internal::ModuleType;
 			using boost::any_cast;
 
-			F *f = nullptr;
-
 			DlModule dl;
+#	ifdef HAVE_PYTHON
 			PyModule py;
+#	endif
 
 			switch(_type)
 			{
 				case ModuleType::Dl:
 					dl = any_cast<DlModule>(_module);
-					f = dl.get<F>(name);
+					return dl.get<F>(name);
 				break;
+#	ifdef HAVE_PYTHON
 				case ModuleType::Py:
-					py = any_cast<PyModule>(_module);
-					f = py.get<F>(name);
+					ENTROPY_THROW(ModuleError("Python is currently unsupported"));
+					//py = any_cast<PyModule>(_module);
+					//return py.get<F>(name);
 				break;
+#	endif
 				default:
+					ENTROPY_THROW(ModuleError("Invalid ModuleType"));
 				break;
 			}
-
-			if(f == nullptr)
-				ENTROPY_THROW(ModuleError("Invalid ModuleType"));
-
-			return *f;
 		}
 	}
 

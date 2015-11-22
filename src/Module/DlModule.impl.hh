@@ -11,7 +11,7 @@
 	namespace Entropy
 	{
 		template<typename F>
-		F &DlModule::get(const std::string &name)
+		std::function<F> DlModule::get(const std::string &name)
 		{
 			F *addr = nullptr;
 
@@ -23,7 +23,7 @@
 					ModuleHandle(handle())
 				);
 
-			return *addr;
+			return addr;
 		}
 	}
 

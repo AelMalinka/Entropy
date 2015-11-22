@@ -5,7 +5,10 @@
 #if !defined ENTROPY_MODULE_PYMODULE_INC
 #	define ENTROPY_MODULE_PYMODULE_INC
 
+#	include "../Python/Interpreter.hh"
+#	include "../Python/Module.hh"
 #	include "BaseModule.hh"
+#	include <functional>
 
 	namespace Entropy
 	{
@@ -16,9 +19,11 @@
 				PyModule();
 				PyModule(const std::string &);
 				virtual ~PyModule();
-				template<typename F> F &get(const std::string &) const;
+				template<typename F> std::function<F> get(const std::string &) const;
 			protected:
 				virtual void *open(const std::string &);
+			private:
+				static Python::Interpreter _python;
 		};
 	}
 

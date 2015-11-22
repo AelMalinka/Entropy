@@ -3,7 +3,6 @@
 */
 
 #include "DlModule.hh"
-#include "../Module.hh"
 
 using namespace Entropy;
 using namespace std;

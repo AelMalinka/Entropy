@@ -15,18 +15,21 @@ Module::Module(const string &name)
 	if(name.rfind(".") != string::npos)
 		type = name.substr(name.rfind("."), name.size() - name.rfind("."));
 
-	if(type == ".so")
+	if(type == ".so"s)
 	{
 		_type = ModuleType::Dl;
 		_module = DlModule(name);
 	}
-	else if(type == ".py")
+#ifdef HAVE_PYTHON
+	else if(type == ".py"s)
 	{
 		_type = ModuleType::Py;
-		_module = PyModule(name);
+		_module = PyModule(name.substr(0, name.size() - type.size()));
 	}
+#endif
 	else
-		ENTROPY_THROW(ModuleError("Failed to determine module") <<
-			ModuleName(name)
+		ENTROPY_THROW(ModuleError("Failed to determine module type") <<
+			ModuleName(name) <<
+			ModuleTypeStr(type)
 		);
 }

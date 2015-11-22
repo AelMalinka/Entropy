@@ -6,6 +6,7 @@
 #	define ENTROPY_MODULE_DLMODULE_INC
 
 #	include "BaseModule.hh"
+#	include <functional>
 
 	namespace Entropy
 	{
@@ -18,7 +19,7 @@
 				DlModule();
 				explicit DlModule(const std::string &);
 				virtual ~DlModule();
-				template<typename F> F &get(const std::string &);
+				template<typename F> std::function<F> get(const std::string &);
 			protected:
 				virtual void *open(const std::string &);
 		};
