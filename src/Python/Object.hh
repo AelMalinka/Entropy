@@ -18,6 +18,7 @@
 			ENTROPY_ERROR_INFO(PyHandle, PyObject *);
 			ENTROPY_ERROR_INFO(PyAttribute, std::string);
 			ENTROPY_ERROR_INFO(PyUnicodeKind, unsigned int);
+			ENTROPY_ERROR_INFO(Pointer, void *);
 
 			class Object
 			{

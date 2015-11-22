@@ -13,8 +13,10 @@ AT_SETUP([Python Module])
 AT_SKIP_IF([test -z "$PYTHON"])
 AT_SKIP_IF([test -z "$GTEST"])
 AT_DATA([test.py], [[
-def function():
+def first():
 	return 12
+def second(val):
+	return val
 ]])
 AT_CHECK([python-module], [], [ignore], [ignore])
 AT_CLEANUP

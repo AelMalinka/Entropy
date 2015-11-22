@@ -28,18 +28,27 @@ Object::Object(const long &v)
 	: _obj(nullptr)
 {
 	_obj = PyLong_FromLong(v);
+
+	if(_obj == nullptr)
+		ENTROPY_THROW(PythonError("PyLong failed to initialize"));
 }
 
 Object::Object(const double &v)
 	: _obj(nullptr)
 {
 	_obj = PyFloat_FromDouble(v);
+
+	if(_obj == nullptr)
+		ENTROPY_THROW(PythonError("PyFloat failed to initialize"));
 }
 
 Object::Object(const string &v)
 	: _obj(nullptr)
 {
 	_obj = PyUnicode_FromKindAndData(PyUnicode_1BYTE_KIND, static_cast<const void *>(v.c_str()), v.size());
+
+	if(_obj == nullptr)
+		ENTROPY_THROW(PythonError("PyUnicode failed to initialize"));
 }
 
 Object::Object(const Object &o)
@@ -56,6 +65,9 @@ Object::Object(Object &&o)
 
 Object::~Object()
 {
+	if(_obj == nullptr)
+		ENTROPY_THROW(PythonError("This should not be possible, Object::_obj is null in ~Object"));
+
 	Py_DECREF(_obj);
 }
 
@@ -140,7 +152,9 @@ void Object::Handle(PyObject *p)
 		ENTROPY_THROW(PythonError("Trying to set Object::Handle to null") <<
 			PyHandle(_obj)
 		);
+
 	_obj = p;
+	Py_INCREF(_obj);
 }
 
 using namespace Entropy::Python::internal;
@@ -154,3 +168,6 @@ PyObject *py_tuple::Object() const
 {
 	return _val;
 }
+
+void py_tuple::set_items(std::size_t)
+{}

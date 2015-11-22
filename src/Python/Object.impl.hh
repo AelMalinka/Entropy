@@ -18,12 +18,13 @@
 					template<typename ...Args>
 					py_tuple(Args...);
 					~py_tuple();
+					template<typename First, typename ...Args>
+					void set_items(std::size_t, First, Args...);
+					void set_items(std::size_t);
 					PyObject *Object() const;
 					private:
 						PyObject *_val;
 				};
-
-				template<typename ...Args> inline void pass(Args && ...){}
 			}
 
 			template<typename ...Args>
@@ -39,6 +40,8 @@
 					);
 				Object ret = PyObject_CallObject(_obj, params.Object());
 
+				Py_XDECREF(ret.Handle());
+
 				return ret;
 			}
 
@@ -46,9 +49,20 @@
 			internal::py_tuple::py_tuple(Args... args)
 			{
 				_val = PyTuple_New(sizeof...(args));
-				std::size_t x = 0;
 
-				pass(PyTuple_SetItem(_val, x++, args)...);
+				if(_val == nullptr)
+					ENTROPY_THROW(PythonError("PyTuple_New failed to allocate new tuple"));
+
+				set_items(0, args...);
+			}
+
+			template<typename First, typename ...Rest>
+			void internal::py_tuple::set_items(std::size_t x, First f, Rest... rest)
+			{
+				Python::Object o(f);
+				Py_INCREF(o.Handle());
+				PyTuple_SetItem(_val, x++, o.Handle());
+				set_items(x, rest...);
 			}
 		}
 	}
