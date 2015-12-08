@@ -58,9 +58,21 @@ AX_PTHREAD
 [CFLAGS="$PTHREAD_CFLAGS $CFLAGS"]
 [CXXFLAGS="$PTHREAD_CFLAGS $CXXFLAGS"]
 
-AC_CHECK_LIB([boost_system-mt], [main], [LIBS="-lboost_system-mt $LIBS"], [AC_MSG_FAILURE(["boost::system is required"])])
-AC_CHECK_LIB([boost_log-mt], [main], [LIBS="-lboost_log-mt $LIBS"], [AC_MSG_FAILURE(["boost::log is requried"])])
-AC_CHECK_LIB([boost_log_setup-mt], [main], [LIBS="-lboost_log_setup-mt $LIBS"], [AC_MSG_FAILURE(["boost::log is requried"])])
+AC_CHECK_LIB([boost_system-mt], [main], [LIBS="-lboost_system-mt $LIBS"],
+	[AC_CHECK_LIB([boost_system], [main], [LIBS="-lboost_system $LIBS"],
+		[AC_MSG_FAILURE(["boost::system is required"])
+	])
+])
+AC_CHECK_LIB([boost_log-mt], [main], [LIBS="-lboost_log-mt $LIBS"],
+	[AC_CHECK_LIB([boost_log], [main], [LIBS="-lboost_log $LIBS"],
+		[AC_MSG_FAILURE(["boost::log is required"])
+	])
+])
+AC_CHECK_LIB([boost_log_setup-mt], [main], [LIBS="-lboost_log_setup-mt $LIBS"],
+	[AC_CHECK_LIB([boost_log_setup], [main], [LIBS="-lboost_log_setup $LIBS"],
+		[AC_MSG_FAILURE(["boost::log is required"])
+	])
+])
 
 EX_WITH_GTEST
 EX_BASE_FLAGS
