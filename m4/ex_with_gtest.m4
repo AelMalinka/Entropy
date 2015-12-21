@@ -3,7 +3,7 @@ dnl Distributed under the terms of the GNU General Public License v3
 
 AC_DEFUN([EX_WITH_GTEST], [
 	AC_ARG_WITH([gtest],
-		[AS_HELP_STRING([--with-gtest], [support for google testing framework, required for tests])],
+		[AS_HELP_STRING([--with-gtest], [support for google testing framework, required for some tests])],
 		[with_gtest=$withval],
 		[with_gtest=check]
 	)
