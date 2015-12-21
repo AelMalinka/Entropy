@@ -7,12 +7,12 @@ AM_CXXFLAGS := -I $(srcdir)/src $(AM_CXXFLAGS)
 
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = src/Exception.hh \
-	src/Application.hh \
+	src/Log.hh src/Application.hh \
 	src/String.hh src/String.impl.hh \
 	src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh
 
 logheadersdir = $(includedir)/Entropy/Log
-logheaders_HEADERS = src/Log.hh src/Log/Init.hh src/Log/Logger.hh src/Log/Severity.hh
+logheaders_HEADERS = src/Log/Init.hh src/Log/Logger.hh src/Log/Severity.hh
 
 moduleheadersdir = $(includedir)/Entropy/Module
 moduleheaders_HEADERS = src/Module/BaseModule.hh \
@@ -20,6 +20,10 @@ moduleheaders_HEADERS = src/Module/BaseModule.hh \
 
 netheadersdir = $(includedir)/Entropy/Net
 netheaders_HEADERS = src/Net/Exception.hh
+
+netprotocolsdir = $(includedir)/Entropy/Net/Protocol
+netprotocols_HEADERS = \
+	src/Net/Protocol/Line.hh src/Net/Protocol/Line.impl.hh
 
 lib_LTLIBRARIES = libentropy.la
 
@@ -31,7 +35,7 @@ libentropy_la_LDFLAGS = -version-info 0
 if PYTHON
 moduleheaders_HEADERS += src/Module/PyModule.hh src/Module/PyModule.impl.hh
 
-pythonheadersdir = $(includedir)/Entropy/Python
+pythonheadersdir = $(includedir)/Python
 pythonheaders_HEADERS = src/Python/Interpreter.hh \
 	src/Python/Object.hh src/Python/Object.impl.hh \
 	src/Python/Module.hh
@@ -43,8 +47,7 @@ endif
 
 check_PROGRAMS = log-trivial \
 	application-run \
-	module-run module-import module-import-twice module-import-copy \
-	net-protocol-line net-protocol-crlf-line
+	module-run module-import module-import-twice module-import-copy
 
 log_trivial_SOURCES = test/Log/trivial.cc
 log_trivial_LDADD = -lentropy
@@ -91,7 +94,9 @@ module_import_python_LDADD = -lentropy
 endif
 
 if GTEST
-check_PROGRAMS += exception-init-throw string-basic
+check_PROGRAMS += \
+	exception-init-throw \
+	string-basic
 
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
 exception_init_throw_LDADD = -lentropy $(GTEST_LIBS)
@@ -100,14 +105,35 @@ exception_init_throw_LDFLAGS = $(PTHREAD_LDFLAGS)
 string_basic_SOURCES = test/String/basic.cc
 string_basic_LDADD = -lentropy $(GTEST_LIBS)
 string_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
+
+if GMOCK
+check_PROGRAMS += net-protocol-line
+
+net_protocol_line_SOURCES = test/Net/Protocol/line.cc
+net_protocol_line_LDADD = $(GMOCK_LIBS)
+net_protocol_line_LDFLAGS = $(PTHREAD_LDFLAGS)
+endif
 endif
 
 TESTSUITE = $(srcdir)/test/testsuite
-TESTSUITE_FILES = $(srcdir)/test/log.at $(srcdir)/test/exception.at $(srcdir)/test/application.at \
-	$(srcdir)/test/module.at $(srcdir)/test/net.at $(srcdir)/test/string.at \
-	$(srcdir)/test/Net/protocol.at $(srcdir)/test/python.at
-EXTRA_DIST = $(TESTSUITE_FILES) $(srcdir)/test/testsuite.at $(srcdir)/package.m4 $(TESTSUITE) $(srcdir)/test/atlocal.in \
-	$(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh
+
+TESTSUITE_FILES = \
+	$(srcdir)/test/exception.at \
+	$(srcdir)/test/log.at \
+	$(srcdir)/test/application.at \
+	$(srcdir)/test/net.at \
+	$(srcdir)/test/Net/protocol.at \
+	$(srcdir)/test/string.at \
+	$(srcdir)/test/module.at \
+	$(srcdir)/test/python.at
+
+EXTRA_DIST = $(TESTSUITE_FILES) \
+	$(srcdir)/test/testsuite.at \
+	$(srcdir)/package.m4 \
+	$(TESTSUITE) \
+	$(srcdir)/test/atlocal.in \
+	$(srcdir)/test/Module/module.cc \
+	$(srcdir)/test/Module/interface.hh
 
 $(srcdir)/package.m4: $(top_srcdir)/configure.ac
 	:; {\
@@ -132,6 +158,7 @@ check-local: test/atconfig atlocal $(TESTSUITE) $(check_PROGRAMS)
 clean-local:
 	test ! -f '$(TESTSUITE)' || \
 		$(SHELL) '$(TESTSUITE)' --clean
+	$(RM) module.so
 
 AUTOM4TE = $(SHELL) $(srcdir)/build-aux/missing --run autom4te
 AUTOTEST = $(AUTOM4TE) --language=autotest

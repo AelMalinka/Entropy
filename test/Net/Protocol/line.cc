@@ -1,112 +1,129 @@
-/*	Copyright 2013 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+/*	Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
 	Distributed under the terms of the GNU Affero General Public License v3
 */
 
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
+#include "Net/Protocol/Line.hh"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-#include "Net/Client.hh"
-#include "Net/Server.hh"
-#include "Net/Protocols/Line.hh"
-
-using namespace Entropy;
 using namespace std;
+using namespace Entropy;
+using namespace Entropy::Net::Protocol;
+using namespace testing;
 
-#if !defined _DELIM
-#	define _DELIM
-	const string DELIM = "\n";
-#else
-	const string DELIM = _DELIM;
-#endif
+namespace {
+	class MockApplication {
+		public:
+			MOCK_METHOD1(onConnect, void(int &sock));
+			MOCK_METHOD1(onError, void(const Net::Exception &error));
+			MOCK_METHOD2(onLine, void(int &sock, const string &msg));
+	};
 
-struct Application :
-	public Net::Protocols::Line
-{
-	Application(const bool);
-	bool onMessage(Net::Socket &, string &&);
-	void onConnect(Net::Socket &);
-	void onError(const Net::Exception &);
-	private:
-		bool _clientserver;
-		unique_ptr<Net::Client> _client;
-		unique_ptr<Net::Server> _server;
-};
+	class MockApplicationOnlyMessage {
+		public:
+			MOCK_METHOD2(onLine, void(int &sock, const string &msg));
+	};
 
-int main(int argc, char *argv[])
-{
-	if(argc != 2)
-		return EXIT_FAILURE;
-
-	try
-	{
-		if(strcmp(argv[1], "--client") == 0)
-		{
-			Application app(true);
-			app.Io().run();
-		}
-		else if(strcmp(argv[1], "--server") == 0)
-		{
-			Application app(false);
-			app.Io().run();
-		}
-		else
-			return EXIT_FAILURE;
-
-		return EXIT_SUCCESS;
+	TEST(Line, Instantiation) {
+		MockApplication app;
+		Line<MockApplication, int> l(app);
 	}
-	catch(Net::Exception &e)
-	{
-		cout << e << endl;
-		if(e.has<Net::SystemError>())
-			cout << e.get<Net::SystemError>().message() << endl;
-		return EXIT_FAILURE;
+
+	TEST(Line, onConnect) {
+		MockApplication app;
+		Line<MockApplication, int> l(app);
+		int sock = 0;
+
+		EXPECT_CALL(app, onConnect(_))
+			.Times(1);
+
+		l.onConnect(sock);
 	}
-	catch(Net::Shutdown)
-	{
-		return EXIT_SUCCESS;
+
+	TEST(Line, onConnectNoConnect) {
+		StrictMock<MockApplicationOnlyMessage> app;
+		Line<MockApplicationOnlyMessage, int> l(app);
+		int sock = 0;
+
+		l.onConnect(sock);
 	}
-	catch(exception &e)
-	{
-		cout << e << endl;
-		return EXIT_FAILURE;
+
+	TEST(Line, onError) {
+		MockApplication app;
+		Line<MockApplication, int> l(app);
+		Net::Exception err("This is an error");
+
+		EXPECT_CALL(app, onError(_))
+			.Times(1);
+
+		l.onError(err);
 	}
-}
 
-::Application::Application(const bool client)
-	: Line(_DELIM), _clientserver(client)
-{
-	if(_clientserver)
-		_client = unique_ptr<Net::Client>(new Net::Client(*this, "localhost:14242"));
-	else
-		_server = unique_ptr<Net::Server>(new Net::Server(*this, "localhost", "14242"));
-}
+	TEST(Line, onErrorNoError) {
+		StrictMock<MockApplicationOnlyMessage> app;
+		Line<MockApplicationOnlyMessage, int> l(app);
+		Net::Exception err("This is an error");
 
-void ::Application::onConnect(Net::Socket &sock)
-{
-	Net::Protocols::Line::onConnect(sock);
-	cout << "Connected" << endl;
+		EXPECT_THROW(l.onError(err), Net::Exception);
+	}
 
-	if(_clientserver)
-		sock.Write("Hello!" + DELIM);
-}
+	TEST(Line, Basic) {
+		MockApplication app;
+		Line<MockApplication, int> l(app);
+		int sock = 0;
 
-bool ::Application::onMessage(Net::Socket &s, string &&msg)
-{
-	cout << msg << endl;
+		EXPECT_CALL(app, onLine(sock, "Hello World!"s))
+			.Times(1);
 
-	if(!_clientserver)
-		s.Write(move(msg) + DELIM);
-	else
-		return false;
+		l.onData(sock, "Hello World!\n");
+	}
 
-	return true;
-}
+	TEST(Line, SmallBuffer) {
+		MockApplication app;
+		Line<MockApplication, int> l(app);
+		int sock = 0;
 
-void ::Application::onError(const Net::Exception &e)
-{
-	if(e.has<Net::SystemError>() && e.get<Net::SystemError>() == Net::asio::error::misc_errors::eof)
-		throw Net::Shutdown();
-	else
-		Net::Application::onError(e);
+		EXPECT_CALL(app, onLine(sock, "Hello World!"s))
+			.Times(1);
+
+		l.onData(sock, "Hello");
+		l.onData(sock, " ");
+		l.onData(sock, "World");
+		l.onData(sock, "!\n");
+	}
+
+	TEST(Line, MultipleLines) {
+		MockApplication app;
+		Line<MockApplication, int> l(app);
+		int sock = 0;
+
+		EXPECT_CALL(app, onLine(sock, "Hello World!"s))
+			.Times(1);
+		EXPECT_CALL(app, onLine(sock, "This is a message!"s))
+			.Times(1);
+		EXPECT_CALL(app, onLine(sock, "Because Mehf"s))
+			.Times(1);
+
+		l.onData(sock, "Hello World!\nThis is a message!");
+		l.onData(sock, "\nBecause Mehf\n");
+	}
+
+	TEST(Line, Delimiter) {
+		MockApplication app;
+		Line<MockApplication, int> l1(app, ":");
+		Line<MockApplication, int> l2(app, "\r\n");
+		Line<MockApplication, int> l3(app, "\r");
+		Line<MockApplication, int> l4(app, "/");
+		int sock = 0;
+
+		EXPECT_CALL(app, onLine(sock, "Hello World!"s))
+			.Times(4);
+		EXPECT_CALL(app, onLine(sock, "This is a Different Delimiter!"s))
+			.Times(4);
+
+		l1.onData(sock, "Hello World!:This is a Different Delimiter!:"s);
+		l2.onData(sock, "Hello World!\r\nThis is a Different Delimiter!\r\n"s);
+		l3.onData(sock, "Hello World!\rThis is a Different Delimiter!\r"s);
+		l4.onData(sock, "Hello World!/This is a Different Delimiter!/"s);
+	}
 }
