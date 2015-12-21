@@ -68,6 +68,7 @@ AC_CHECK_LIB([boost_log_setup-mt], [main], [LIBS="-lboost_log_setup-mt $LIBS"],
 ])
 
 EX_WITH_GTEST
+EX_WITH_GMOCK
 EX_BASE_FLAGS
 EX_FLAGS
 
