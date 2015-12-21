@@ -14,7 +14,7 @@ mainheaders_HEADERS = src/Exception.hh \
 logheadersdir = $(includedir)/Entropy/Log
 logheaders_HEADERS = src/Log.hh src/Log/Init.hh src/Log/Logger.hh src/Log/Severity.hh
 
-moduleheadersdir = $(includedir)/Module
+moduleheadersdir = $(includedir)/Entropy/Module
 moduleheaders_HEADERS = src/Module/BaseModule.hh \
 	src/Module/DlModule.hh src/Module/DlModule.impl.hh
 
