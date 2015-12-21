@@ -19,18 +19,13 @@ moduleheaders_HEADERS = src/Module/BaseModule.hh \
 	src/Module/DlModule.hh src/Module/DlModule.impl.hh
 
 netheadersdir = $(includedir)/Entropy/Net
-netheaders_HEADERS = src/Net/Exception.hh src/Net/Application.hh src/Net/Socket.hh \
-	src/Net/Client.hh src/Net/Server.hh src/Net/Protocol.hh
-
-netprotocolsdir = $(includedir)/Entropy/Net/Protocols
-netprotocols_HEADERS = src/Net/Protocols/Line.hh
+netheaders_HEADERS = src/Net/Exception.hh
 
 lib_LTLIBRARIES = libentropy.la
 
 libentropy_la_SOURCES = src/Application.cc src/Module.cc \
 	src/Module/BaseModule.cc src/Module/DlModule.cc \
-	src/Log/Init.cc src/Log/Logger.cc src/Log/Severity.cc \
-	src/Net/Application.cc src/Net/Socket.cc src/Net/Protocol.cc src/Net/Client.cc src/Net/Server.cc src/Net/Protocols/Line.cc
+	src/Log/Init.cc src/Log/Logger.cc src/Log/Severity.cc
 libentropy_la_LDFLAGS = -version-info 0
 
 if PYTHON
@@ -72,13 +67,6 @@ module_import_twice_DEPENDENCIES = module.so
 module_import_copy_SOURCES = test/Module/import-copy.cc
 module_import_copy_LDADD = -lentropy
 module_import_copy_DEPENDENCIES = module.so
-
-net_protocol_line_SOURCES = test/Net/Protocol/line.cc
-net_protocol_line_LDADD = -lentropy
-
-net_protocol_crlf_line_SOURCES = test/Net/Protocol/line.cc
-net_protocol_crlf_line_CPPFLAGS = -D_DELIM=\"\r\n\"
-net_protocol_crlf_line_LDADD = -lentropy
 
 module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh libentropy.la
 	$(CXX) $(CXXFLAGS) -I $(srcdir)/src $(LIBS) -shared -fPIC -o $@ $(srcdir)/test/Module/module.cc

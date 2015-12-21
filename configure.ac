@@ -31,13 +31,6 @@ AC_LANG_PUSH([C++])
 dnl		boost/log/sources/severity_channel_logger.hpp \ dnl fails to compile by itself, or without -std=c++11
 AC_CHECK_HEADERS(
 	[	boost/any.hpp \
-		boost/asio/connect.hpp \
-		boost/asio/io_service.hpp \
-		boost/asio/ip/tcp.hpp \
-		boost/asio/read.hpp \
-		boost/asio/read_until.hpp \
-		boost/asio/streambuf.hpp \
-		boost/asio/write.hpp \
 		boost/exception/all.hpp \
 		boost/log/attributes/constant.hpp \
 		boost/log/common.hpp \
