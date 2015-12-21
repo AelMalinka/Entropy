@@ -36,7 +36,7 @@ libentropy_la_LDFLAGS = -version-info 0
 if PYTHON
 moduleheaders_HEADERS += src/Module/PyModule.hh src/Module/PyModule.impl.hh
 
-pythonheadersdir = $(includedir)/Python
+pythonheadersdir = $(includedir)/Entropy/Python
 pythonheaders_HEADERS = src/Python/Interpreter.hh \
 	src/Python/Object.hh src/Python/Object.impl.hh \
 	src/Python/Module.hh
