@@ -45,7 +45,7 @@
 					> : std::true_type {};
 
 					template<typename T, typename R, typename ...A>
-					struct has_error<T, R(A...),
+					struct has_disconnect<T, R(A...),
 						typename std::enable_if<
 							std::is_same<R, void>::value ||
 							std::is_convertible<decltype(
@@ -145,7 +145,7 @@
 				}
 
 				template<typename Application, typename Socket>
-				void Line<Application, Socket>::onData(Socket &sock, std::string &&buff)
+				void Line<Application, Socket>::onData(Socket &sock, const std::string &buff)
 				{
 					using std::string;
 					using std::size_t;

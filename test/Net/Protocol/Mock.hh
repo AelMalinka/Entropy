@@ -12,6 +12,7 @@
 		class MockApplication {
 			public:
 				MOCK_METHOD1(onConnect, void(int &));
+				MOCK_METHOD1(onDisconnect, void(int &));
 				MOCK_METHOD1(onError, void(const Entropy::Net::Exception &));
 				MOCK_METHOD2(onLine, void(int &, const std::string &));
 		};

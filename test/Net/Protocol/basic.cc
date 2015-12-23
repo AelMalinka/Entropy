@@ -36,6 +36,25 @@ namespace {
 		l.onConnect(sock);
 	}
 
+	TEST(PROTOCOL, onDisconnect) {
+		MOCK_FULL app;
+		PROTOCOL<MOCK_FULL, int> l(app);
+		int sock = 0;
+
+		EXPECT_CALL(app, onDisconnect(_))
+			.Times(1);
+
+		l.onDisconnect(sock);
+	}
+
+	TEST(PROTOCOL, onDisconnectNoDisconnect) {
+		StrictMock<MOCK_BASE> app;
+		PROTOCOL<MOCK_BASE, int> l(app);
+		int sock = 0;
+
+		l.onDisconnect(sock);
+	}
+
 	TEST(PROTOCOL, onError) {
 		MOCK_FULL app;
 		PROTOCOL<MOCK_FULL, int> l(app);
@@ -49,7 +68,7 @@ namespace {
 
 	TEST(PROTOCOL, onErrorNoError) {
 		StrictMock<MOCK_BASE> app;
-		Line<MOCK_BASE, int> l(app);
+		PROTOCOL<MOCK_BASE, int> l(app);
 		Net::Exception err("This is an error");
 
 		EXPECT_THROW(l.onError(err), Net::Exception);

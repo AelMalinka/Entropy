@@ -24,7 +24,7 @@
 						virtual ~Line();
 						void onConnect(Socket &);
 						void onDisconnect(Socket &);
-						void onData(Socket &, std::string &&);
+						void onData(Socket &, const std::string &);
 						void onError(const Net::Exception &);
 					private:
 						Application &_app;
