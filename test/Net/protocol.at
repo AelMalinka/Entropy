@@ -8,3 +8,9 @@ AT_SKIP_IF([test -z "$GTEST"])
 AT_SKIP_IF([test -z "$GMOCK"])
 AT_CHECK([net-protocol-line], [], [ignore], [ignore])
 AT_CLEANUP
+
+AT_SETUP([Protocol Basic (Line)])
+AT_SKIP_IF([test -z "$GTEST"])
+AT_SKIP_IF([test -z "$GMOCK"])
+AT_CHECK([net-protocol-line-basic], [], [ignore], [ignore])
+AT_CLEANUP

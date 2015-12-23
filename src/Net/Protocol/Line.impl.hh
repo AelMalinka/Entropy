@@ -116,7 +116,7 @@
 
 				template<typename Application, typename Socket>
 				Line<Application, Socket>::Line(Application &a)
-					: Line<Application, Socket>(a, "\n")
+					: Line<Application, Socket>(a, "\r\n")
 				{}
 
 				template<typename Application, typename Socket> Line<Application, Socket>::~Line() = default;

@@ -1,9 +1,9 @@
 # Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
 # Distributed under the terms of the GNU Affero General Public License v3
 
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = -Im4
 # 2014-01-13 AMR NOTE: non-portable assignment
-AM_CXXFLAGS := -I $(srcdir)/src $(AM_CXXFLAGS)
+AM_CXXFLAGS := -I$(srcdir)/src $(AM_CXXFLAGS)
 
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = src/Exception.hh \
@@ -107,7 +107,12 @@ string_basic_LDADD = -lentropy $(GTEST_LIBS)
 string_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 
 if GMOCK
-check_PROGRAMS += net-protocol-line
+check_PROGRAMS += net-protocol-line-basic net-protocol-line
+
+net_protocol_line_basic_SOURCES = test/Net/Protocol/basic.cc
+net_protocol_line_basic_CXXFLAGS = -DPROTOCOL=Line -DPROTOCOL_INCLUDE=\"Net/Protocol/Line.hh\" -DMOCK_FULL=MockApplication -DMOCK_BASE=MockApplicationOnlyLine $(AM_CXXFLAGS)
+net_protocol_line_basic_LDADD = $(GMOCK_LIBS)
+net_protocol_line_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 
 net_protocol_line_SOURCES = test/Net/Protocol/line.cc
 net_protocol_line_LDADD = $(GMOCK_LIBS)
@@ -133,7 +138,8 @@ EXTRA_DIST = $(TESTSUITE_FILES) \
 	$(TESTSUITE) \
 	$(srcdir)/test/atlocal.in \
 	$(srcdir)/test/Module/module.cc \
-	$(srcdir)/test/Module/interface.hh
+	$(srcdir)/test/Module/interface.hh \
+	$(srcdir)/test/Net/Protocol/Mock.hh
 
 $(srcdir)/package.m4: $(top_srcdir)/configure.ac
 	:; {\
