@@ -8,7 +8,8 @@
 
 #	include "Exception.hh"
 
-	namespace Entropy {
+	namespace Entropy
+	{
 		class Application
 		{
 			public:
@@ -16,7 +17,7 @@
 				virtual ~Application();
 				virtual void operator() () = 0;
 			protected:
-				int &ArgC();
+				const int &ArgC();
 				char **ArgV();
 			private:
 				int &_argc;

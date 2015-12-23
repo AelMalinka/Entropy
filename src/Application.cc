@@ -12,10 +12,12 @@ Application::Application(int &c, char *v[])
 
 Application::~Application() = default;
 
-int &Application::ArgC() {
+const int &Application::ArgC()
+{
 	return _argc;
 }
 
-char **Application::ArgV() {
+char **Application::ArgV()
+{
 	return _argv;
 }
