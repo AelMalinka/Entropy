@@ -2,6 +2,6 @@
 # Distributed under the terms of the GNU Affero General Public License v3
 
 GTEST="@GTEST_LIBS@"
-GMOCK="@GMOCK_LIBS"
-PYTHON="@PYTHON_LIBS@"
+GMOCK="@GMOCK_LIBS@"
+PYTHON="@PYTHON@"
 BUILD=`pwd`
