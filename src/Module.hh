@@ -20,7 +20,7 @@
 
 	namespace Entropy
 	{
-		namespace internal
+		namespace detail
 		{
 			enum class ModuleType
 			{
@@ -37,7 +37,7 @@
 				explicit Module(const std::string &);
 				template<typename F> std::function<F> get(const std::string &) const;
 			private:
-				internal::ModuleType _type;
+				detail::ModuleType _type;
 				boost::any _module;
 		};
 	}

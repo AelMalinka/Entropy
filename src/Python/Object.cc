@@ -157,7 +157,7 @@ void Object::Handle(PyObject *p)
 	Py_INCREF(_obj);
 }
 
-using namespace Entropy::Python::internal;
+using namespace Entropy::Python::detail;
 
 py_tuple::~py_tuple()
 {

@@ -9,7 +9,7 @@ using namespace std;
 
 Module::Module(const string &name)
 {
-	using internal::ModuleType;
+	using detail::ModuleType;
 
 	auto type = ""s;
 	if(name.rfind(".") != string::npos)

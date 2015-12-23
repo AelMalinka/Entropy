@@ -17,7 +17,7 @@
 		template<typename F>
 		std::function<F> Module::get(const std::string &name) const
 		{
-			using internal::ModuleType;
+			using detail::ModuleType;
 			using boost::any_cast;
 
 			DlModule dl;

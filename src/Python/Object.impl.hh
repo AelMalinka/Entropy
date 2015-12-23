@@ -11,7 +11,7 @@
 	{
 		namespace Python
 		{
-			namespace internal
+			namespace detail
 			{
 				struct py_tuple
 				{
@@ -30,7 +30,7 @@
 			template<typename ...Args>
 			Object Object::operator() (Args... args)
 			{
-				using internal::py_tuple;
+				using detail::py_tuple;
 
 				py_tuple params(args...);
 				
@@ -46,7 +46,7 @@
 			}
 
 			template<typename ...Args>
-			internal::py_tuple::py_tuple(Args... args)
+			detail::py_tuple::py_tuple(Args... args)
 			{
 				_val = PyTuple_New(sizeof...(args));
 
@@ -57,7 +57,7 @@
 			}
 
 			template<typename First, typename ...Rest>
-			void internal::py_tuple::set_items(std::size_t x, First f, Rest... rest)
+			void detail::py_tuple::set_items(std::size_t x, First f, Rest... rest)
 			{
 				Python::Object o(f);
 				Py_INCREF(o.Handle());
