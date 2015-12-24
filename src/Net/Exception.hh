@@ -18,7 +18,6 @@
 		namespace Net
 		{
 			ENTROPY_EXCEPTION_BASE(Exception, "Basic Network Exception");
-			ENTROPY_ERROR_INFO(SystemError, std::error_code);
 		}
 	}
 
