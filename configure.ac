@@ -35,11 +35,11 @@ AC_CHECK_HEADERS(
 		boost/log/attributes/constant.hpp \
 		boost/log/common.hpp \
 		boost/log/expressions.hpp \
+		boost/log/expressions/keyword.hpp \
 		boost/log/support/date_time.hpp \
 		boost/log/utility/setup/common_attributes.hpp \
 		boost/log/utility/setup/console.hpp \
 		boost/log/utility/setup/formatter_parser.hpp \
-		boost/system/error_code.hpp \
 		boost/throw_exception.hpp \
 	],
 	[],
