@@ -32,6 +32,8 @@ dnl		boost/log/sources/severity_channel_logger.hpp \ dnl fails to compile by its
 AC_CHECK_HEADERS(
 	[	boost/any.hpp \
 		boost/exception/all.hpp \
+		boost/iostreams/device/file_descriptor.hpp \
+		boost/iostreams/stream.hpp \
 		boost/log/attributes/constant.hpp \
 		boost/log/common.hpp \
 		boost/log/expressions.hpp \
@@ -64,6 +66,11 @@ AC_CHECK_LIB([boost_log-mt], [main], [LIBS="-lboost_log-mt $LIBS"],
 AC_CHECK_LIB([boost_log_setup-mt], [main], [LIBS="-lboost_log_setup-mt $LIBS"],
 	[AC_CHECK_LIB([boost_log_setup], [main], [LIBS="-lboost_log_setup $LIBS"],
 		[AC_MSG_FAILURE(["boost::log is required"])
+	])
+])
+AC_CHECK_LIB([boost_iostreams-mt], [main], [LIBS="-lboost_iostreams-mt $LIBS"],
+	[AC_CHECK_LIB([boost_iostreams], [main], [LIBS="-lboost_iostreams $LIBS"],
+		[AC_MSG_FAILURE(["boost::iostreams is required"])
 	])
 ])
 
