@@ -9,7 +9,8 @@ mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = src/Exception.hh \
 	src/Log.hh src/Application.hh \
 	src/String.hh src/String.impl.hh \
-	src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh
+	src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh \
+	src/Process.hh
 
 logheadersdir = $(includedir)/Entropy/Log
 logheaders_HEADERS = src/Log/Init.hh src/Log/Logger.hh src/Log/Severity.hh
@@ -29,7 +30,8 @@ lib_LTLIBRARIES = libentropy.la
 
 libentropy_la_SOURCES = src/Application.cc src/Module.cc \
 	src/Module/BaseModule.cc src/Module/DlModule.cc \
-	src/Log/Init.cc src/Log/Logger.cc src/Log/Severity.cc
+	src/Log/Init.cc src/Log/Logger.cc src/Log/Severity.cc \
+	src/Process.cc
 libentropy_la_LDFLAGS = -version-info 0
 
 if PYTHON
@@ -96,7 +98,8 @@ endif
 if GTEST
 check_PROGRAMS += \
 	exception-init-throw \
-	string-basic
+	string-basic \
+	process-basic
 
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
 exception_init_throw_LDADD = -lentropy $(GTEST_LIBS)
@@ -106,16 +109,19 @@ string_basic_SOURCES = test/String/basic.cc
 string_basic_LDADD = -lentropy $(GTEST_LIBS)
 string_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 
+process_basic_SOURCES = test/Process/basic.cc
+process_basic_LDADD = -lentropy $(GTEST_LIBS)
+process_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 if GMOCK
 check_PROGRAMS += net-protocol-line-basic net-protocol-line
 
 net_protocol_line_basic_SOURCES = test/Net/Protocol/basic.cc
 net_protocol_line_basic_CXXFLAGS = -DPROTOCOL=Line -DPROTOCOL_INCLUDE=\"Net/Protocol/Line.hh\" -DMOCK_FULL=MockApplication -DMOCK_BASE=MockApplicationOnlyLine $(AM_CXXFLAGS)
-net_protocol_line_basic_LDADD = $(GMOCK_LIBS)
+net_protocol_line_basic_LDADD = -lentropy $(GMOCK_LIBS)
 net_protocol_line_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 
 net_protocol_line_SOURCES = test/Net/Protocol/line.cc
-net_protocol_line_LDADD = $(GMOCK_LIBS)
+net_protocol_line_LDADD = -lentropy $(GMOCK_LIBS)
 net_protocol_line_LDFLAGS = $(PTHREAD_LDFLAGS)
 endif
 endif
@@ -130,7 +136,8 @@ TESTSUITE_FILES = \
 	$(srcdir)/test/Net/protocol.at \
 	$(srcdir)/test/string.at \
 	$(srcdir)/test/module.at \
-	$(srcdir)/test/python.at
+	$(srcdir)/test/python.at \
+	$(srcdir)/test/process.at
 
 EXTRA_DIST = $(TESTSUITE_FILES) \
 	$(srcdir)/test/testsuite.at \

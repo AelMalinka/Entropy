@@ -1,0 +1,8 @@
+# Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+AT_BANNER([Process Tests])
+AT_SETUP([Process Basic])
+AT_SKIP_IF([test -z $GTEST])
+AT_CHECK([process-basic], [], [ignore], [ignore])
+AT_CLEANUP
