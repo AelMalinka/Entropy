@@ -47,6 +47,23 @@ libentropy_la_SOURCES += src/Python/Interpreter.cc src/Python/Object.cc \
 	src/Module/PyModule.cc
 endif
 
+if LIBUV
+asioheadersdir = $(includedir)/Entropy/Asio
+asioheaders_HEADERS = src/Asio/Application.hh
+
+uvheadersdir = $(includedir)/Entropy/Asio/UV
+uvheaders_HEADERS = src/Asio/UV/Loop.hh \
+	src/Asio/UV/Handle.hh \
+	src/Asio/UV/Stream.hh \
+	src/Asio/UV/Tcp.hh
+
+libentropy_la_SOURCES += src/Asio/Application.cc \
+	src/Asio/UV/Loop.cc \
+	src/Asio/UV/Handle.cc \
+	src/Asio/UV/Stream.cc \
+	src/Asio/UV/Tcp.cc
+endif
+
 check_PROGRAMS = log-trivial \
 	application-run \
 	module-run module-import module-import-twice module-import-copy
@@ -112,6 +129,16 @@ string_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 process_basic_SOURCES = test/Process/basic.cc
 process_basic_LDADD = -lentropy $(GTEST_LIBS)
 process_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
+
+if LIBUV
+check_PROGRAMS += \
+	asio-uv-tcp-client
+
+asio_uv_tcp_client_SOURCES = test/Asio/UV/TcpClient.cc
+asio_uv_tcp_client_LDADD = -lentropy $(GTEST_LIBS) $(LIBUV_LIBS)
+asio_uv_tcp_client_LDFLAGS = $(PTHREAD_LDFLAGS)
+endif
+
 if GMOCK
 check_PROGRAMS += net-protocol-line-basic net-protocol-line
 
@@ -137,7 +164,9 @@ TESTSUITE_FILES = \
 	$(srcdir)/test/string.at \
 	$(srcdir)/test/module.at \
 	$(srcdir)/test/python.at \
-	$(srcdir)/test/process.at
+	$(srcdir)/test/process.at \
+	$(srcdir)/test/asio.at \
+	$(srcdir)/test/Asio/uv.at
 
 EXTRA_DIST = $(TESTSUITE_FILES) \
 	$(srcdir)/test/testsuite.at \

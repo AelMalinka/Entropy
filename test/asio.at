@@ -1,8 +1,5 @@
 # Copyright 2015 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
 # Distributed under the terms of the GNU Affero General Public License v3
 
-GTEST="@GTEST_LIBS@"
-GMOCK="@GMOCK_LIBS@"
-LIBUV="@LIBUV_LIBS@"
-PYTHON="@PYTHON@"
-BUILD=`pwd`
+AT_BANNER([Asio Tests])
+m4_include([Asio/uv.at])

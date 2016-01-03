@@ -13,14 +13,15 @@
 		class Application
 		{
 			public:
-				Application(int &, char *[]);
+				Application();
+				Application(const int &, char *[]);
 				virtual ~Application();
 				virtual void operator() () = 0;
 			protected:
 				const int &ArgC();
 				char **ArgV();
 			private:
-				int &_argc;
+				int _argc;
 				char **_argv;
 		};
 	}
