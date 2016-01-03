@@ -106,11 +106,11 @@ if GTEST
 check_PROGRAMS += exception-init-throw string-basic
 
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
-exception_init_throw_LDADD = $(GTEST_LIBS)
+exception_init_throw_LDADD = -lentropy $(GTEST_LIBS)
 exception_init_throw_LDFLAGS = $(PTHREAD_LDFLAGS)
 
 string_basic_SOURCES = test/String/basic.cc
-string_basic_LDADD = $(GTEST_LIBS)
+string_basic_LDADD = -lentropy $(GTEST_LIBS)
 string_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 endif
 
