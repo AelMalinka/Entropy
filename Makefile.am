@@ -117,11 +117,11 @@ check_PROGRAMS += net-protocol-line-basic net-protocol-line
 
 net_protocol_line_basic_SOURCES = test/Net/Protocol/basic.cc
 net_protocol_line_basic_CXXFLAGS = -DPROTOCOL=Line -DPROTOCOL_INCLUDE=\"Net/Protocol/Line.hh\" -DMOCK_FULL=MockApplication -DMOCK_BASE=MockApplicationOnlyLine $(AM_CXXFLAGS)
-net_protocol_line_basic_LDADD = -lentropy $(GMOCK_LIBS)
+net_protocol_line_basic_LDADD = -lentropy $(GMOCK_LIBS) $(GTEST_LIBS)
 net_protocol_line_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 
 net_protocol_line_SOURCES = test/Net/Protocol/line.cc
-net_protocol_line_LDADD = -lentropy $(GMOCK_LIBS)
+net_protocol_line_LDADD = -lentropy $(GMOCK_LIBS) $(GTEST_LIBS)
 net_protocol_line_LDFLAGS = $(PTHREAD_LDFLAGS)
 endif
 endif
