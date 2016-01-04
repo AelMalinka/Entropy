@@ -122,7 +122,8 @@
 			return ExceptionBase::what();
 		}
 
-		ENTROPY_ERROR_INFO(SystemError, std::error_code);
+		ENTROPY_ERROR_INFO(SystemErrorCode, std::error_code);
+		ENTROPY_ERROR_INFO(SystemError, std::string);
 	}
 
 	template<typename charT>

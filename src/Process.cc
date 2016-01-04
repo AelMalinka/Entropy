@@ -25,7 +25,8 @@ Process::Process(const function<void()> &what)
 	else
 		ENTROPY_THROW(
 			GeneralFailure("Fork Failed") <<
-			SystemError(error_code(errno, system_category()))
+			SystemErrorCode(error_code(errno, system_category())) <<
+			SystemError(strerror(errno))
 		);
 }
 
@@ -43,7 +44,8 @@ Process::Process(const string &what)
 	else
 		ENTROPY_THROW(
 			GeneralFailure("Fork Failed") <<
-			SystemError(error_code(errno, system_category()))
+			SystemErrorCode(error_code(errno, system_category())) <<
+			SystemError(strerror(errno))
 		);
 }
 
@@ -82,7 +84,8 @@ void Process::Term()
 	if(kill(_child, SIGTERM) < 0)
 		ENTROPY_THROW(
 			GeneralFailure("Sending TERM to child failed") <<
-			SystemError(error_code(errno, system_category()))
+			SystemErrorCode(error_code(errno, system_category())) <<
+			SystemError(strerror(errno))
 		);
 }
 
@@ -97,7 +100,8 @@ void Process::_iam_child(const function<void()> &what)
 	if(newfd == -1)
 		ENTROPY_THROW(
 			GeneralFailure("unable to dup STDIN") <<
-			SystemError(error_code(errno, system_category()))
+			SystemErrorCode(error_code(errno, system_category())) <<
+			SystemError(strerror(errno))
 		);
 	else if(newfd != STDIN_FILENO)
 		ENTROPY_THROW(
@@ -108,7 +112,8 @@ void Process::_iam_child(const function<void()> &what)
 	if(newfd == -1)
 		ENTROPY_THROW(
 			GeneralFailure("unable to dup STDOUT") <<
-			SystemError(error_code(errno, system_category()))
+			SystemErrorCode(error_code(errno, system_category())) <<
+			SystemError(strerror(errno))
 		);
 	else if(newfd != STDOUT_FILENO)
 		ENTROPY_THROW(
@@ -119,7 +124,8 @@ void Process::_iam_child(const function<void()> &what)
 	if(newfd == -1)
 		ENTROPY_THROW(
 			GeneralFailure("unable to dup STDERR") <<
-			SystemError(error_code(errno, system_category()))
+			SystemErrorCode(error_code(errno, system_category())) <<
+			SystemError(strerror(errno))
 		);
 	else if(newfd != STDERR_FILENO)
 		ENTROPY_THROW(
@@ -149,7 +155,8 @@ Process::Pipe::Pipe()
 	if(pipe(_pipes) < 0)
 		ENTROPY_THROW(
 			GeneralFailure("Pipe creation failed") << 
-			SystemError(error_code(errno, system_category()))
+			SystemErrorCode(error_code(errno, system_category())) <<
+			SystemError(strerror(errno))
 		);
 }
 
