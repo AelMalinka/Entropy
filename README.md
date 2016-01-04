@@ -4,18 +4,19 @@ Entropy is a collection of utilites that have proven to be useful
 ## Installing
 ```bash
 ./autogen.sh
-./configure --with(out)-gtest --with(out)-python
+./configure
 make
 make check
 make install
 ```
+
 ### Dependencies
 - Compiler supporting C++14, tested against GCC 5.2.0 and clang 3.7.0
-- boost, tested against 1.59.0
+- boost, tested against 1.60.0
 optionally
-- gtest, compiled and accessible as shared library, tested against 1.7.0
+- gtest and gmock, compiled and installed as shared library, tested against scm version after merger, TODO
 - python 3.3 or newer, tested against 3.5.0, w/ [patch](https://hg.python.org/cpython/raw-rev/d4fcb362f7c6)
-
+- libuv 1.x or newer, tested against 1.8.0
 
 ### Exception
 A heirarchy of exceptions built on top of boost Exception which allow for tag based information to be attached
@@ -31,7 +32,7 @@ ENTROPY_THROW(TypeOfError("This is a description of THIS error") <<
 	MoreExtraInfo(info)
 );
 ```
-to output all attched error information as well as exception::what()
+to output all attched error information as well as exception::what() when -DDEBUG
 ```C++
 try
 {
@@ -63,13 +64,22 @@ The beginnings of a library for interacting w/ python, intended to allow
 the implementation of a Python based module system matching above
 
 ###Net
-Built on top of boost Asio, allows the definition of Client and/or Server objects,
-that use methods as callbacks for events with and without protocol definitions to
-translate to application level events
+Built partially ontop of libuv, still under construction
 
 ##To Do
 - [ ] Implement PyModule
 	- [x] Python wrappers
 	- [ ] Interface wrapper for python
-- [ ] Static implementation of Net
-- [ ] parsing of ArgC/ArgV in Entropy::Application
+- [x] Static implementation of Net
+- [ ] Implement Asio
+	- [ ] TCP
+		- [x] Client
+		- [ ] Server
+	- [ ] UDP
+		- [ ] Client
+		- [ ] Server
+	- [ ] File?
+	- [ ] SCTP?
+	- [ ] SSDP?
+- [ ] Configuration of Log
+- [ ] Parsing of ArgC/ArgV in Entropy::Application
