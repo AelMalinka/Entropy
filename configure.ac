@@ -17,6 +17,10 @@ LT_INIT
 
 AC_PROG_MKDIR_P
 AC_PROG_LN_S
+
+AC_PATH_PROG(SOCAT, [socat], [notfound])
+AS_IF([test "x$SOCAT" == x], [AC_MSG_FAILURE(["socat is currently required for some tests"])])
+
 EX_PYTHON
 [LIBS="$PYTHON_LIBS $LIBS"]
 [CFLAGS="$PYTHON_CPPFLAGS $CFLAGS"]
