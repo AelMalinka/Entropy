@@ -72,9 +72,9 @@ Built partially ontop of libuv, still under construction
 	- [ ] Interface wrapper for python
 - [x] Static implementation of Net
 - [ ] Implement Asio
-	- [ ] TCP
+	- [x] TCP
 		- [x] Client
-		- [ ] Server
+		- [x] Server
 	- [ ] UDP
 		- [ ] Client
 		- [ ] Server
