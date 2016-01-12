@@ -22,17 +22,22 @@
 					public Stream
 				{
 					public:
-						Tcp(Loop &, const std::function<void(Stream &)> &, const std::function<void(Stream &, const std::string &)> &, const std::function<void(const Net::Exception &)> &);
+						Tcp(Loop &, const std::function<void(Stream &)> &, const std::function<void(Stream &)> &, const std::function<void(Stream &, const std::string &)> &, const std::function<void(const Net::Exception &)> &);
 						~Tcp();
-					protected:
-						void ConnectCallback(Stream &);
+						const struct sockaddr Socket() const;
 					protected:
 						void connect(const struct sockaddr *);
+						void bind(const struct sockaddr *);
+						std::shared_ptr<Stream> accept();
 						int sock_type();
+					protected:
+						void ConnectCallback();
+						void DisconnectCallback();
 					private:
 						uv_tcp_t _handle;
 						std::function<void(Stream &)> _connect_cb;
-						friend void ::_entropy_asio_uv_tcp_connect_cb(uv_connect_t *, int);
+						std::function<void(Stream &)> _disconnect_cb;
+					friend void ::_entropy_asio_uv_tcp_connect_cb(uv_connect_t *, int);
 				};
 			}
 		}

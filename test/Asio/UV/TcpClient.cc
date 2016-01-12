@@ -25,6 +25,7 @@ namespace {
 			~TcpClientTest();
 		protected:
 			void onConnect(Asio::UV::Stream &);
+			void onDisconnect(Asio::UV::Stream &);
 			void onData(Asio::UV::Stream &, const string &);
 			void onError(const Net::Exception &);
 		protected:
@@ -35,7 +36,7 @@ namespace {
 	};
 
 	TcpClientTest::TcpClientTest()
-		: Asio::Application(), Test(), _server("socat pipe tcp-listen:8080"), _client(Loop(), bind(&TcpClientTest::onConnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onData, ref(*this), placeholders::_1, placeholders::_2), bind(&TcpClientTest::onError, ref(*this), placeholders::_1)), _data(), _send()
+		: Asio::Application(), Test(), _server("socat pipe tcp-listen:8080"), _client(Loop(), bind(&TcpClientTest::onConnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onDisconnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onData, ref(*this), placeholders::_1, placeholders::_2), bind(&TcpClientTest::onError, ref(*this), placeholders::_1)), _data(), _send()
 	{
 		// 2016-01-04 AMR TODO: cleanup
 		// 2016-01-04 AMR NOTE: allow 'echo server' to intitialize, 10ms worked on my setup
@@ -52,6 +53,9 @@ namespace {
 		s.Write(_send);
 	}
 
+	void TcpClientTest::onDisconnect(Asio::UV::Stream &)
+	{}
+
 	void TcpClientTest::onData(Asio::UV::Stream &s, const string &d)
 	{
 		_data = d;
@@ -67,6 +71,7 @@ namespace {
 	}
 
 	TEST_F(TcpClientTest, FixtureTestBasicEcho) {
+		// 2016-01-04 AMR NOTE: w/o sending at least a newline there will be no read and therefore no disconnect
 		Process p("echo -e '42\\n' | socat - tcp:localhost:8080");
 		int num;
 		p.Out() >> num;
@@ -75,7 +80,6 @@ namespace {
 
 	TEST_F(TcpClientTest, Connect) {
 		TEST_BEGIN
-			// 2016-01-04 AMR NOTE: w/o sending at least a newline there will be no read and therefore no disconnect
 			_send = "\n";
 
 			_client.Connect("localhost", "8080");

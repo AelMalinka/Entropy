@@ -136,11 +136,16 @@ process_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 
 if LIBUV
 check_PROGRAMS += \
-	asio-uv-tcp-client
+	asio-uv-tcp-client \
+	asio-uv-tcp-server
 
 asio_uv_tcp_client_SOURCES = test/Asio/UV/TcpClient.cc
 asio_uv_tcp_client_LDADD = -lentropy $(GTEST_LIBS) $(LIBUV_LIBS)
 asio_uv_tcp_client_LDFLAGS = $(PTHREAD_LDFLAGS)
+
+asio_uv_tcp_server_SOURCES = test/Asio/UV/TcpServer.cc
+asio_uv_tcp_server_LDADD = -lentropy $(GTEST_LIBS) $(LIBUV_LIBS)
+asio_uv_tcp_server_LDFLAGS = $(PTHREAD_LDFLAGS)
 endif
 
 if GMOCK

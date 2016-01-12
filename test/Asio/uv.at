@@ -2,8 +2,15 @@
 # Distributed under the terms of the GNU Affero General Public License v3
 
 AT_BANNER([Asio UV Tests])
+
 AT_SETUP([Tcp Client])
 AT_SKIP_IF([test -z $LIBUV])
 AT_SKIP_IF([test -z $GTEST])
 AT_CHECK([asio-uv-tcp-client], [], [ignore], [ignore])
+AT_CLEANUP
+
+AT_SETUP([Tcp Server])
+AT_SKIP_IF([test -z $LIBUV])
+AT_SKIP_IF([test -z $GTEST])
+AT_CHECK([asio-uv-tcp-server], [], [ignore], [ignore])
 AT_CLEANUP

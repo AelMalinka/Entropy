@@ -9,8 +9,8 @@ using namespace Entropy::Asio::UV;
 using namespace std;
 
 
-Tcp::Tcp(Loop &loop, const function<void(Stream &)> &con_cb, const function<void(Stream &, const string &)> &r_cb, const function<void(const Net::Exception &)> &error_cb)
-	: Stream(loop, reinterpret_cast<uv_stream_t *>(&_handle), r_cb, error_cb), _handle(), _connect_cb(con_cb)
+Tcp::Tcp(Loop &loop, const function<void(Stream &)> &con_cb, const function<void(Stream &)> &disc_cb, const function<void(Stream &, const string &)> &r_cb, const function<void(const Net::Exception &)> &error_cb)
+	: Stream(loop, reinterpret_cast<uv_stream_t *>(&_handle), r_cb, error_cb), _handle(), _connect_cb(con_cb), _disconnect_cb(disc_cb)
 {
 	_handle.data = this;
 
@@ -26,10 +26,30 @@ Tcp::Tcp(Loop &loop, const function<void(Stream &)> &con_cb, const function<void
 Tcp::~Tcp()
 {}
 
-void Tcp::ConnectCallback(Stream &sock)
+const struct sockaddr Tcp::Socket() const
 {
-	_connect_cb(sock);
+	struct sockaddr sock;
+	int size = sizeof(sock);
+	int ret = uv_tcp_getpeername(&_handle, &sock, &size);
+	if(ret != 0)
+		ENTROPY_THROW(
+			GeneralFailure("Failed to get Socket") <<
+			SystemErrorCode(error_code(-ret, system_category())) <<
+			SystemError(uv_strerror(ret))
+		);
+	return sock;
+}
+
+void Tcp::ConnectCallback()
+{
 	read_start();
+	_connect_cb(*this);
+}
+
+void Tcp::DisconnectCallback()
+{
+	read_stop();
+	_disconnect_cb(*this);
 }
 
 void Tcp::connect(const struct sockaddr *addr)
@@ -44,6 +64,28 @@ void Tcp::connect(const struct sockaddr *addr)
 			SystemErrorCode(error_code(-ret, system_category())) <<
 			SystemError(uv_strerror(ret))
 		);
+}
+
+void Tcp::bind(const struct sockaddr *addr)
+{
+	int ret = uv_tcp_bind(&_handle, addr, 0);
+	if(ret != 0)
+		ENTROPY_THROW(
+			GeneralFailure("Failed to bind to port") <<
+			SystemErrorCode(error_code(-ret, system_category())) <<
+			SystemError(uv_strerror(ret))
+		);
+}
+
+shared_ptr<Stream> Tcp::accept()
+{
+	return make_shared<Tcp>(
+		Owner(),
+		_connect_cb,
+		_disconnect_cb,
+		ReadCb(),
+		ErrorCb()
+	);
 }
 
 int Tcp::sock_type()
@@ -66,6 +108,6 @@ extern "C" {
 				)
 			);
 		else
-			tcp->ConnectCallback(*tcp);
+			tcp->ConnectCallback();
 	}
 }
