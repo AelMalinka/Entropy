@@ -15,7 +15,7 @@ make install
 - boost, tested against 1.60.0
 optionally
 - gtest and gmock, compiled and installed as shared library, tested against scm version after merger, TODO
-- python 3.3 or newer, tested against 3.5.0, w/ [patch](https://hg.python.org/cpython/raw-rev/d4fcb362f7c6)
+- python 3.3 or newer, tested against 3.5.1
 - libuv 1.x or newer, tested against 1.8.0
 
 ### Exception
