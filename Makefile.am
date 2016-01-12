@@ -55,13 +55,17 @@ uvheadersdir = $(includedir)/Entropy/Asio/UV
 uvheaders_HEADERS = src/Asio/UV/Loop.hh \
 	src/Asio/UV/Handle.hh \
 	src/Asio/UV/Stream.hh \
-	src/Asio/UV/Tcp.hh
+	src/Asio/UV/Tcp.hh \
+	src/Asio/UV/GetAddrInfo.hh \
+	src/Asio/UV/GetNameInfo.hh
 
 libentropy_la_SOURCES += src/Asio/Application.cc \
 	src/Asio/UV/Loop.cc \
 	src/Asio/UV/Handle.cc \
 	src/Asio/UV/Stream.cc \
-	src/Asio/UV/Tcp.cc
+	src/Asio/UV/Tcp.cc \
+	src/Asio/UV/GetAddrInfo.cc \
+	src/Asio/UV/GetNameInfo.cc
 endif
 
 check_PROGRAMS = log-trivial \
