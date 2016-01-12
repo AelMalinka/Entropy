@@ -12,7 +12,8 @@ Handle::Handle(Loop &l, uv_handle_t *h)
 
 Handle::~Handle()
 {
-	uv_close(handle(), NULL);
+	if(!uv_is_closing(handle()))
+		uv_close(handle(), NULL);
 }
 
 bool Handle::isActive() const
