@@ -36,7 +36,7 @@ namespace {
 	};
 
 	TcpClientTest::TcpClientTest()
-		: Asio::Application(), Test(), _server("socat pipe tcp-listen:8080"), _client(Loop(), bind(&TcpClientTest::onConnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onDisconnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onData, ref(*this), placeholders::_1, placeholders::_2), bind(&TcpClientTest::onError, ref(*this), placeholders::_1)), _data(), _send()
+		: Asio::Application(), Test(), _server("socat pipe tcp-listen:9080"), _client(Loop(), bind(&TcpClientTest::onConnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onDisconnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onData, ref(*this), placeholders::_1, placeholders::_2), bind(&TcpClientTest::onError, ref(*this), placeholders::_1)), _data(), _send()
 	{
 		// 2016-01-04 AMR TODO: cleanup
 		// 2016-01-04 AMR NOTE: allow 'echo server' to intitialize, 10ms worked on my setup
@@ -72,7 +72,7 @@ namespace {
 
 	TEST_F(TcpClientTest, FixtureTestBasicEcho) {
 		// 2016-01-04 AMR NOTE: w/o sending at least a newline there will be no read and therefore no disconnect
-		Process p("echo -e '42\\n' | socat - tcp:localhost:8080");
+		Process p("echo -e '42\\n' | socat - tcp:localhost:9080");
 		int num;
 		p.Out() >> num;
 		EXPECT_EQ(42, num);
@@ -82,7 +82,7 @@ namespace {
 		TEST_BEGIN
 			_send = "\n";
 
-			_client.Connect("localhost", "8080");
+			_client.Connect("localhost", "9080");
 
 			(*this)();
 		TEST_END
@@ -92,7 +92,7 @@ namespace {
 		TEST_BEGIN
 			_send = "Hello World!\n";
 
-			_client.Connect("localhost", "8080");
+			_client.Connect("localhost", "9080");
 
 			(*this)();
 

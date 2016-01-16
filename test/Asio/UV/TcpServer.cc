@@ -67,8 +67,8 @@ namespace {
 
 	TEST_F(TcpServerTest, Connect) {
 		TEST_BEGIN
-			_server.Listen("localhost", "8081");
-			Process p("echo -e '\n' | socat - tcp:localhost:8081");
+			_server.Listen("localhost", "9081");
+			Process p("echo -e '\n' | socat - tcp:localhost:9081");
 
 			(*this)();
 
@@ -79,8 +79,8 @@ namespace {
 	TEST_F(TcpServerTest, ReadWrite) {
 		TEST_BEGIN
 			_send = "And to you too!";
-			_server.Listen("localhost", "8081");
-			Process p("echo 'Hello World!' | socat - tcp:localhost:8081");
+			_server.Listen("localhost", "9081");
+			Process p("echo 'Hello World!' | socat - tcp:localhost:9081");
 
 			(*this)();
 
