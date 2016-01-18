@@ -23,8 +23,7 @@ Tcp::Tcp(Asio::Loop &loop, const function<void(Stream &)> &con_cb, const functio
 		);
 }
 
-Tcp::~Tcp()
-{}
+Tcp::~Tcp() = default;
 
 const struct sockaddr Tcp::Socket() const
 {

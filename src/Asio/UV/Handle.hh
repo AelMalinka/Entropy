@@ -16,6 +16,7 @@
 				class Handle
 				{
 					public:
+						Handle(const Handle &) = delete;
 						virtual ~Handle();
 						bool isActive() const;
 						bool isClosing() const;
