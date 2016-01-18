@@ -46,7 +46,7 @@
 						virtual std::shared_ptr<Stream> accept() = 0;
 						virtual int sock_type() = 0;
 					protected:
-						Stream(Loop &, uv_stream_t *, const std::function<void(Stream &, const std::string &)> &, const std::function<void(const Net::Exception &)> &);
+						Stream(Asio::Loop &, uv_stream_t *, const std::function<void(Stream &, const std::string &)> &, const std::function<void(const Net::Exception &)> &);
 						uv_stream_t *stream();
 						const uv_stream_t *stream()const;
 						void read_start();

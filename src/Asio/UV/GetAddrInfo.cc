@@ -10,7 +10,7 @@ using namespace Entropy::Asio::UV;
 using namespace Entropy;
 using namespace std;
 
-GetAddrInfo::GetAddrInfo(Loop &loop, const function<void (struct addrinfo *)> &cb, const string &host, const string &service, int type)
+GetAddrInfo::GetAddrInfo(Asio::Loop &loop, const function<void (struct addrinfo *)> &cb, const string &host, const string &service, int type)
 	: _req(), _cb(cb), _hints()
 {
 	_req.data = this;
@@ -20,7 +20,7 @@ GetAddrInfo::GetAddrInfo(Loop &loop, const function<void (struct addrinfo *)> &c
 	_hints.ai_flags = AI_PASSIVE;
 	_hints.ai_socktype = type;
 
-	int ret = uv_getaddrinfo(loop.Handle(), &_req, _entropy_asio_uv_getaddrinfo_cb, host.data(), service.data(), &_hints);
+	int ret = uv_getaddrinfo(dynamic_cast<Loop &>(loop).Handle(), &_req, _entropy_asio_uv_getaddrinfo_cb, host.data(), service.data(), &_hints);
 	if(ret < 0)
 		ENTROPY_THROW(
 			GeneralFailure("GetAddrInfo failed") <<

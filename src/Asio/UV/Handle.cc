@@ -6,8 +6,8 @@
 
 using namespace Entropy::Asio::UV;
 
-Handle::Handle(Loop &l, uv_handle_t *h)
-	: _loop(l), _handle(h)
+Handle::Handle(Asio::Loop &l, uv_handle_t *h)
+	: _loop(dynamic_cast<UV::Loop &>(l)), _handle(h)
 {}
 
 Handle::~Handle()

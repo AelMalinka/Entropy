@@ -19,7 +19,7 @@ struct info_cb_data {
 	struct addrinfo *hints;
 };
 
-Stream::Stream(Loop &loop, uv_stream_t *handle, const function<void(Stream &, const string &)> &cb, const function<void(const Net::Exception &)> &err)
+Stream::Stream(Asio::Loop &loop, uv_stream_t *handle, const function<void(Stream &, const string &)> &cb, const function<void(const Net::Exception &)> &err)
 	: Handle(loop, reinterpret_cast<uv_handle_t *>(handle)), _handle(handle), _lookup(nullptr), _clients(), _read_cb(cb), _error_cb(err)
 {}
 

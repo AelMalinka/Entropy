@@ -5,6 +5,7 @@
 #if !defined ENTROPY_ASIO_UV_LOOP_INC
 #	define ENTROPY_ASIO_UV_LOOP_INC
 
+#	include "../Loop.hh"
 #	include <uv.h>
 
 	namespace Entropy
@@ -13,7 +14,8 @@
 		{
 			namespace UV
 			{
-				class Loop
+				class Loop :
+					public Asio::Loop
 				{
 					public:
 						Loop();

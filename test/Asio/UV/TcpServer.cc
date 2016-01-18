@@ -2,7 +2,7 @@
 	Distributed under the terms of the GNU Affero General Public License v3
 */
 
-#include "Asio/Application.hh"
+#include "Asio/UV/Application.hh"
 #include "Asio/UV/Tcp.hh"
 #include "Process.hh"
 #include <gtest/gtest.h>
@@ -17,7 +17,7 @@ using namespace testing;
 
 namespace {
 	class TcpServerTest :
-		public Asio::Application,
+		public Asio::UV::Application,
 		public Test
 	{
 		public:
@@ -36,7 +36,7 @@ namespace {
 	};
 
 	TcpServerTest::TcpServerTest()
-		: Asio::Application(), Test(), _server(Loop(), bind(&TcpServerTest::onConnect, ref(*this), placeholders::_1), bind(&TcpServerTest::onDisconnect, ref(*this), placeholders::_1), bind(&TcpServerTest::onData, ref(*this), placeholders::_1, placeholders::_2), bind(&TcpServerTest::onError, ref(*this), placeholders::_1)), _data(), _send()
+		: Asio::UV::Application(), Test(), _server(Loop(), bind(&TcpServerTest::onConnect, ref(*this), placeholders::_1), bind(&TcpServerTest::onDisconnect, ref(*this), placeholders::_1), bind(&TcpServerTest::onData, ref(*this), placeholders::_1, placeholders::_2), bind(&TcpServerTest::onError, ref(*this), placeholders::_1)), _data(), _send()
 	{}
 
 	TcpServerTest::~TcpServerTest()

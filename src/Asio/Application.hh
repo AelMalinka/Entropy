@@ -6,7 +6,7 @@
 #	define ENTROPY_ASIO_APPLICATION_INC
 
 #	include "../Application.hh"
-#	include "UV/Loop.hh"
+#	include "Loop.hh"
 
 	namespace Entropy
 	{
@@ -16,13 +16,13 @@
 				public Entropy::Application
 			{
 				public:
-					Application();
-					Application(int ArgC, char *ArgV[]);
+					Application(Loop &);
+					Application(Loop &, int ArgC, char *ArgV[]);
 					virtual ~Application();
 					virtual void operator () ();
-					UV::Loop &Loop();
+					Entropy::Asio::Loop &Loop();
 				private:
-					UV::Loop _loop;
+					Entropy::Asio::Loop &_loop;
 			};
 		}
 	}

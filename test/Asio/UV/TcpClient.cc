@@ -2,7 +2,7 @@
 	Distributed under the terms of the GNU Affero General Public License v3
 */
 
-#include "Asio/Application.hh"
+#include "Asio/UV/Application.hh"
 #include "Asio/UV/Tcp.hh"
 #include "Process.hh"
 #include <gtest/gtest.h>
@@ -17,7 +17,7 @@ using namespace testing;
 
 namespace {
 	class TcpClientTest :
-		public Asio::Application,
+		public Asio::UV::Application,
 		public Test
 	{
 		public:
@@ -36,7 +36,7 @@ namespace {
 	};
 
 	TcpClientTest::TcpClientTest()
-		: Asio::Application(), Test(), _server("socat pipe tcp-listen:9080"), _client(Loop(), bind(&TcpClientTest::onConnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onDisconnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onData, ref(*this), placeholders::_1, placeholders::_2), bind(&TcpClientTest::onError, ref(*this), placeholders::_1)), _data(), _send()
+		: Asio::UV::Application(), Test(), _server("socat pipe tcp-listen:9080"), _client(Loop(), bind(&TcpClientTest::onConnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onDisconnect, ref(*this), placeholders::_1), bind(&TcpClientTest::onData, ref(*this), placeholders::_1, placeholders::_2), bind(&TcpClientTest::onError, ref(*this), placeholders::_1)), _data(), _send()
 	{
 		// 2016-01-04 AMR TODO: cleanup
 		// 2016-01-04 AMR NOTE: allow 'echo server' to intitialize, 10ms worked on my setup

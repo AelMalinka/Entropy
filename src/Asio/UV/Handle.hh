@@ -22,7 +22,7 @@
 						Loop &Owner();
 						const Loop &Owner() const;
 					protected:
-						Handle(Loop &, uv_handle_t *);
+						Handle(Asio::Loop &, uv_handle_t *);
 						uv_handle_t *handle();
 						const uv_handle_t *handle() const;
 					private:

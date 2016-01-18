@@ -9,13 +9,13 @@ using namespace Entropy::Asio::UV;
 using namespace Entropy;
 using namespace std;
 
-GetNameInfo::GetNameInfo(Loop &loop, const function<void (const string &, const string &)> &cb, const Stream &sock)
+GetNameInfo::GetNameInfo(Asio::Loop &loop, const function<void (const string &, const string &)> &cb, const Stream &sock)
 	: _req(), _cb(cb)
 {
 	_req.data = this;
 
 	struct sockaddr s = sock.Socket();
-	int ret = uv_getnameinfo(loop.Handle(), &_req, _entropy_asio_uv_getnameinfo_cb, &s, 0);
+	int ret = uv_getnameinfo(dynamic_cast<UV::Loop &>(loop).Handle(), &_req, _entropy_asio_uv_getnameinfo_cb, &s, 0);
 	if(ret < 0)
 		ENTROPY_THROW(
 			GeneralFailure("GetNameInfo failed") <<

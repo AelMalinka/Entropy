@@ -9,12 +9,12 @@ using namespace Entropy::Asio::UV;
 using namespace std;
 
 
-Tcp::Tcp(Loop &loop, const function<void(Stream &)> &con_cb, const function<void(Stream &)> &disc_cb, const function<void(Stream &, const string &)> &r_cb, const function<void(const Net::Exception &)> &error_cb)
+Tcp::Tcp(Asio::Loop &loop, const function<void(Stream &)> &con_cb, const function<void(Stream &)> &disc_cb, const function<void(Stream &, const string &)> &r_cb, const function<void(const Net::Exception &)> &error_cb)
 	: Stream(loop, reinterpret_cast<uv_stream_t *>(&_handle), r_cb, error_cb), _handle(), _connect_cb(con_cb), _disconnect_cb(disc_cb)
 {
 	_handle.data = this;
 
-	int ret = uv_tcp_init(loop.Handle(), &_handle);
+	int ret = uv_tcp_init(dynamic_cast<UV::Loop &>(loop).Handle(), &_handle);
 	if(ret != 0)
 		ENTROPY_THROW(
 			GeneralFailure("Failed to initialize libuv tcp object handle") <<

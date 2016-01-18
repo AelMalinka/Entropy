@@ -22,7 +22,7 @@
 					public Stream
 				{
 					public:
-						Tcp(Loop &, const std::function<void(Stream &)> &, const std::function<void(Stream &)> &, const std::function<void(Stream &, const std::string &)> &, const std::function<void(const Net::Exception &)> &);
+						Tcp(Asio::Loop &, const std::function<void(Stream &)> &, const std::function<void(Stream &)> &, const std::function<void(Stream &, const std::string &)> &, const std::function<void(const Net::Exception &)> &);
 						~Tcp();
 						const struct sockaddr Socket() const;
 					protected:
