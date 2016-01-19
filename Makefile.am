@@ -48,9 +48,13 @@ libentropy_la_SOURCES += src/Python/Interpreter.cc src/Python/Object.cc \
 endif
 
 asioheadersdir = $(includedir)/Entropy/Asio
-asioheaders_HEADERS = src/Asio/Application.hh src/Asio/Loop.hh
+asioheaders_HEADERS = \
+	src/Asio/Application.hh \
+	src/Asio/Loop.hh
 
-libentropy_la_SOURCES += src/Asio/Application.cc
+libentropy_la_SOURCES += \
+	src/Asio/Application.cc \
+	src/Asio/Loop.cc
 
 if LIBUV
 uvheadersdir = $(includedir)/Entropy/Asio/UV

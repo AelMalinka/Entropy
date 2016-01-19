@@ -19,16 +19,18 @@
 				{
 					public:
 						Loop();
-						Loop(const Loop &);
-						~Loop();
-						Loop &operator = (const Loop &);
 						void operator () ();
-						uv_loop_t *Handle() const;
+						uv_loop_t *Handle();
 					private:
-						struct _loop_t {
-							uv_loop_t handle;
-							size_t count;
-						} *_loop;
+						class _uv_handle
+						{
+							public:
+								_uv_handle();
+								~_uv_handle();
+								uv_loop_t *handle();
+							private:
+								uv_loop_t _handle;
+						};
 				};
 			}
 		}

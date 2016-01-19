@@ -4,12 +4,14 @@
 
 #include "Tcp.hh"
 
+#include "../../Net/Exception.hh"
+
 using namespace Entropy;
 using namespace Entropy::Asio::UV;
 using namespace std;
 
 
-Tcp::Tcp(Asio::Loop &loop, const function<void(Stream &)> &con_cb, const function<void(Stream &)> &disc_cb, const function<void(Stream &, const string &)> &r_cb, const function<void(const Net::Exception &)> &error_cb)
+Tcp::Tcp(Asio::Loop &loop, const function<void(Stream &)> &con_cb, const function<void(Stream &)> &disc_cb, const function<void(Stream &, const string &)> &r_cb, const function<void(const Exception &)> &error_cb)
 	: Stream(loop, reinterpret_cast<uv_stream_t *>(&_handle), r_cb, error_cb), _handle(), _connect_cb(con_cb), _disconnect_cb(disc_cb)
 {
 	_handle.data = this;

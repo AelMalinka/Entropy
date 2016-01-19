@@ -4,41 +4,39 @@
 
 #include "Loop.hh"
 
+using namespace std;
+using namespace boost;
 using namespace Entropy::Asio::UV;
 
 Loop::Loop()
-	: _loop(nullptr)
+	: Asio::Loop(_uv_handle())
 {
-	_loop = new _loop_t;
-	_loop->count = 1;
+	// 2016-01-19 AMR NOTE: due to mechanics of Asio::Loop this needs to be initialized AFTER handed to the boost::any, TODO
 	uv_loop_init(Handle());
+	Handle()->data = this;
 }
-
-Loop::Loop(const Loop &o)
-	: _loop(nullptr)
-{
-	_loop = o._loop;
-	++_loop->count;
-}
-
-Loop::~Loop()
-{
-	if(--_loop->count == 0)
-	{
-		uv_stop(Handle());
-		uv_loop_close(Handle());
-		delete _loop;
-	}
-}
-
-Loop &Loop::operator = (const Loop &) = default;
 
 void Loop::operator () ()
 {
 	uv_run(Handle(), UV_RUN_DEFAULT);
 }
 
-uv_loop_t *Loop::Handle() const
+uv_loop_t *Loop::Handle()
 {
-	return &_loop->handle;
+	return any_cast<_uv_handle &>(handle()).handle();
+}
+
+Loop::_uv_handle::_uv_handle()
+	: _handle()
+{}
+
+Loop::_uv_handle::~_uv_handle()
+{
+	uv_stop(&_handle);
+	uv_loop_close(&_handle);
+}
+
+uv_loop_t *Loop::_uv_handle::handle()
+{
+	return &_handle;
 }

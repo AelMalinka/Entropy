@@ -5,6 +5,8 @@
 #include "Stream.hh"
 #include <cstring>
 
+#include "../../Net/Exception.hh"
+
 using namespace Entropy;
 using namespace Entropy::Asio::UV;
 using namespace std;
@@ -19,7 +21,7 @@ struct info_cb_data {
 	struct addrinfo *hints;
 };
 
-Stream::Stream(Asio::Loop &loop, uv_stream_t *handle, const function<void(Stream &, const string &)> &cb, const function<void(const Net::Exception &)> &err)
+Stream::Stream(Asio::Loop &loop, uv_stream_t *handle, const function<void(Stream &, const string &)> &cb, const function<void(const Exception &)> &err)
 	: Handle(loop, reinterpret_cast<uv_handle_t *>(handle)), _handle(handle), _lookup(nullptr), _clients(), _read_cb(cb), _error_cb(err)
 {}
 
@@ -121,7 +123,7 @@ function<void(Stream &, const string &)> &Stream::ReadCb()
 	return _read_cb;
 }
 
-function<void(const Net::Exception &)> &Stream::ErrorCb()
+function<void(const Exception &)> &Stream::ErrorCb()
 {
 	return _error_cb;
 }
@@ -131,7 +133,7 @@ const function<void(Stream &, const string &)> &Stream::ReadCb() const
 	return _read_cb;
 }
 
-const function<void(const Net::Exception &)> &Stream::ErrorCb() const
+const function<void(const Exception &)> &Stream::ErrorCb() const
 {
 	return _error_cb;
 }
@@ -141,7 +143,7 @@ void Stream::ReadCallback(const string &data)
 	_read_cb(*this, data);
 }
 
-void Stream::ErrorCallback(const Net::Exception &err)
+void Stream::ErrorCallback(const Exception &err)
 {
 	_error_cb(err);
 }

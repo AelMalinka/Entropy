@@ -27,7 +27,7 @@ namespace {
 			void onConnect(Asio::UV::Stream &);
 			void onDisconnect(Asio::UV::Stream &);
 			void onData(Asio::UV::Stream &, const string &);
-			void onError(const Net::Exception &);
+			void onError(const Exception &);
 		protected:
 			Process _server;
 			Asio::UV::Tcp _client;
@@ -62,7 +62,7 @@ namespace {
 		s.Disconnect();
 	}
 
-	void TcpClientTest::onError(const Net::Exception &e)
+	void TcpClientTest::onError(const Exception &e)
 	{
 		throw e;
 	}

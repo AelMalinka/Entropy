@@ -27,7 +27,7 @@ namespace {
 			void onConnect(Asio::UV::Stream &);
 			void onDisconnect(Asio::UV::Stream &);
 			void onData(Asio::UV::Stream &, const string &);
-			void onError(const Net::Exception &);
+			void onError(const Exception &);
 		protected:
 			Asio::UV::Tcp _server;
 			function<void()> _what;
@@ -57,7 +57,7 @@ namespace {
 		_data = d;
 	}
 
-	void TcpServerTest::onError(const Net::Exception &e)
+	void TcpServerTest::onError(const Exception &e)
 	{
 		throw e;
 	}

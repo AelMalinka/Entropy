@@ -11,7 +11,7 @@
 #	include <deque>
 #	include <memory>
 
-#	include "../../Net/Exception.hh"
+#	include "../../Exception.hh"
 #	include "GetAddrInfo.hh"
 
 	extern "C" {
@@ -46,18 +46,18 @@
 						virtual std::shared_ptr<Stream> accept() = 0;
 						virtual int sock_type() = 0;
 					protected:
-						Stream(Asio::Loop &, uv_stream_t *, const std::function<void(Stream &, const std::string &)> &, const std::function<void(const Net::Exception &)> &);
+						Stream(Asio::Loop &, uv_stream_t *, const std::function<void(Stream &, const std::string &)> &, const std::function<void(const Exception &)> &);
 						uv_stream_t *stream();
 						const uv_stream_t *stream()const;
 						void read_start();
 						void read_stop();
 						std::function<void(Stream &, const std::string &)> &ReadCb();
-						std::function<void(const Net::Exception &)> &ErrorCb();
+						std::function<void(const Exception &)> &ErrorCb();
 						const std::function<void(Stream &, const std::string &)> &ReadCb() const;
-						const std::function<void(const Net::Exception &)> &ErrorCb() const;
+						const std::function<void(const Exception &)> &ErrorCb() const;
 					protected:
 						void ReadCallback(const std::string &);
-						void ErrorCallback(const Net::Exception &);
+						void ErrorCallback(const Exception &);
 						void ListenInfoCallback(struct addrinfo *);
 						void ConnectInfoCallback(struct addrinfo *);
 						void AcceptCallback();
@@ -68,7 +68,7 @@
 						GetAddrInfo *_lookup;
 						std::deque<std::shared_ptr<Stream>> _clients;
 						std::function<void(Stream &, const std::string &)> _read_cb;
-						std::function<void(const Net::Exception &)> _error_cb;
+						std::function<void(const Exception &)> _error_cb;
 					friend void ::_entropy_asio_uv_stream_alloc_cb(uv_handle_t *, size_t, uv_buf_t *);
 					friend void ::_entropy_asio_uv_stream_read_cb(uv_stream_t *, ssize_t, const uv_buf_t *);
 					friend void ::_entropy_asio_uv_stream_write_cb(uv_write_t *, int);
