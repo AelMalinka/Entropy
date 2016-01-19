@@ -6,43 +6,67 @@ ACLOCAL_AMFLAGS = -Im4
 AM_CXXFLAGS := -I$(srcdir)/src $(AM_CXXFLAGS)
 
 mainheadersdir = $(includedir)/Entropy
-mainheaders_HEADERS = src/Exception.hh \
-	src/Log.hh src/Application.hh \
-	src/String.hh src/String.impl.hh \
-	src/Import.hh src/Import.impl.hh src/Module.hh src/Module.impl.hh \
+mainheaders_HEADERS = \
+	src/Exception.hh \
+	src/Log.hh \
+	src/Application.hh \
+	src/String.hh \
+	src/String.impl.hh \
+	src/Import.hh \
+	src/Import.impl.hh \
+	src/Module.hh \
+	src/Module.impl.hh \
 	src/Process.hh
 
 logheadersdir = $(includedir)/Entropy/Log
-logheaders_HEADERS = src/Log/Init.hh src/Log/Logger.hh src/Log/Severity.hh
+logheaders_HEADERS = \
+	src/Log/Init.hh \
+	src/Log/Logger.hh \
+	src/Log/Severity.hh
 
 moduleheadersdir = $(includedir)/Entropy/Module
-moduleheaders_HEADERS = src/Module/BaseModule.hh \
-	src/Module/DlModule.hh src/Module/DlModule.impl.hh
+moduleheaders_HEADERS = \
+	src/Module/BaseModule.hh \
+	src/Module/DlModule.hh \
+	src/Module/DlModule.impl.hh
 
 netheadersdir = $(includedir)/Entropy/Net
-netheaders_HEADERS = src/Net/Exception.hh
+netheaders_HEADERS = \
+	src/Net/Exception.hh
 
 netprotocolsdir = $(includedir)/Entropy/Net/Protocol
 netprotocols_HEADERS = \
-	src/Net/Protocol/Line.hh src/Net/Protocol/Line.impl.hh
+	src/Net/Protocol/Line.hh \
+	src/Net/Protocol/Line.impl.hh
 
 lib_LTLIBRARIES = libentropy.la
 
-libentropy_la_SOURCES = src/Application.cc src/Module.cc \
-	src/Module/BaseModule.cc src/Module/DlModule.cc \
-	src/Log/Init.cc src/Log/Logger.cc src/Log/Severity.cc \
+libentropy_la_SOURCES = \
+	src/Application.cc \
+	src/Module.cc \
+	src/Module/BaseModule.cc \
+	src/Module/DlModule.cc \
+	src/Log/Init.cc \
+	src/Log/Logger.cc \
+	src/Log/Severity.cc \
 	src/Process.cc
 libentropy_la_LDFLAGS = -version-info 0
 
 if PYTHON
-moduleheaders_HEADERS += src/Module/PyModule.hh src/Module/PyModule.impl.hh
+moduleheaders_HEADERS += \
+	src/Module/PyModule.hh \
+	src/Module/PyModule.impl.hh
 
 pythonheadersdir = $(includedir)/Entropy/Python
-pythonheaders_HEADERS = src/Python/Interpreter.hh \
-	src/Python/Object.hh src/Python/Object.impl.hh \
+pythonheaders_HEADERS = \
+	src/Python/Interpreter.hh \
+	src/Python/Object.hh \
+	src/Python/Object.impl.hh \
 	src/Python/Module.hh
 
-libentropy_la_SOURCES += src/Python/Interpreter.cc src/Python/Object.cc \
+libentropy_la_SOURCES += \
+	src/Python/Interpreter.cc \
+	src/Python/Object.cc \
 	src/Python/Module.cc \
 	src/Module/PyModule.cc
 endif
@@ -58,7 +82,8 @@ libentropy_la_SOURCES += \
 
 if LIBUV
 uvheadersdir = $(includedir)/Entropy/Asio/UV
-uvheaders_HEADERS = src/Asio/UV/Application.hh \
+uvheaders_HEADERS = \
+	src/Asio/UV/Application.hh \
 	src/Asio/UV/Loop.hh \
 	src/Asio/UV/Handle.hh \
 	src/Asio/UV/Stream.hh \
@@ -66,7 +91,8 @@ uvheaders_HEADERS = src/Asio/UV/Application.hh \
 	src/Asio/UV/GetAddrInfo.hh \
 	src/Asio/UV/GetNameInfo.hh
 
-libentropy_la_SOURCES += src/Asio/UV/Application.cc \
+libentropy_la_SOURCES += \
+	src/Asio/UV/Application.cc \
 	src/Asio/UV/Loop.cc \
 	src/Asio/UV/Handle.cc \
 	src/Asio/UV/Stream.cc \
@@ -75,9 +101,13 @@ libentropy_la_SOURCES += src/Asio/UV/Application.cc \
 	src/Asio/UV/GetNameInfo.cc
 endif
 
-check_PROGRAMS = log-trivial \
+check_PROGRAMS = \
+	log-trivial \
 	application-run \
-	module-run module-import module-import-twice module-import-copy
+	module-run \
+	module-import \
+	module-import-twice \
+	module-import-copy
 
 log_trivial_SOURCES = test/Log/trivial.cc
 log_trivial_LDADD = -lentropy
@@ -106,7 +136,9 @@ module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh li
 
 if PYTHON
 if GTEST
-check_PROGRAMS += python-object python-module
+check_PROGRAMS += \
+	python-object \
+	python-module
 
 python_object_SOURCES = test/Python/object.cc
 python_object_LDADD = -lentropy $(GTEST_LIBS)
@@ -156,7 +188,9 @@ asio_uv_tcp_server_LDFLAGS = $(PTHREAD_LDFLAGS)
 endif
 
 if GMOCK
-check_PROGRAMS += net-protocol-line-basic net-protocol-line
+check_PROGRAMS += \
+	net-protocol-line-basic \
+	net-protocol-line
 
 net_protocol_line_basic_SOURCES = test/Net/Protocol/basic.cc
 net_protocol_line_basic_CXXFLAGS = -DPROTOCOL=Line -DPROTOCOL_INCLUDE=\"Net/Protocol/Line.hh\" -DMOCK_FULL=MockApplication -DMOCK_BASE=MockApplicationOnlyLine $(AM_CXXFLAGS)
