@@ -6,11 +6,11 @@
 
 using namespace Entropy::Asio;
 
-Application::Application(Asio::Loop &l)
+Application::Application(MainLoop &l)
 	: Entropy::Application(), _loop(l)
 {}
 
-Application::Application(Asio::Loop &l, int ArgC, char *ArgV[])
+Application::Application(MainLoop &l, int ArgC, char *ArgV[])
 	: Entropy::Application(ArgC, ArgV), _loop(l)
 {}
 
@@ -21,7 +21,7 @@ void Application::operator () ()
 	_loop();
 }
 
-Entropy::Asio::Loop &Application::Loop()
+MainLoop &Application::Loop()
 {
 	return _loop;
 }

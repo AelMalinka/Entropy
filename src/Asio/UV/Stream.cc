@@ -21,7 +21,7 @@ struct info_cb_data {
 	struct addrinfo *hints;
 };
 
-Stream::Stream(Asio::Loop &loop, uv_stream_t *handle, const function<void(Stream &, const string &)> &cb, const function<void(const Exception &)> &err)
+Stream::Stream(Asio::MainLoop &loop, uv_stream_t *handle, const function<void(Stream &, const string &)> &cb, const function<void(const Exception &)> &err)
 	: Handle(loop, reinterpret_cast<uv_handle_t *>(handle)), _handle(handle), _lookup(nullptr), _clients(), _read_cb(cb), _error_cb(err)
 {}
 
@@ -54,6 +54,7 @@ void Stream::Disconnect()
 		uv_close(handle(), NULL);
 }
 
+// 2016-01-19 AMR TODO: zero copy?
 void Stream::Write(const string &s)
 {
 	uv_write_t *req = new uv_write_t;
@@ -174,6 +175,7 @@ void Stream::AcceptCallback()
 }
 
 extern "C" {
+	// 2016-01-19 AMR TODO: zero copy
 	void _entropy_asio_uv_stream_alloc_cb(uv_handle_t *, size_t size, uv_buf_t *buffer)
 	{
 		buffer->base = new char[size];

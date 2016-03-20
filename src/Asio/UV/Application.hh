@@ -22,7 +22,7 @@
 						Application(int ArgC, char *ArgV[]);
 						virtual ~Application();
 					private:
-						class Loop _loop;
+						MainLoop _loop;
 				};
 			}
 		}

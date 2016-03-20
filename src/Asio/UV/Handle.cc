@@ -6,8 +6,8 @@
 
 using namespace Entropy::Asio::UV;
 
-Handle::Handle(Asio::Loop &l, uv_handle_t *h)
-	: _loop(dynamic_cast<UV::Loop &>(l)), _handle(h)
+Handle::Handle(Asio::MainLoop &l, uv_handle_t *h)
+	: _loop(dynamic_cast<UV::MainLoop &>(l)), _handle(h)
 {}
 
 Handle::~Handle()
@@ -26,12 +26,12 @@ bool Handle::isClosing() const
 	return uv_is_closing(const_cast<uv_handle_t *>(handle()));
 }
 
-Loop &Handle::Owner()
+MainLoop &Handle::Owner()
 {
 	return _loop;
 }
 
-const Loop &Handle::Owner() const
+const MainLoop &Handle::Owner() const
 {
 	return _loop;
 }

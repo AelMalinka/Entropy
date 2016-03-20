@@ -8,35 +8,33 @@ using namespace std;
 using namespace boost;
 using namespace Entropy::Asio;
 
-Loop::Loop(const any &v)
+MainLoop::MainLoop()
 	: _loop(nullptr)
 {
 	_loop = new _loop_t;
 	_loop->count = 1;
-
-	_loop->data = v;
 }
 
-Loop::Loop(const Loop &o)
+MainLoop::MainLoop(const MainLoop &o)
 	: _loop(o._loop)
 {
 	++_loop->count;
 }
 
-Loop::~Loop()
+MainLoop::~MainLoop()
 {
 	if(--_loop->count == 0)
 		delete _loop;
 }
 
-Loop &Loop::operator = (const Loop &) = default;
+MainLoop &MainLoop::operator = (const MainLoop &) = default;
 
-any &Loop::handle()
+any &MainLoop::handle()
 {
 	return _loop->data;
 }
 
-const any &Loop::handle() const
+const any &MainLoop::handle() const
 {
 	return _loop->data;
 }

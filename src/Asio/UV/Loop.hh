@@ -14,11 +14,11 @@
 		{
 			namespace UV
 			{
-				class Loop :
-					public Asio::Loop
+				class MainLoop :
+					public Asio::MainLoop
 				{
 					public:
-						Loop();
+						MainLoop();
 						void operator () ();
 						uv_loop_t *Handle();
 					private:

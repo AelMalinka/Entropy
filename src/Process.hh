@@ -9,6 +9,8 @@
 
 #	include <iostream>
 #	include <unistd.h>
+
+// 2016-01-19 AMR FIXME: implement what is needed of this on own, boost is using deprecated headers
 #	include <boost/iostreams/stream.hpp>
 #	include <boost/iostreams/device/file_descriptor.hpp>
 

@@ -11,13 +11,13 @@
 	{
 		namespace Asio
 		{
-			class Loop
+			class MainLoop
 			{
 				public:
-					explicit Loop(const boost::any &);
-					Loop(const Loop &);
-					virtual ~Loop();
-					Loop &operator = (const Loop &);
+					explicit MainLoop();
+					MainLoop(const MainLoop &);
+					virtual ~MainLoop();
+					MainLoop &operator = (const MainLoop &);
 					virtual void operator () () = 0;
 				protected:
 					boost::any &handle();

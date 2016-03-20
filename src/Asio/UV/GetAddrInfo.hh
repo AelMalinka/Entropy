@@ -21,7 +21,7 @@
 				class GetAddrInfo
 				{
 					public:
-						GetAddrInfo(Asio::Loop &, const std::function<void (struct addrinfo *)> &, const std::string &, const std::string &, int);
+						GetAddrInfo(Asio::MainLoop &, const std::function<void (struct addrinfo *)> &, const std::string &, const std::string &, int);
 						GetAddrInfo(const GetAddrInfo &) = delete;
 						~GetAddrInfo();
 					protected:

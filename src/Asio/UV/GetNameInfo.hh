@@ -21,7 +21,7 @@
 				class GetNameInfo
 				{
 					public:
-						GetNameInfo(Asio::Loop &, const std::function<void(const std::string &, const std::string &)> &, const Stream &);
+						GetNameInfo(Asio::MainLoop &, const std::function<void(const std::string &, const std::string &)> &, const Stream &);
 						GetNameInfo(const GetNameInfo &) = delete;
 						~GetNameInfo();
 					protected:

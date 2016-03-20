@@ -20,14 +20,14 @@
 						virtual ~Handle();
 						bool isActive() const;
 						bool isClosing() const;
-						Loop &Owner();
-						const Loop &Owner() const;
+						MainLoop &Owner();
+						const MainLoop &Owner() const;
 					protected:
-						Handle(Asio::Loop &, uv_handle_t *);
+						Handle(Asio::MainLoop &, uv_handle_t *);
 						uv_handle_t *handle();
 						const uv_handle_t *handle() const;
 					private:
-						Loop &_loop;
+						MainLoop &_loop;
 						uv_handle_t *_handle;
 				};
 			}

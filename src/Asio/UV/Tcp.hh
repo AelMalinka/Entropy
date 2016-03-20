@@ -22,8 +22,8 @@
 					public Stream
 				{
 					public:
-						Tcp(Asio::Loop &, const std::function<void(Stream &)> &, const std::function<void(Stream &)> &, const std::function<void(Stream &, const std::string &)> &, const std::function<void(const Exception &)> &);
-						~Tcp();
+						Tcp(Asio::MainLoop &, const std::function<void(Stream &)> &, const std::function<void(Stream &)> &, const std::function<void(Stream &, const std::string &)> &, const std::function<void(const Exception &)> &);
+						virtual ~Tcp();
 						const struct sockaddr Socket() const;
 					protected:
 						void connect(const struct sockaddr *);

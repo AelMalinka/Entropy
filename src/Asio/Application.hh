@@ -16,13 +16,13 @@
 				public Entropy::Application
 			{
 				public:
-					Application(Loop &);
-					Application(Loop &, int ArgC, char *ArgV[]);
+					Application(MainLoop &);
+					Application(MainLoop &, int ArgC, char *ArgV[]);
 					virtual ~Application();
 					virtual void operator () ();
-					Entropy::Asio::Loop &Loop();
+					MainLoop &Loop();
 				private:
-					Entropy::Asio::Loop &_loop;
+					MainLoop &_loop;
 			};
 		}
 	}
