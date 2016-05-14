@@ -39,6 +39,11 @@ netprotocols_HEADERS = \
 	src/Net/Protocol/Line.hh \
 	src/Net/Protocol/Line.impl.hh
 
+asioheadersdir = $(includedir)/Entropy/Asio
+asioheaders_HEADERS = \
+	src/Asio/Application.hh \
+	src/Asio/Loop.hh
+
 lib_LTLIBRARIES = libentropy.la
 
 libentropy_la_SOURCES = \
@@ -49,7 +54,9 @@ libentropy_la_SOURCES = \
 	src/Log/Init.cc \
 	src/Log/Logger.cc \
 	src/Log/Severity.cc \
-	src/Process.cc
+	src/Process.cc \
+	src/Asio/Application.cc \
+	src/Asio/Loop.cc
 libentropy_la_LDFLAGS = -version-info 0
 
 if PYTHON
@@ -70,15 +77,6 @@ libentropy_la_SOURCES += \
 	src/Python/Module.cc \
 	src/Module/PyModule.cc
 endif
-
-asioheadersdir = $(includedir)/Entropy/Asio
-asioheaders_HEADERS = \
-	src/Asio/Application.hh \
-	src/Asio/Loop.hh
-
-libentropy_la_SOURCES += \
-	src/Asio/Application.cc \
-	src/Asio/Loop.cc
 
 if LIBUV
 uvheadersdir = $(includedir)/Entropy/Asio/UV
