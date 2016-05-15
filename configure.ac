@@ -5,7 +5,7 @@ AC_PREREQ([2.53])
 m4_pattern_forbid([^AX_])
 m4_pattern_forbid([^EX_])
 
-AC_INIT([Entropy], [0.0.2], [bugs@entropy-development.com])
+AC_INIT([Entropy], [0.1.0], [bugs@entropy-development.com])
 AC_CONFIG_SRCDIR([src/Exception.hh])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
@@ -20,6 +20,12 @@ AC_PROG_LN_S
 
 AC_PATH_PROG(SOCAT, [socat], [notfound])
 AS_IF([test "x$SOCAT" == x], [AC_MSG_FAILURE(["socat is currently required for some tests"])])
+
+EX_ENABLE_PNG
+[LIBS="$PNG_LIBS $LIBS"]
+[CFLAGS="$PNG_CPPFLAGS $CFLAGS"]
+[LDFLAGS="$PNG_LDFLAGS $LDFLAGS"]
+[CXXFLAGS="$PNG_CPPFLAGS $CXXFLAGS"]
 
 EX_PYTHON
 [LIBS="$PYTHON_LIBS $LIBS"]

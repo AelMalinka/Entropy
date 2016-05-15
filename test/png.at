@@ -1,0 +1,10 @@
+# Copyright 2016 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+AT_BANNER([PNG Tests])
+
+AT_SETUP([PNG Basic])
+AT_SKIP_IF([test -z $PNG])
+AT_SKIP_IF([test -z $GTEST])
+AT_CHECK([BUILD="${BUILD}" png-basic], [], [ignore], [ignore])
+AT_CLEANUP

@@ -99,6 +99,14 @@ libentropy_la_SOURCES += \
 	src/Asio/UV/GetNameInfo.cc
 endif
 
+if PNG
+mainheaders_HEADERS += \
+	src/PNG.hh
+
+libentropy_la_SOURCES += \
+	src/PNG.cc
+endif
+
 check_PROGRAMS = \
 	log-trivial \
 	application-run \
@@ -199,6 +207,19 @@ net_protocol_line_SOURCES = test/Net/Protocol/line.cc
 net_protocol_line_LDADD = -lentropy $(GMOCK_LIBS) $(GTEST_LIBS)
 net_protocol_line_LDFLAGS = $(PTHREAD_LDFLAGS)
 endif
+
+if PNG
+check_PROGRAMS += \
+	png-basic
+
+png_basic_SOURCES = test/PNG/basic.cc
+png_basic_LDADD = -lentropy $(GTEST_LIBS)
+png_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
+png_basic_DEPENDENCIES = pnglogo.png
+
+pnglogo.png: $(srcdir)/test/PNG/pnglogo.png
+	$(LN_S) $< $@
+endif
 endif
 
 TESTSUITE = $(srcdir)/test/testsuite
@@ -214,7 +235,8 @@ TESTSUITE_FILES = \
 	$(srcdir)/test/python.at \
 	$(srcdir)/test/process.at \
 	$(srcdir)/test/asio.at \
-	$(srcdir)/test/Asio/uv.at
+	$(srcdir)/test/Asio/uv.at \
+	$(srcdir)/test/png.at
 
 EXTRA_DIST = $(TESTSUITE_FILES) \
 	$(srcdir)/test/testsuite.at \
@@ -223,7 +245,8 @@ EXTRA_DIST = $(TESTSUITE_FILES) \
 	$(srcdir)/test/atlocal.in \
 	$(srcdir)/test/Module/module.cc \
 	$(srcdir)/test/Module/interface.hh \
-	$(srcdir)/test/Net/Protocol/Mock.hh
+	$(srcdir)/test/Net/Protocol/Mock.hh \
+	$(srcdir)/test/PNG/pnglogo.png
 
 $(srcdir)/package.m4: $(top_srcdir)/configure.ac
 	:; {\
@@ -248,7 +271,7 @@ check-local: test/atconfig atlocal $(TESTSUITE) $(check_PROGRAMS)
 clean-local:
 	test ! -f '$(TESTSUITE)' || \
 		$(SHELL) '$(TESTSUITE)' --clean
-	$(RM) module.so
+	$(RM) module.so pnglogo.png
 
 AUTOM4TE = $(SHELL) $(srcdir)/build-aux/missing --run autom4te
 AUTOTEST = $(AUTOM4TE) --language=autotest
