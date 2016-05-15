@@ -148,8 +148,8 @@ namespace {
 			EXPECT_EQ(data, total_send);
 			EXPECT_EQ(len, total_len);
 
-			for(auto &v : v)
-				EXPECT_EQ(v->Return(), 0);
+			for(auto &x : v)
+				EXPECT_EQ(x->Return(), 0);
 		TEST_END
 	}
 }
