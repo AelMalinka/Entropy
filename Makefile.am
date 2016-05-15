@@ -140,27 +140,6 @@ module_import_copy_DEPENDENCIES = module.so
 module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh libentropy.la
 	$(CXX) $(CXXFLAGS) -I $(srcdir)/src $(LIBS) -shared -fPIC -o $@ $(srcdir)/test/Module/module.cc
 
-if PYTHON
-if GTEST
-check_PROGRAMS += \
-	python-object \
-	python-module
-
-python_object_SOURCES = test/Python/object.cc
-python_object_LDADD = -lentropy $(GTEST_LIBS)
-python_object_LDFLAGS = $(PTHREAD_LDFLAGS)
-
-python_module_SOURCES = test/Python/module.cc
-python_module_LDADD = -lentropy $(GTEST_LIBS)
-python_module_LDFLAGS = $(PTHREAD_LDFLAGS)
-endif
-
-check_PROGRAMS += module-import-python
-
-module_import_python_SOURCES = test/Module/python.cc
-module_import_python_LDADD = -lentropy
-endif
-
 if GTEST
 check_PROGRAMS += \
 	exception-init-throw \
@@ -178,6 +157,20 @@ string_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
 process_basic_SOURCES = test/Process/basic.cc
 process_basic_LDADD = -lentropy $(GTEST_LIBS)
 process_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
+
+if PYTHON
+check_PROGRAMS += \
+	python-object \
+	python-module
+
+python_object_SOURCES = test/Python/object.cc
+python_object_LDADD = -lentropy $(GTEST_LIBS)
+python_object_LDFLAGS = $(PTHREAD_LDFLAGS)
+
+python_module_SOURCES = test/Python/module.cc
+python_module_LDADD = -lentropy $(GTEST_LIBS)
+python_module_LDFLAGS = $(PTHREAD_LDFLAGS)
+endif
 
 if LIBUV
 check_PROGRAMS += \
@@ -220,6 +213,13 @@ png_basic_DEPENDENCIES = pnglogo.png
 pnglogo.png: $(srcdir)/test/PNG/pnglogo.png
 	$(LN_S) $< $@
 endif
+endif
+
+if PYTHON
+check_PROGRAMS += module-import-python
+
+module_import_python_SOURCES = test/Module/python.cc
+module_import_python_LDADD = -lentropy
 endif
 
 TESTSUITE = $(srcdir)/test/testsuite
