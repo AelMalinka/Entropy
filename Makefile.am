@@ -271,7 +271,7 @@ check-local: test/atconfig atlocal $(TESTSUITE) $(check_PROGRAMS)
 clean-local:
 	test ! -f '$(TESTSUITE)' || \
 		$(SHELL) '$(TESTSUITE)' --clean
-	$(RM) module.so pnglogo.png
+	$(RM) atlocal module.so pnglogo.png
 
 AUTOM4TE = $(SHELL) $(srcdir)/build-aux/missing --run autom4te
 AUTOTEST = $(AUTOM4TE) --language=autotest
