@@ -14,6 +14,8 @@
 
 	namespace Entropy
 	{
+		// 2016-05-26 AMR TODO: test logging and exceptions
+		// 2016-05-26 AMR TODO: improve interface (pixel color as union?)
 		class PNG
 		{
 			public:
@@ -44,9 +46,9 @@
 				static std::uint8_t Blue(const std::uint32_t &);
 				static std::uint8_t Alpha(const std::uint32_t &);
 			private:
-				Log::Logger _log;
 				png_image _handle;
 				std::vector<std::uint32_t> _pixels;
+				static Log::Logger _log;
 		};
 
 		ENTROPY_EXCEPTION_BASE(PNGException, "PNG Exception");

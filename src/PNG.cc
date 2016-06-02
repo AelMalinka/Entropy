@@ -9,8 +9,10 @@
 using namespace Entropy;
 using namespace std;
 
+Log::Logger PNG::_log("PNG Image");
+
 PNG::PNG()
-	: _log("PNG Image"), _handle(), _pixels()
+	: _handle(), _pixels()
 {
 	memset(&_handle, 0, sizeof(_handle));
 	_handle.version = PNG_IMAGE_VERSION;
