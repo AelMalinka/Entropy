@@ -12,6 +12,8 @@
 #	include <stdexcept>
 #	include <iostream>
 
+#	include <execinfo.h>
+
 	namespace Entropy
 	{
 		struct ErrorInfoNotFound;
@@ -47,6 +49,9 @@
 				Exception(const std::string &Type, const std::string &Desc);
 		};
 
+		template<typename E>
+		typename ::boost::exception_detail::enable_error_info_return_type<E>::type AttachTrace(const E &);
+
 #		define ENTROPY_EXCEPTION_BASE(NAME, DESC) struct NAME : ::Entropy::Exception {\
 			NAME() : ::Entropy::Exception(DESC, "") {} \
 			NAME(const std::string &What) : ::Entropy::Exception(DESC, What) {} \
@@ -66,13 +71,14 @@
 
 		ENTROPY_ERROR_INFO(SystemErrorCode, std::error_code);
 		ENTROPY_ERROR_INFO(SystemError, std::string);
+		ENTROPY_ERROR_INFO(BackTrace, std::string);
 
 		using ::boost::throw_function;
 		using ::boost::throw_file;
 		using ::boost::throw_line;
 
 #		define ENTROPY_ATTACH_TRACE(x)\
-			(::boost::enable_error_info(x) <<\
+			(::Entropy::AttachTrace(x) <<\
 			::Entropy::throw_function(BOOST_CURRENT_FUNCTION) <<\
 			::Entropy::throw_file(__FILE__) <<\
 			::Entropy::throw_line((int)__LINE__))
@@ -127,6 +133,35 @@
 		inline const char *Exception::what() const throw()
 		{
 			return ExceptionBase::what();
+		}
+
+		template<typename E>
+		inline typename ::boost::exception_detail::enable_error_info_return_type<E>::type AttachTrace(const E &e)
+		{
+			using std::string;
+
+			auto ret(::boost::enable_error_info(e));
+
+			try
+			{
+				const int size = 100;
+				void *buffer[size];
+				char **strings;
+
+				int count = backtrace(buffer, size);
+				strings = backtrace_symbols(buffer, count);
+
+				string trace;
+				
+				for(auto x = 1; x < count; x++)
+					trace += string(strings[x]) + "\n";
+
+				ret << BackTrace(trace);
+			}
+			catch(...)
+			{}
+
+			return ret;
 		}
 	}
 

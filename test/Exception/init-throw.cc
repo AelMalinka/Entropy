@@ -45,11 +45,33 @@ namespace {
 			EXPECT_TRUE(e.has<throw_function>());
 			EXPECT_TRUE(e.has<throw_file>());
 			EXPECT_TRUE(e.has<throw_line>());
+			EXPECT_TRUE(e.has<BackTrace>());
 
 			EXPECT_FALSE(e.has<SystemError>());
 
 			EXPECT_EQ(string(e.get<throw_function>()), "virtual void {anonymous}::ExceptionTest_ENTROPY_THROW_Test::TestBody()"s);
 			EXPECT_EQ(e.get<throw_line>(), 41);
+		}
+	}
+
+	TEST(ExceptionTest, ENTROPY_THROW_NonEntropyException) {
+		EXPECT_THROW(ENTROPY_THROW(logic_error("Entropy Throw, logic")), logic_error);
+
+		try
+		{
+			ENTROPY_THROW(logic_error("Entropy Throw, logic, has"));
+		}
+		catch(logic_error &e)
+		{
+			EXPECT_NE(::boost::get_error_info<throw_function>(e), nullptr);
+			EXPECT_NE(::boost::get_error_info<throw_file>(e), nullptr);
+			EXPECT_NE(::boost::get_error_info<throw_line>(e), nullptr);
+			EXPECT_NE(::boost::get_error_info<BackTrace>(e), nullptr);
+
+			EXPECT_EQ(::boost::get_error_info<SystemError>(e), nullptr);
+
+			EXPECT_EQ(string(*::boost::get_error_info<throw_function>(e)), "virtual void {anonymous}::ExceptionTest_ENTROPY_THROW_NonEntropyException_Test::TestBody()"s);
+			EXPECT_EQ(*::boost::get_error_info<throw_line>(e), 62);
 		}
 	}
 }
