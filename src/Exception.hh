@@ -64,11 +64,18 @@
 #		define ENTROPY_ERROR_INFO(NAME, TYPE)\
 			typedef boost::error_info<struct tag_##NAME, TYPE> NAME
 
+		ENTROPY_ERROR_INFO(SystemErrorCode, std::error_code);
+		ENTROPY_ERROR_INFO(SystemError, std::string);
+
+		using ::boost::throw_function;
+		using ::boost::throw_file;
+		using ::boost::throw_line;
+
 #		define ENTROPY_ATTACH_TRACE(x)\
 			(::boost::enable_error_info(x) <<\
-			::boost::throw_function(BOOST_CURRENT_FUNCTION) <<\
-			::boost::throw_file(__FILE__) <<\
-			::boost::throw_line((int)__LINE__))
+			::Entropy::throw_function(BOOST_CURRENT_FUNCTION) <<\
+			::Entropy::throw_file(__FILE__) <<\
+			::Entropy::throw_line((int)__LINE__))
 
 #		define ENTROPY_THROW(x)\
 			::boost::throw_exception(ENTROPY_ATTACH_TRACE(x))
@@ -121,9 +128,6 @@
 		{
 			return ExceptionBase::what();
 		}
-
-		ENTROPY_ERROR_INFO(SystemErrorCode, std::error_code);
-		ENTROPY_ERROR_INFO(SystemError, std::string);
 	}
 
 	template<typename charT>

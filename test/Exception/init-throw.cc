@@ -32,5 +32,25 @@ namespace {
 		EXPECT_THROW(throw a, Exception);
 		EXPECT_THROW(throw b, Exception);
 	}
+
+	TEST(ExceptionTest, ENTROPY_THROW) {
+		EXPECT_THROW(ENTROPY_THROW(TestException("Entropy Throw")), TestException);
+
+		try
+		{
+			ENTROPY_THROW(TestException("Entropy Throw, has"));
+		}
+		catch(TestException &e)
+		{
+			EXPECT_TRUE(e.has<throw_function>());
+			EXPECT_TRUE(e.has<throw_file>());
+			EXPECT_TRUE(e.has<throw_line>());
+
+			EXPECT_FALSE(e.has<SystemError>());
+
+			EXPECT_EQ(string(e.get<throw_function>()), "virtual void {anonymous}::ExceptionTest_ENTROPY_THROW_Test::TestBody()"s);
+			EXPECT_EQ(e.get<throw_line>(), 41);
+		}
+	}
 }
 
