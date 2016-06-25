@@ -155,6 +155,7 @@
 				
 				for(auto x = 1; x < count; x++)
 					trace += string(strings[x]) + "\n";
+				trace = trace.substr(0, trace.size() - 1);
 
 				ret << BackTrace(trace);
 			}
