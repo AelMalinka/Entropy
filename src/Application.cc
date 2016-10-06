@@ -10,7 +10,7 @@ Application::Application()
 	: _argc(0), _argv(nullptr)
 {}
 
-Application::Application(const int &c, char *v[])
+Application::Application(const int c, char *v[])
 	: _argc(c), _argv(v)
 {}
 
