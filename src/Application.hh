@@ -14,7 +14,7 @@
 		{
 			public:
 				Application();
-				Application(const int &, char *[]);
+				Application(const int, char *[]);
 				virtual ~Application();
 				virtual void operator() () = 0;
 			protected:
