@@ -127,19 +127,23 @@ check_PROGRAMS += \
 
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
 exception_init_throw_LDADD = -lentropy $(GTEST_LIBS)
-exception_init_throw_LDFLAGS = $(PTHREAD_LDFLAGS)
+exception_init_throw_CPPFLAGS = $(GTEST_CPPFLAGS)
+exception_init_throw_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 string_basic_SOURCES = test/String/basic.cc
 string_basic_LDADD = -lentropy $(GTEST_LIBS)
-string_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
+string_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+string_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 process_basic_SOURCES = test/Process/basic.cc
 process_basic_LDADD = -lentropy $(GTEST_LIBS)
-process_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
+process_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+process_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 resource_basic_SOURCES = test/Resource/basic.cc
 resource_basic_LDADD = -lentropy $(GTEST_LIBS)
-resource_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
+resource_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+resource_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 if PYTHON
 check_PROGRAMS += \
@@ -148,11 +152,13 @@ check_PROGRAMS += \
 
 python_object_SOURCES = test/Python/object.cc
 python_object_LDADD = -lentropy $(GTEST_LIBS)
-python_object_LDFLAGS = $(PTHREAD_LDFLAGS)
+python_object_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+python_object_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 python_module_SOURCES = test/Python/module.cc
 python_module_LDADD = -lentropy $(GTEST_LIBS)
-python_module_LDFLAGS = $(PTHREAD_LDFLAGS)
+python_module_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+python_module_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 endif
 
 if PNG
@@ -161,7 +167,8 @@ check_PROGRAMS += \
 
 png_basic_SOURCES = test/PNG/basic.cc
 png_basic_LDADD = -lentropy $(GTEST_LIBS)
-png_basic_LDFLAGS = $(PTHREAD_LDFLAGS)
+png_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+png_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 png_basic_DEPENDENCIES = pnglogo.png
 
 pnglogo.png: $(srcdir)/test/PNG/pnglogo.png
