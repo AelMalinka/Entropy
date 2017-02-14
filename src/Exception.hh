@@ -12,7 +12,10 @@
 #	include <stdexcept>
 #	include <iostream>
 
-#	include <execinfo.h>
+#	include "config.h"
+#	ifdef HAVE_BACKTRACE
+#		include <execinfo.h>
+#	endif
 
 	namespace Entropy
 	{
@@ -142,25 +145,27 @@
 
 			auto ret(::boost::enable_error_info(e));
 
-			try
-			{
-				const int size = 100;
-				void *buffer[size];
-				char **strings;
+#			ifdef HAVE_BACKTRACE
+				try
+				{
+					const int size = 100;
+					void *buffer[size];
+					char **strings;
 
-				int count = backtrace(buffer, size);
-				strings = backtrace_symbols(buffer, count);
+					int count = backtrace(buffer, size);
+					strings = backtrace_symbols(buffer, count);
 
-				string trace;
+					string trace;
 				
-				for(auto x = 1; x < count; x++)
-					trace += string(strings[x]) + "\n";
-				trace = trace.substr(0, trace.size() - 1);
+					for(auto x = 1; x < count; x++)
+						trace += string(strings[x]) + "\n";
+					trace = trace.substr(0, trace.size() - 1);
 
-				ret << BackTrace(trace);
-			}
-			catch(...)
-			{}
+					ret << BackTrace(trace);
+				}
+				catch(...)
+				{}
+#			endif
 
 			return ret;
 		}
