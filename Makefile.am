@@ -2,8 +2,7 @@
 # Distributed under the terms of the GNU Affero General Public License v3
 
 ACLOCAL_AMFLAGS = -Im4
-# 2014-01-13 AMR NOTE: non-portable assignment
-AM_CXXFLAGS := -I$(srcdir)/src $(AM_CXXFLAGS)
+AM_CPPFLAGS = -I$(srcdir)/src
 
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = \
@@ -18,6 +17,8 @@ mainheaders_HEADERS = \
 	src/Module.impl.hh \
 	src/Process.hh \
 	src/Resource.hh
+
+nodist_mainheaders_HEADERS = config.h
 
 logheadersdir = $(includedir)/Entropy/Log
 logheaders_HEADERS = \
@@ -116,7 +117,7 @@ module_import_copy_LDADD = -lentropy
 module_import_copy_DEPENDENCIES = module.so
 
 module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh libentropy.la
-	$(CXX) $(CXXFLAGS) -I $(srcdir)/src $(LIBS) -shared -fPIC -o $@ $(srcdir)/test/Module/module.cc
+	$(CXX) $(CXXFLAGS) -I. $(AM_CPPFLAGS) $(LIBS) -shared -fPIC -o $@ $(srcdir)/test/Module/module.cc
 
 if GTEST
 check_PROGRAMS += \
@@ -127,7 +128,7 @@ check_PROGRAMS += \
 
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
 exception_init_throw_LDADD = -lentropy $(GTEST_LIBS)
-exception_init_throw_CPPFLAGS = $(GTEST_CPPFLAGS)
+exception_init_throw_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 exception_init_throw_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 string_basic_SOURCES = test/String/basic.cc
