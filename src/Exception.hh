@@ -12,7 +12,8 @@
 #	include <stdexcept>
 #	include <iostream>
 
-#	ifdef HAVE_STACKTRACE
+#	include "config.h"
+#	ifdef HAVE_BACKTRACE
 #		include <execinfo.h>
 #	endif
 
@@ -144,7 +145,7 @@
 
 			auto ret(::boost::enable_error_info(e));
 
-#			ifdef HAVE_STACKTRACE
+#			ifdef HAVE_BACKTRACE
 				try
 				{
 					const int size = 100;
