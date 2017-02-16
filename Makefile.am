@@ -7,6 +7,7 @@ AM_CPPFLAGS = -I$(srcdir)/src
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = \
 	src/Exception.hh \
+	src/Exception.impl.hh \
 	src/Log.hh \
 	src/Application.hh \
 	src/String.hh \
@@ -17,8 +18,6 @@ mainheaders_HEADERS = \
 	src/Module.impl.hh \
 	src/Process.hh \
 	src/Resource.hh
-
-nodist_mainheaders_HEADERS = config.h
 
 logheadersdir = $(includedir)/Entropy/Log
 logheaders_HEADERS = \
@@ -43,6 +42,7 @@ resourceheaders_HEADERS = \
 lib_LTLIBRARIES = libentropy.la
 
 libentropy_la_SOURCES = \
+	src/Exception.cc \
 	src/Application.cc \
 	src/Module.cc \
 	src/Module/BaseModule.cc \
