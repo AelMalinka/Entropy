@@ -2,11 +2,25 @@
 # Distributed under the terms of the GNU Affero General Public License v3
 
 AT_BANNER([Log Tests])
+
 AT_SETUP([Trivial Logging])
+AS_IF([test $DEBUG], [SPLIT=8], [SPLIT=6])
 AT_CHECK([log-trivial], [], [], [stderr])
-AT_CHECK([cut -d: -f 6- stderr], [], [ Application: Info: This is a log line
+AT_CHECK([cut -d: -f ${SPLIT}- stderr], [], [ Application: Info: This is a log line
  Application: Error: This is a error line
  Test: Info: This is a 'Test' line
  Test: Error: This is an error 'Test' line
+])
+AT_CLEANUP
+
+AT_SETUP([Exception Logging])
+AS_IF([test $DEBUG], [SPLIT=8], [SPLIT=6])
+AT_CHECK([log-exception], [], [], [stderr])
+AT_CHECK([cut -d: -f ${SPLIT}- stderr], [], [ Test: Fatal: Test Exception
+ Test: Fatal: Test Exception
+ Test: Fatal: Test Base Exception
+ Test: Fatal: std::exception
+ Test: Info: Test Exception: Asdf
+ Test: Fatal: Test Base Exception: asdf
 ])
 AT_CLEANUP

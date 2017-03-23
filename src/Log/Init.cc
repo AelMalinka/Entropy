@@ -43,6 +43,11 @@ detail::Initializer::Initializer()
 				format_date_time<ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S.%f") << ": "<<
 				attr<attributes::current_process_id::value_type>("ProcessID") << ": " <<
 				attr<attributes::current_thread_id::value_type>("ThreadID") << ": " <<
+#				if defined DEBUG
+					attr<string>("Function") << ": " <<
+					attr<string>("File") << "(" <<
+					attr<int>("Line") << "): " <<
+#				endif
 				attr<string>("Channel") << ": " <<
 				attr<Severity>("Severity") << ": " <<
 				message

@@ -7,6 +7,8 @@
 
 #	include "Init.hh"
 
+#	include "../Exception.hh"
+
 #	include <ostream>
 #	include <cstdlib>
 
@@ -30,6 +32,10 @@
 			std::ostream &operator << (std::ostream &, const Severity &);
 
 			BOOST_LOG_ATTRIBUTE_KEYWORD(severity, "Severity", Severity)
+			BOOST_LOG_ATTRIBUTE_KEYWORD(function, "Function", const char *)
+			BOOST_LOG_ATTRIBUTE_KEYWORD(file, "File", const char *)
+			BOOST_LOG_ATTRIBUTE_KEYWORD(line, "Line", ::std::size_t)
+			ENTROPY_ERROR_INFO(SeverityInfo, Severity);
 		}
 	}
 

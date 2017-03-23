@@ -8,6 +8,7 @@
 #	include "Init.hh"
 #	include "Severity.hh"
 
+#	include "../Exception.hh"
 #	include <boost/log/sources/severity_channel_logger.hpp>
 
 	namespace Entropy
@@ -23,6 +24,7 @@
 					explicit Logger(const Severity &);
 					Logger(const std::string &, const Severity &);
 					virtual ~Logger();
+					Logger &operator << (const std::exception &);
 			};
 		}
 	}
