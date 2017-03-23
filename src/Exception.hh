@@ -88,7 +88,7 @@
 	}
 
 	template<typename charT>
-	std::basic_ostream<charT> &operator << (std::basic_ostream<charT> &os, const std::exception &e);
+	std::basic_ostream<charT> &operator << (std::basic_ostream<charT> &, const std::exception &);
 
 #	include "Exception.impl.hh"
 
