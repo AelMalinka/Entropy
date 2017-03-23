@@ -5,8 +5,7 @@
 #if !defined ENTROPY_LOG_LOGGER_INC
 #	define ENTROPY_LOG_LOGGER_INC
 
-#	include "Init.hh"
-#	include "Severity.hh"
+#	include "../Log.hh"
 
 #	include <boost/log/sources/severity_channel_logger.hpp>
 
@@ -23,6 +22,7 @@
 					explicit Logger(const Severity &);
 					Logger(const std::string &, const Severity &);
 					virtual ~Logger();
+					Logger &operator << (const std::exception &);
 			};
 		}
 	}

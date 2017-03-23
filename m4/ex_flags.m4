@@ -24,11 +24,15 @@ AC_DEFUN([EX_FLAGS], [
 		[enable_profiling=no]
 	)
 	AS_IF([test "x$enable_debug" != "xno"],
-		[AX_APPEND_COMPILE_FLAGS([-g3 -Og -DDEBUG])],
-		[]
+		[
+			AX_APPEND_COMPILE_FLAGS([-g3 -Og -DDEBUG])
+			DEBUG=y
+		],
+		[DEBUG=]
 	)
 	AS_IF([test "x$enable_profiling" != "xno"],
 		[AX_APPEND_COMPILE_FLAGS([-pg])],
 		[]
 	)
+	AC_SUBST(DEBUG)
 ])

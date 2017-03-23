@@ -9,11 +9,20 @@
 #	include "Log/Severity.hh"
 #	include "Log/Logger.hh"
 
+#	include <boost/log/utility/manipulators/add_value.hpp>
+
 	namespace Entropy
 	{
 		using Log::Severity;
+		using Log::SeverityInfo;
 	}
 
-#	define ENTROPY_LOG(log, sev) BOOST_LOG_SEV(log, sev)
+#	define ENTROPY_LOG(logger, sev) \
+		BOOST_LOG_SEV(logger, sev) << \
+		::boost::log::add_value("Function", BOOST_CURRENT_FUNCTION) << \
+		::boost::log::add_value("File", __FILE__) << \
+		::boost::log::add_value("Line", __LINE__)
+
+#	include "Exception.hh"
 
 #endif

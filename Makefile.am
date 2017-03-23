@@ -88,6 +88,7 @@ endif
 
 check_PROGRAMS = \
 	log-trivial \
+	log-exception \
 	application-run \
 	module-run \
 	module-import \
@@ -96,6 +97,9 @@ check_PROGRAMS = \
 
 log_trivial_SOURCES = test/Log/trivial.cc
 log_trivial_LDADD = -lentropy
+
+log_exception_SOURCES = test/Log/exception.cc
+log_exception_LDADD = -lentropy
 
 application_run_SOURCES = test/Application/run.cc
 application_run_LDADD = -lentropy
