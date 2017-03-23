@@ -5,10 +5,8 @@
 #if !defined ENTROPY_LOG_LOGGER_INC
 #	define ENTROPY_LOG_LOGGER_INC
 
-#	include "Init.hh"
-#	include "Severity.hh"
+#	include "../Log.hh"
 
-#	include "../Exception.hh"
 #	include <boost/log/sources/severity_channel_logger.hpp>
 
 	namespace Entropy
