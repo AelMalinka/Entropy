@@ -5,7 +5,9 @@
 #if !defined ENTROPY_LOG_INIT_INC
 #	define ENTROPY_LOG_INIT_INC
 
-#	define BOOST_ALL_DYN_LINK
+#	ifndef _WIN32
+#		define BOOST_ALL_DYN_LINK
+#	endif
 
 #	include <boost/log/common.hpp>
 
