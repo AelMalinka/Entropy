@@ -8,6 +8,8 @@
 #	include "Exception.hh"
 
 #	include <iostream>
+
+// 2017-03-23 AMR TODO: split out unix/windows implementations
 #	include <unistd.h>
 
 // 2016-01-19 AMR FIXME: implement what is needed of this on own, boost is using deprecated headers
