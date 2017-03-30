@@ -9,10 +9,8 @@
 
 	namespace Entropy
 	{
-		template<typename ostring, typename istring = std::string>
+		template<typename ostring = std::string, typename istring>
 		ostring string_cast(const istring &);
 	}
-
-#	include "String.impl.hh"
 
 #endif

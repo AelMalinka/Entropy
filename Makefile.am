@@ -11,7 +11,6 @@ mainheaders_HEADERS = \
 	src/Log.hh \
 	src/Application.hh \
 	src/String.hh \
-	src/String.impl.hh \
 	src/Import.hh \
 	src/Import.impl.hh \
 	src/Module.hh \
@@ -44,6 +43,7 @@ lib_LTLIBRARIES = libentropy.la
 libentropy_la_SOURCES = \
 	src/Exception.cc \
 	src/Application.cc \
+	src/String.cc \
 	src/Module.cc \
 	src/Module/BaseModule.cc \
 	src/Module/DlModule.cc \
