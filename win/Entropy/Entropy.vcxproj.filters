@@ -38,9 +38,6 @@
     <ClInclude Include="..\..\src\Exception.impl.hh">
       <Filter>Implementation Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\String.impl.hh">
-      <Filter>Implementation Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Log\Init.hh">
       <Filter>Header Files\Log</Filter>
     </ClInclude>
@@ -69,6 +66,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Log\Severity.cc">
       <Filter>Source Files\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\String.cc">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
