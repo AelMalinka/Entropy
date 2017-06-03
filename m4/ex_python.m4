@@ -15,6 +15,7 @@ AC_DEFUN([EX_PYTHON], [
 	AS_IF([test "x$with_python" != xno], [
 		m4_foreach(ver, [
 			[python3],
+			[python3.6],
 			[python3.5],
 			[python3.4],
 			[python3.3]],
