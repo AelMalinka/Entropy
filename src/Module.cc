@@ -14,3 +14,14 @@ Module::Module()
 Module::Module(const string &name)
 	: _module(name)
 {}
+
+void Module::Load(const string &name)
+{
+	_module.Unload();
+	_module.Load(name);
+}
+
+void Module::Unload()
+{
+	_module.Unload();
+}
