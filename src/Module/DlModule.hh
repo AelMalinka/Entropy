@@ -29,7 +29,9 @@
 		};
 	}
 
-#	define ENTROPY_MODULE(CLASS) unordered_map<void *, shared_ptr<CLASS>> _objects;\
+#	include <unordered_map>
+
+#	define ENTROPY_MODULE(CLASS) ::std::unordered_map<void *, shared_ptr<CLASS>> _objects;\
 		extern "C" { \
 		CLASS *entropy_new() {\
 			::std::shared_ptr<CLASS> t = ::std::make_shared<CLASS>();\
