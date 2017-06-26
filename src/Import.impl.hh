@@ -9,13 +9,30 @@
 
 	namespace Entropy
 	{
+		template<typename Interface> Import<Interface>::Import() = default;
 		template<typename Interface> Import<Interface>::~Import() = default;
 
 		template<typename Interface>
 		Import<Interface>::Import(const std::string &name)
-			: _module(name), _obj()
+			: Import<Interface>()
 		{
+			this->Load(name);
+		}
+
+		template<typename Interface>
+		void Import<Interface>::Load(const std::string &name)
+		{
+			this->Unload();
+
+			_module.Load(name);
 			_obj = _new();
+		}
+
+		template<typename Interface>
+		void Import<Interface>::Unload()
+		{
+			_obj.reset();
+			_module.Unload();
 		}
 
 		template<typename Interface>
@@ -46,12 +63,18 @@
 		template<typename Interface>
 		Interface &Import<Interface>::operator * ()
 		{
+			if(!_obj)
+				ENTROPY_THROW(NullModuleError());
+
 			return *_obj;
 		}
 
 		template<typename Interface>
 		Interface *Import<Interface>::operator -> ()
 		{
+			if(!_obj)
+				ENTROPY_THROW(NullModuleError());
+
 			return _obj.get();
 		}
 	}

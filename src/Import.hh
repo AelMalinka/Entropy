@@ -10,14 +10,19 @@
 
 	namespace Entropy
 	{
+		ENTROPY_EXCEPTION(NullModuleError, "Module is not imported", ModuleError);
+
 		template<typename Interface>
 		class Import
 		{
 			public:
+				Import();
 				Import(const std::string &);
 				virtual ~Import();
 				Interface &operator *();
 				Interface *operator->();
+				void Load(const std::string &);
+				void Unload();
 			protected:
 				std::shared_ptr<Interface> _new();
 			private:
