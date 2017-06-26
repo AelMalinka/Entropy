@@ -10,17 +10,8 @@ using namespace std;
 
 Interpreter PyModule::_python;
 
-PyModule::PyModule() = default;
-PyModule::~PyModule() = default;
-
 PyModule::PyModule(const string &name)
-	: BaseModule(open(name), [](void *p){delete static_cast<Module *>(p);})
+	: _module(name)
 {}
 
-void *PyModule::open(const string &name)
-{
-	auto p = new Module(name);
-	if(p == nullptr)
-		ENTROPY_THROW(PythonError("Module not instantiated"));
-	return p;
-}
+PyModule::~PyModule() = default;

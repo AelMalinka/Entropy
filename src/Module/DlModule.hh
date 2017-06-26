@@ -5,23 +5,27 @@
 #if !defined ENTROPY_MODULE_DLMODULE_INC
 #	define ENTROPY_MODULE_DLMODULE_INC
 
-#	include "BaseModule.hh"
+#	include "Exception.hh"
 #	include <functional>
+#	include <memory>
 
 	namespace Entropy
 	{
 		ENTROPY_ERROR_INFO(DlOpenError, std::string);
 
-		class DlModule :
-			public BaseModule
+		class DlModule
 		{
 			public:
 				DlModule();
 				explicit DlModule(const std::string &);
 				virtual ~DlModule();
 				template<typename F> std::function<F> get(const std::string &);
+				void Load(const std::string &);
+				void Unload();
 			protected:
 				virtual void *open(const std::string &);
+			private:
+				std::shared_ptr<void> _handle;
 		};
 	}
 

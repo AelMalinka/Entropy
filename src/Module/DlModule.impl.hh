@@ -16,11 +16,11 @@
 			F *addr = nullptr;
 
 			//2013-12-12 AMR NOTE: Source: https://groups.google.com/d/msg/comp.lang.c++.moderated/BRVEES2ypvE/ov2hUcVl2NMJ
-			*(void **)(&addr) = dlsym(handle(), name.c_str());
+			*(void **)(&addr) = dlsym(_handle.get(), name.c_str());
 			if(addr == nullptr)
 				ENTROPY_THROW(ModuleError("dlsym error") <<
 					DlOpenError(dlerror()) <<
-					ModuleHandle(handle())
+					ModuleHandle(_handle.get())
 				);
 
 			return addr;

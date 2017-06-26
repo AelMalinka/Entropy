@@ -14,18 +14,28 @@ void DlModule_close(void *p)
 }
 
 DlModule::DlModule()
-	: BaseModule()
+	: _handle()
 {}
 
 DlModule::DlModule(const string &name)
-	: BaseModule(open(name), DlModule_close)
+	: _handle(open(name), DlModule_close)
 {}
 
 DlModule::~DlModule() = default;
 
+void DlModule::Load(const string &name)
+{
+	_handle = shared_ptr<void>(open(name), DlModule_close);
+}
+
+void DlModule::Unload()
+{
+	_handle.reset();
+}
+
 void *DlModule::open(const string &name)
 {
-	void * ret= dlopen(name.c_str(), RTLD_NOW);
+	void *ret= dlopen(name.c_str(), RTLD_NOW);
 
 	if(ret == nullptr)
 		ENTROPY_THROW(ModuleError("dlopen error") <<

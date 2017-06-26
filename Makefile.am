@@ -26,7 +26,7 @@ logheaders_HEADERS = \
 
 moduleheadersdir = $(includedir)/Entropy/Module
 moduleheaders_HEADERS = \
-	src/Module/BaseModule.hh \
+	src/Module/Exception.hh \
 	src/Module/DlModule.hh \
 	src/Module/DlModule.impl.hh
 
@@ -45,7 +45,6 @@ libentropy_la_SOURCES = \
 	src/Application.cc \
 	src/String.cc \
 	src/Module.cc \
-	src/Module/BaseModule.cc \
 	src/Module/DlModule.cc \
 	src/Log/Init.cc \
 	src/Log/Logger.cc \

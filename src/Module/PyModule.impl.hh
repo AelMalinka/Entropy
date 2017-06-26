@@ -50,7 +50,7 @@
 			using detail::wrapper;
 			using Python::Module;
 
-			return wrapper<F>(static_cast<Module *>(handle())->get(name));
+			return wrapper<F>();
 		}
 
 		template<typename R, typename ...Args>
