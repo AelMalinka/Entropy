@@ -7,7 +7,6 @@
 
 using namespace Entropy;
 using namespace std;
-using namespace std::placeholders;
 
 BaseModule::BaseModule()
 	: _handle()
