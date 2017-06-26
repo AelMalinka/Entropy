@@ -18,14 +18,16 @@ DlModule::DlModule()
 {}
 
 DlModule::DlModule(const string &name)
-	: _handle(open(name), DlModule_close)
-{}
+	: _handle()
+{
+	Load(name);
+}
 
 DlModule::~DlModule() = default;
 
 void DlModule::Load(const string &name)
 {
-	_handle = shared_ptr<void>(open(name), DlModule_close);
+	open(name);
 }
 
 void DlModule::Unload()
@@ -33,7 +35,7 @@ void DlModule::Unload()
 	_handle.reset();
 }
 
-void *DlModule::open(const string &name)
+void DlModule::open(const string &name)
 {
 	void *ret= dlopen(name.c_str(), RTLD_NOW);
 
@@ -42,5 +44,5 @@ void *DlModule::open(const string &name)
 			DlOpenError(dlerror())
 		);
 
-	return ret;
+	_handle = shared_ptr<void>(ret, DlModule_close);
 }

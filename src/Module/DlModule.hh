@@ -18,12 +18,12 @@
 			public:
 				DlModule();
 				explicit DlModule(const std::string &);
-				virtual ~DlModule();
+				~DlModule();
 				template<typename F> std::function<F> get(const std::string &);
 				void Load(const std::string &);
 				void Unload();
 			protected:
-				virtual void *open(const std::string &);
+				void open(const std::string &);
 			private:
 				std::shared_ptr<void> _handle;
 		};
