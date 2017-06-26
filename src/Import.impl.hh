@@ -19,7 +19,7 @@
 		}
 
 		template<typename Interface>
-		std::shared_ptr<Interface> Import<Interface>::_new() const
+		std::shared_ptr<Interface> Import<Interface>::_new()
 		{
 			using std::shared_ptr;
 			using std::function;

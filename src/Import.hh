@@ -19,7 +19,7 @@
 				Interface &operator *();
 				Interface *operator->();
 			protected:
-				std::shared_ptr<Interface> _new() const;
+				std::shared_ptr<Interface> _new();
 			private:
 				Module _module;
 				std::shared_ptr<Interface> _obj;
