@@ -27,7 +27,7 @@
 		}
 
 		template<typename E>
-		typename ::boost::exception_detail::enable_error_info_return_type<E>::type enable_trace(const E &e)
+		typename detail::WithErrorInfo<E>::type enable_trace(const E &e)
 		{
 			auto ret(::boost::enable_error_info(e));
 

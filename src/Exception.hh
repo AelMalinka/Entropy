@@ -72,10 +72,16 @@
 		using ::boost::throw_file;
 		using ::boost::throw_line;
 
+		namespace detail
+		{
+			template<typename E>
+			using WithErrorInfo = ::boost::exception_detail::enable_error_info_return_type<E>;
+		}
+
 		void AttachTrace(boost::exception &);
 
 		template<typename E>
-		typename ::boost::exception_detail::enable_error_info_return_type<E>::type enable_trace(const E &);
+		typename detail::WithErrorInfo<E>::type enable_trace(const E &);
 
 #		define ENTROPY_ATTACH_TRACE(x)\
 			(::Entropy::enable_trace(x) <<\
