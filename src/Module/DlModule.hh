@@ -11,6 +11,7 @@
 
 	namespace Entropy
 	{
+		ENTROPY_ERROR_INFO(DlName, std::string);
 		ENTROPY_ERROR_INFO(DlOpenError, std::string);
 
 		class DlModule

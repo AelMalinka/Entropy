@@ -41,6 +41,7 @@ void DlModule::open(const string &name)
 
 	if(ret == nullptr)
 		ENTROPY_THROW(ModuleError("dlopen error") <<
+			DlName(name) <<
 			DlOpenError(dlerror())
 		);
 
