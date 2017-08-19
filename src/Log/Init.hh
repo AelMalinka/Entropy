@@ -7,6 +7,10 @@
 
 #	ifndef _WIN32
 #		define BOOST_ALL_DYN_LINK
+#	else
+		// 2017-08-18 AMR HACK: on windows w/ vs 2017 ending up with a mismatch in win api version
+		// 2017-08-18 AMR NOTE: for now use win 10 api
+#		define BOOST_USE_WINAPI_VERSION 0x0A00
 #	endif
 
 #	include <boost/log/common.hpp>
