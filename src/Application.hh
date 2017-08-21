@@ -7,6 +7,7 @@
 #	define ENTROPY_APPLICATION_INC
 
 #	include "Exception.hh"
+#	include "Log.hh"
 
 	namespace Entropy
 	{
@@ -17,6 +18,8 @@
 				Application(const int, char *[]);
 				virtual ~Application();
 				virtual void operator() () = 0;
+				virtual void addFileLog(const std::string &);
+				virtual void addFileLog(const std::string &, const Severity &);
 			protected:
 				const int &ArgC();
 				char **ArgV();
