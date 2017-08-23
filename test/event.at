@@ -1,0 +1,9 @@
+# Copyright 2017 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+AT_BANNER([Event Tests])
+
+AT_SETUP([Event Basic])
+AT_SKIP_IF([test -z "$GTEST"])
+AT_CHECK([event-basic], [], [ignore], [ignore])
+AT_CLEANUP

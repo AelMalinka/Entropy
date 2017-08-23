@@ -6,6 +6,7 @@ AM_CPPFLAGS = -I$(srcdir)/src
 
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = \
+	src/Event.hh \
 	src/Exception.hh \
 	src/Exception.impl.hh \
 	src/Log.hh \
@@ -41,6 +42,7 @@ resourceheaders_HEADERS = \
 lib_LTLIBRARIES = libentropy.la
 
 libentropy_la_SOURCES = \
+	src/Event.cc \
 	src/Exception.cc \
 	src/Application.cc \
 	src/String.cc \
@@ -124,10 +126,16 @@ module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh li
 
 if GTEST
 check_PROGRAMS += \
+	event-basic \
 	exception-init-throw \
 	string-basic \
 	process-basic \
 	resource-basic
+
+event_basic_SOURCES = test/Event/basic.cc
+event_basic_LDADD = libentropy.la $(GTEST_LIBS)
+event_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+event_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
 exception_init_throw_LDADD = -lentropy $(GTEST_LIBS)
@@ -190,6 +198,7 @@ endif
 TESTSUITE = $(srcdir)/test/testsuite
 
 TESTSUITE_FILES = \
+	$(srcdir)/test/event.at \
 	$(srcdir)/test/exception.at \
 	$(srcdir)/test/log.at \
 	$(srcdir)/test/application.at \
