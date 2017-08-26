@@ -70,6 +70,8 @@ namespace Entropy {
 			}
 			catch(...)
 			{}
+#		else
+			(void)e;
 #		endif
 	}
 }

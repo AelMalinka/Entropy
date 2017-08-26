@@ -5,6 +5,10 @@
 #include "Exception.hh"
 #include <gtest/gtest.h>
 
+#ifdef HAVE_CONFIG_H
+#	include "config.h"
+#endif
+
 using namespace std;
 using namespace Entropy;
 using namespace testing;
@@ -45,12 +49,14 @@ namespace {
 			EXPECT_TRUE(e.has<throw_function>());
 			EXPECT_TRUE(e.has<throw_file>());
 			EXPECT_TRUE(e.has<throw_line>());
-			EXPECT_TRUE(e.has<BackTrace>());
+#			ifdef HAVE_BACKTRACE
+				EXPECT_TRUE(e.has<BackTrace>());
+#			endif
 
 			EXPECT_FALSE(e.has<SystemError>());
 
 			EXPECT_EQ(string(e.get<throw_function>()), "virtual void {anonymous}::ExceptionTest_ENTROPY_THROW_Test::TestBody()"s);
-			EXPECT_EQ(e.get<throw_line>(), 41);
+			EXPECT_EQ(e.get<throw_line>(), 45);
 		}
 	}
 
@@ -66,13 +72,14 @@ namespace {
 			EXPECT_NE(::boost::get_error_info<throw_function>(e), nullptr);
 			EXPECT_NE(::boost::get_error_info<throw_file>(e), nullptr);
 			EXPECT_NE(::boost::get_error_info<throw_line>(e), nullptr);
-			EXPECT_NE(::boost::get_error_info<BackTrace>(e), nullptr);
+#			ifdef HAVE_BACKTRACE
+				EXPECT_NE(::boost::get_error_info<BackTrace>(e), nullptr);
+#			endif
 
 			EXPECT_EQ(::boost::get_error_info<SystemError>(e), nullptr);
 
 			EXPECT_EQ(string(*::boost::get_error_info<throw_function>(e)), "virtual void {anonymous}::ExceptionTest_ENTROPY_THROW_NonEntropyException_Test::TestBody()"s);
-			EXPECT_EQ(*::boost::get_error_info<throw_line>(e), 62);
+			EXPECT_EQ(*::boost::get_error_info<throw_line>(e), 68);
 		}
 	}
 }
-
