@@ -8,12 +8,12 @@ AC_DEFUN([EX_ENABLE_PNG], [
 		[enable_png=check]
 	)
 
-	AS_IF([test "x$enable_png" != xno],
+	AS_IF([test "x$enable_png" != "xno"],
 		[
-			test "x$enable_png" != xyes -a "x$enable_png" != xcheck && LDFLAGS="${LDFLAGS} -L$enable_png"
+			test "x$enable_png" != "xyes" -a "x$enable_png" != xcheck && LDFLAGS="${LDFLAGS} -L$enable_png"
 			EX_CHECK_LIBRARY([PNG], ["png.h"], [png])
 		]
 	)
-	AM_CONDITIONAL([PNG], [test "x$PNG_LIBS" != x])
-	AS_IF([test "x$enable_png" != xcheck -a "x$enable_png" != xno -a "x$PNG_LIBS" == x], [AC_MSG_FAILURE(["--enable-png: libpng not found"])])
+	AM_CONDITIONAL([PNG], [test "x$PNG_LIBS" != "x"])
+	AS_IF([test "x$enable_png" != "xcheck" -a "x$enable_png" != "xno" -a "x$PNG_LIBS" = "x"], [AC_MSG_FAILURE(["--enable-png: libpng not found"])])
 ])

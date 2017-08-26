@@ -12,7 +12,7 @@ AC_DEFUN([EX_PYTHON], [
 		[with_python=check]
 	)
 	dnl 2015-11-21 AMR TODO: add version check and check python as well
-	AS_IF([test "x$with_python" != xno], [
+	AS_IF([test "x$with_python" != "xno"], [
 		m4_foreach(ver, [
 			[python3],
 			[python3.6],
@@ -20,7 +20,7 @@ AC_DEFUN([EX_PYTHON], [
 			[python3.4],
 			[python3.3]],
 		[
-			AS_IF([test "x$PYTHON_LIBS" == x], [
+			AS_IF([test "x$PYTHON_LIBS" = "x"], [
 				[python_bin=]ver
 				AC_PATH_PROG([PYTHON], ver)
 				PYTHON_CPPFLAGS="-I`EX_PYTHON_CONFIG([CONFINCLUDEPY])` `EX_PYTHON_CONFIG([CFLAGS]) | $GREP -o -e -fwrapv`"
@@ -30,6 +30,6 @@ AC_DEFUN([EX_PYTHON], [
 		])
 	])
 	AC_ARG_VAR([PYTHON], [python interpreter])
-	AS_IF([test "x$with_python" != xcheck -a "x$with_python" != xno -a "x$PYTHON_LIBS" == x], [AC_MSG_FAILURE(["python requested but not found"])])
-	AM_CONDITIONAL([PYTHON], [test "x$PYTHON_LIBS" != x])
+	AS_IF([test "x$with_python" != xcheck -a "x$with_python" != "xno" -a "x$PYTHON_LIBS" = "x"], [AC_MSG_FAILURE(["python requested but not found"])])
+	AM_CONDITIONAL([PYTHON], [test "x$PYTHON_LIBS" != "x"])
 ])
