@@ -121,6 +121,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application.hh" />
+    <ClInclude Include="..\..\src\Event.hh" />
     <ClInclude Include="..\..\src\Exception.hh" />
     <ClInclude Include="..\..\src\Exception.impl.hh" />
     <ClInclude Include="..\..\src\Log.hh" />
@@ -132,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Application.cc" />
+    <ClCompile Include="..\..\src\Event.cc" />
     <ClCompile Include="..\..\src\Exception.cc" />
     <ClCompile Include="..\..\src\Log\Init.cc" />
     <ClCompile Include="..\..\src\Log\Logger.cc" />
