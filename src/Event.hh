@@ -5,7 +5,7 @@
 #if !defined ENTROPY_EVENT_INC
 #	define ENTROPY_EVENT_INC
 
-#	include <cstdint>
+#	include <cstddef>
 
 	namespace Entropy
 	{
