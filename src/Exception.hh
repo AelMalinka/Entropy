@@ -6,7 +6,10 @@
 #if !defined ENTROPY_EXCEPTION_INC
 #	define ENTROPY_EXCEPTION_INC
 
-#	include <boost/exception/all.hpp>
+#	include <boost/exception/exception.hpp>
+#	include <boost/exception/enable_error_info.hpp>
+#	include <boost/exception/get_error_info.hpp>
+#	include <boost/exception/diagnostic_information.hpp>
 #	include <boost/throw_exception.hpp>
 
 #	include <stdexcept>
