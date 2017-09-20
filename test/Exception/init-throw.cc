@@ -34,8 +34,8 @@ namespace {
 		EXPECT_THROW(throw b, Exception);
 		EXPECT_THROW(throw a, ExceptionBase);
 		EXPECT_THROW(throw b, ExceptionBase);
-		EXPECT_THROW(throw a, Exception);
-		EXPECT_THROW(throw b, Exception);
+		EXPECT_THROW(throw a, TestException);
+		EXPECT_THROW(throw b, TestException);
 	}
 
 	TEST(ExceptionTest, MultipleInheritance) {
