@@ -16,6 +16,7 @@ using namespace testing;
 namespace {
 	ENTROPY_EXCEPTION_BASE(TestExceptionBase, "Test Base Exception");
 	ENTROPY_EXCEPTION(TestException, "Test Exception", TestExceptionBase);
+	ENTROPY_EXCEPTION(TestException2, "Test Exception 2", TestException);
 
 	TEST(ExceptionTest, ThrowBase) {
 		TestExceptionBase a;
@@ -37,6 +38,19 @@ namespace {
 		EXPECT_THROW(throw b, Exception);
 	}
 
+	TEST(ExceptionTest, MultipleInheritance) {
+		TestException a;
+		TestException2 b;
+
+		EXPECT_THROW(throw a, Exception);
+		EXPECT_THROW(throw b, Exception);
+		EXPECT_THROW(throw a, ExceptionBase);
+		EXPECT_THROW(throw b, ExceptionBase);
+		EXPECT_THROW(throw a, TestException);
+		EXPECT_THROW(throw b, TestException);
+		EXPECT_THROW(throw b, TestException2);
+	}
+
 	TEST(ExceptionTest, ENTROPY_THROW) {
 		EXPECT_THROW(ENTROPY_THROW(TestException("Entropy Throw")), TestException);
 
@@ -56,7 +70,7 @@ namespace {
 			EXPECT_FALSE(e.has<SystemError>());
 
 			EXPECT_EQ(string(e.get<throw_function>()), "virtual void {anonymous}::ExceptionTest_ENTROPY_THROW_Test::TestBody()"s);
-			EXPECT_EQ(e.get<throw_line>(), 45);
+			EXPECT_EQ(e.get<throw_line>(), 59);
 		}
 	}
 
@@ -79,7 +93,7 @@ namespace {
 			EXPECT_EQ(::boost::get_error_info<SystemError>(e), nullptr);
 
 			EXPECT_EQ(string(*::boost::get_error_info<throw_function>(e)), "virtual void {anonymous}::ExceptionTest_ENTROPY_THROW_NonEntropyException_Test::TestBody()"s);
-			EXPECT_EQ(*::boost::get_error_info<throw_line>(e), 68);
+			EXPECT_EQ(*::boost::get_error_info<throw_line>(e), 82);
 		}
 	}
 }
