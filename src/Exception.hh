@@ -61,6 +61,7 @@
 #		define ENTROPY_EXCEPTION(NAME, DESC, BASE) struct NAME : BASE {\
 			NAME() : BASE(DESC, "") {}\
 			NAME(const std::string &What) : BASE(DESC, What) {}\
+			NAME(const std::string &Desc, const std::string &What) : BASE(Desc, What) {} \
 			virtual ~NAME() noexcept; }; \
 			inline NAME::~NAME() noexcept = default
 
