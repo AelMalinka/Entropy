@@ -16,8 +16,7 @@ mainheaders_HEADERS = \
 	src/Import.impl.hh \
 	src/Module.hh \
 	src/Module.impl.hh \
-	src/Process.hh \
-	src/Resource.hh
+	src/Process.hh
 
 logheadersdir = $(includedir)/Entropy/Log
 logheaders_HEADERS = \
@@ -31,14 +30,6 @@ moduleheaders_HEADERS = \
 	src/Module/DlModule.hh \
 	src/Module/DlModule.impl.hh
 
-resourceheadersdir = $(includedir)/Entropy/Resource
-resourceheaders_HEADERS = \
-	src/Resource/Handle.hh \
-	src/Resource/Reference.hh \
-	src/Resource/Folder.hh \
-	src/Resource/Root.hh \
-	src/Resource/File.hh
-
 lib_LTLIBRARIES = libentropy.la
 
 libentropy_la_SOURCES = \
@@ -51,13 +42,7 @@ libentropy_la_SOURCES = \
 	src/Log/Init.cc \
 	src/Log/Logger.cc \
 	src/Log/Severity.cc \
-	src/Process.cc \
-	src/Resource.cc \
-	src/Resource/File.cc \
-	src/Resource/Folder.cc \
-	src/Resource/Handle.cc \
-	src/Resource/Reference.cc \
-	src/Resource/Root.cc
+	src/Process.cc
 libentropy_la_LDFLAGS = -version-info 0
 
 if PYTHON
@@ -129,8 +114,7 @@ check_PROGRAMS += \
 	event-basic \
 	exception-init-throw \
 	string-basic \
-	process-basic \
-	resource-basic
+	process-basic
 
 event_basic_SOURCES = test/Event/basic.cc
 event_basic_LDADD = libentropy.la $(GTEST_LIBS)
@@ -151,11 +135,6 @@ process_basic_SOURCES = test/Process/basic.cc
 process_basic_LDADD = -lentropy $(GTEST_LIBS)
 process_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 process_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
-
-resource_basic_SOURCES = test/Resource/basic.cc
-resource_basic_LDADD = -lentropy $(GTEST_LIBS)
-resource_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
-resource_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 if PYTHON
 check_PROGRAMS += \
@@ -206,8 +185,7 @@ TESTSUITE_FILES = \
 	$(srcdir)/test/module.at \
 	$(srcdir)/test/python.at \
 	$(srcdir)/test/process.at \
-	$(srcdir)/test/png.at \
-	$(srcdir)/test/resource.at
+	$(srcdir)/test/png.at
 
 EXTRA_DIST = $(TESTSUITE_FILES) \
 	$(srcdir)/test/testsuite.at \
