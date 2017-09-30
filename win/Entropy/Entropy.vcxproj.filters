@@ -18,6 +18,15 @@
     <Filter Include="Source Files\Log">
       <UniqueIdentifier>{2241bf1b-05b3-4554-964d-4aa8238ff432}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Module">
+      <UniqueIdentifier>{9196fb48-172d-4a77-89af-11ab7292cff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Implementation Files\Module">
+      <UniqueIdentifier>{35c9baef-f332-4048-ab45-20a7299c3da7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Module">
+      <UniqueIdentifier>{02d0592a-9e79-4be2-a924-8b1dca26bd55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application.hh">
@@ -50,6 +59,24 @@
     <ClInclude Include="..\..\src\Event.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Import.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Module.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Import.impl.hh">
+      <Filter>Implementation Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Module.impl.hh">
+      <Filter>Implementation Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Module\DllModule.hh">
+      <Filter>Header Files\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Module\DllModule.impl.hh">
+      <Filter>Implementation Files\Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Application.cc">
@@ -75,6 +102,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Event.cc">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Module.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Module\DllModule.cc">
+      <Filter>Source Files\Module</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

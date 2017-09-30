@@ -124,10 +124,16 @@
     <ClInclude Include="..\..\src\Event.hh" />
     <ClInclude Include="..\..\src\Exception.hh" />
     <ClInclude Include="..\..\src\Exception.impl.hh" />
+    <ClInclude Include="..\..\src\Import.hh" />
+    <ClInclude Include="..\..\src\Import.impl.hh" />
     <ClInclude Include="..\..\src\Log.hh" />
     <ClInclude Include="..\..\src\Log\Init.hh" />
     <ClInclude Include="..\..\src\Log\Logger.hh" />
     <ClInclude Include="..\..\src\Log\Severity.hh" />
+    <ClInclude Include="..\..\src\Module.hh" />
+    <ClInclude Include="..\..\src\Module.impl.hh" />
+    <ClInclude Include="..\..\src\Module\DllModule.hh" />
+    <ClInclude Include="..\..\src\Module\DllModule.impl.hh" />
     <ClInclude Include="..\..\src\PNG.hh" />
     <ClInclude Include="..\..\src\String.hh" />
   </ItemGroup>
@@ -138,6 +144,8 @@
     <ClCompile Include="..\..\src\Log\Init.cc" />
     <ClCompile Include="..\..\src\Log\Logger.cc" />
     <ClCompile Include="..\..\src\Log\Severity.cc" />
+    <ClCompile Include="..\..\src\Module.cc" />
+    <ClCompile Include="..\..\src\Module\DllModule.cc" />
     <ClCompile Include="..\..\src\PNG.cc" />
     <ClCompile Include="..\..\src\String.cc" />
   </ItemGroup>
