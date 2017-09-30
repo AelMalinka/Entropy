@@ -3,8 +3,6 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
-using namespace Entropy;
-using namespace Entropy::Test;
 
 namespace Tests
 {
@@ -12,18 +10,40 @@ namespace Tests
 		public Entropy::Application
 	{
 		public:
-			Application()
-				: Entropy::Application()
-			{}
+			Application();
 			~Application() = default;
 			void operator () ();
 	};
+
+	ENTROPY_EXCEPTION_BASE(TestFailure, "Test Failure");
+	ENTROPY_EXCEPTION_BASE(TestSuccess, "Test Success");
 
 	TEST_CLASS(ApplicationTests)
 	{
 		public:
 			TEST_METHOD(Run)
 			{
+				Application app;
+
+				try
+				{
+					app();
+				}
+				catch (TestSuccess)
+				{}
+				catch (TestFailure)
+				{
+					Assert::Fail(L"Test Failed");
+				}
 			}
 	};
+
+	Application::Application()
+		: Entropy::Application()
+	{}
+
+	void Application::operator () ()
+	{
+		throw TestSuccess();
+	}
 }
