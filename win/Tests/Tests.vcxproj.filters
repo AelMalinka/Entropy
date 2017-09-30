@@ -31,5 +31,8 @@
     <ClCompile Include="Log.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Event.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

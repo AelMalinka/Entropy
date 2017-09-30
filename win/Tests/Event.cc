@@ -6,13 +6,14 @@ using namespace std;
 
 namespace Tests
 {
-	TEST_CLASS(Log)
+	TEST_CLASS(Event)
 	{
-		TEST_METHOD(Trivial)
-		{
-			Entropy::Log::Logger lg;
+		public:
+			TEST_METHOD(Construct)
+			{
+				Entropy::Event e(10u);
 
-			ENTROPY_LOG(lg, Entropy::Severity::Info) << "This is a log line";
-		}
+				Assert::AreEqual(e.Id(), 10u);
+			}
 	};
 }
