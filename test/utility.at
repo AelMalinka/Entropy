@@ -1,0 +1,24 @@
+# Copyright 2017 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+# Distributed under the terms of the GNU Affero General Public License v3
+
+AT_BANNER([Utility Tests])
+
+AT_SETUP([DefaultedList Tests])
+AT_SKIP_IF([test -z $GTEST])
+AT_CHECK([utility-defaulted-list], [], [ignore], [ignore])
+AT_CLEANUP
+
+AT_SETUP([PolymorphicListIterator Tests])
+AT_SKIP_IF([test -z $GTEST])
+AT_CHECK([utility-polymorphic-list-iterator], [], [ignore], [ignore])
+AT_CLEANUP
+
+AT_SETUP([PolymorphicList Tests])
+AT_SKIP_IF([test -z $GTEST])
+AT_CHECK([utility-polymorphic-list], [], [ignore], [ignore])
+AT_CLEANUP
+
+AT_SETUP([SharedData Tests])
+AT_SKIP_IF([test -z $GTEST])
+AT_CHECK([utility-shared-data], [], [ignore], [ignore])
+AT_CLEANUP

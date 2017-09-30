@@ -7,6 +7,8 @@ AM_CPPFLAGS = -I$(srcdir)/src
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = \
 	src/Application.hh \
+	src/DefaultedList.hh \
+	src/DefaultedList.impl.hh \
 	src/Event.hh \
 	src/Exception.hh \
 	src/Exception.impl.hh \
@@ -15,7 +17,13 @@ mainheaders_HEADERS = \
 	src/Log.hh \
 	src/Module.hh \
 	src/Module.impl.hh \
+	src/PolymorphicList.hh \
+	src/PolymorphicList.impl.hh \
+	src/PolymorphicListIterator.hh \
+	src/PolymorphicListIterator.impl.hh \
 	src/Process.hh \
+	src/SharedData.hh \
+	src/SharedData.impl.hh \
 	src/String.hh
 
 logheadersdir = $(includedir)/Entropy/Log
@@ -114,7 +122,11 @@ check_PROGRAMS += \
 	event-basic \
 	exception-init-throw \
 	string-basic \
-	process-basic
+	process-basic \
+	utility-defaulted-list \
+	utility-polymorphic-list-iterator \
+	utility-polymorphic-list \
+	utility-shared-data
 
 event_basic_SOURCES = test/Event/basic.cc
 event_basic_LDADD = libentropy.la $(GTEST_LIBS)
@@ -135,6 +147,26 @@ process_basic_SOURCES = test/Process/basic.cc
 process_basic_LDADD = -lentropy $(GTEST_LIBS)
 process_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 process_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
+
+utility_defaulted_list_SOURCES = test/utility/defaulted-list.cc
+utility_defaulted_list_LDADD = -lentropy $(GTEST_LIBS)
+utility_defaulted_list_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+utility_defaulted_list_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
+
+utility_polymorphic_list_iterator_SOURCES = test/utility/polymorphic-list-iterator.cc
+utility_polymorphic_list_iterator_LDADD = -lentropy $(GTEST_LIBS)
+utility_polymorphic_list_iterator_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+utility_polymorphic_list_iterator_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
+
+utility_polymorphic_list_SOURCES = test/utility/polymorphic-list.cc
+utility_polymorphic_list_LDADD = -lentropy $(GTEST_LIBS)
+utility_polymorphic_list_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+utility_polymorphic_list_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
+
+utility_shared_data_SOURCES = test/utility/shared-data.cc
+utility_shared_data_LDADD = -lentropy $(GTEST_LIBS)
+utility_shared_data_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
+utility_shared_data_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 if PYTHON
 check_PROGRAMS += \
@@ -185,7 +217,8 @@ TESTSUITE_FILES = \
 	$(srcdir)/test/png.at \
 	$(srcdir)/test/process.at \
 	$(srcdir)/test/python.at \
-	$(srcdir)/test/string.at
+	$(srcdir)/test/string.at \
+	$(srcdir)/test/utility.at
 
 EXTRA_DIST = $(TESTSUITE_FILES) \
 	$(srcdir)/test/testsuite.at \
