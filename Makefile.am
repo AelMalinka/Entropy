@@ -6,17 +6,17 @@ AM_CPPFLAGS = -I$(srcdir)/src
 
 mainheadersdir = $(includedir)/Entropy
 mainheaders_HEADERS = \
+	src/Application.hh \
 	src/Event.hh \
 	src/Exception.hh \
 	src/Exception.impl.hh \
-	src/Log.hh \
-	src/Application.hh \
-	src/String.hh \
 	src/Import.hh \
 	src/Import.impl.hh \
+	src/Log.hh \
 	src/Module.hh \
 	src/Module.impl.hh \
-	src/Process.hh
+	src/Process.hh \
+	src/String.hh
 
 logheadersdir = $(includedir)/Entropy/Log
 logheaders_HEADERS = \
@@ -26,23 +26,23 @@ logheaders_HEADERS = \
 
 moduleheadersdir = $(includedir)/Entropy/Module
 moduleheaders_HEADERS = \
-	src/Module/Exception.hh \
 	src/Module/DlModule.hh \
-	src/Module/DlModule.impl.hh
+	src/Module/DlModule.impl.hh \
+	src/Module/Exception.hh
 
 lib_LTLIBRARIES = libentropy.la
 
 libentropy_la_SOURCES = \
+	src/Application.cc \
 	src/Event.cc \
 	src/Exception.cc \
-	src/Application.cc \
-	src/String.cc \
 	src/Module.cc \
-	src/Module/DlModule.cc \
+	src/Process.cc \
+	src/String.cc \
 	src/Log/Init.cc \
 	src/Log/Logger.cc \
 	src/Log/Severity.cc \
-	src/Process.cc
+	src/Module/DlModule.cc
 libentropy_la_LDFLAGS = -version-info 0
 
 if PYTHON
@@ -53,15 +53,15 @@ moduleheaders_HEADERS += \
 pythonheadersdir = $(includedir)/Entropy/Python
 pythonheaders_HEADERS = \
 	src/Python/Interpreter.hh \
+	src/Python/Module.hh \
 	src/Python/Object.hh \
-	src/Python/Object.impl.hh \
-	src/Python/Module.hh
+	src/Python/Object.impl.hh
 
 libentropy_la_SOURCES += \
+	src/Module/PyModule.cc \
 	src/Python/Interpreter.cc \
-	src/Python/Object.cc \
 	src/Python/Module.cc \
-	src/Module/PyModule.cc
+	src/Python/Object.cc
 endif
 
 if PNG
@@ -177,15 +177,15 @@ endif
 TESTSUITE = $(srcdir)/test/testsuite
 
 TESTSUITE_FILES = \
+	$(srcdir)/test/application.at \
 	$(srcdir)/test/event.at \
 	$(srcdir)/test/exception.at \
 	$(srcdir)/test/log.at \
-	$(srcdir)/test/application.at \
-	$(srcdir)/test/string.at \
 	$(srcdir)/test/module.at \
-	$(srcdir)/test/python.at \
+	$(srcdir)/test/png.at \
 	$(srcdir)/test/process.at \
-	$(srcdir)/test/png.at
+	$(srcdir)/test/python.at \
+	$(srcdir)/test/string.at
 
 EXTRA_DIST = $(TESTSUITE_FILES) \
 	$(srcdir)/test/testsuite.at \
