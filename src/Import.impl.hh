@@ -58,7 +58,7 @@
 					t_delete(ptr);
 			}
 
-			return shared_ptr<Interface>(nullptr, t_delete);
+			ENTROPY_THROW(NullModuleError());
 		}
 		template<typename Interface>
 		Interface &Import<Interface>::operator * ()
