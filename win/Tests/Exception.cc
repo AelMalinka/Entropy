@@ -1,3 +1,7 @@
+/*	Copyright 2017 (c) Michael Thomas (malinka) <malinka@entropy-development.com>
+	Distributed under the terms of the GNU Affero General Public License v3
+*/
+
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
@@ -59,7 +63,7 @@ namespace Tests
 					Assert::IsTrue(e.has<throw_file>());
 					Assert::IsTrue(e.has<throw_line>());
 					Assert::IsFalse(e.has<SystemError>());
-					Assert::AreEqual(54, e.get<throw_line>());
+					Assert::AreEqual(58, e.get<throw_line>());
 				}
 			}
 	};
