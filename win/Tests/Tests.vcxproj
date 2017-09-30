@@ -162,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cc" />
     <ClCompile Include="Event.cc" />
+    <ClCompile Include="Exception.cc" />
     <ClCompile Include="Log.cc" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -34,5 +34,8 @@
     <ClCompile Include="Event.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Exception.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
