@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -19,32 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{25B626B2-690C-4EEE-A3A9-2AA486E31542}</ProjectGuid>
-    <RootNamespace>Entropy</RootNamespace>
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{262D8FDF-D69D-4204-9144-54F92756D021}</ProjectGuid>
+    <RootNamespace>TestModule</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -68,26 +69,33 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>F:\Source\External\boost;F:\Source\External\zlib;F:\Source\External\libpng;F:\Source\External\libpng\projects\vstudio\Release Library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ObjectFileName>$(IntDir)a\b\%(RelativeDir)</ObjectFileName>
-      <PreprocessorDefinitions>DEBUG</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\Source\External\boost;F:\Source\External\zlib;F:\Source\External\libpng;F:\Source\External\libpng\projects\vstudio\Release Library;F:\Source\Repos\Entropy\win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Entropy.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>F:\Source\External\boost;F:\Source\External\zlib;F:\Source\External\libpng;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ObjectFileName>$(IntDir)a\b\%(RelativeDir)</ObjectFileName>
-      <PreprocessorDefinitions>DEBUG</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\Source\External\boost;F:\Source\External\zlib;F:\Source\External\libpng;F:\Source\Repos\Entropy\win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Entropy.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -96,12 +104,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>F:\Source\External\boost;F:\Source\External\zlib;F:\Source\External\libpng;F:\Source\External\libpng\projects\vstudio\Release Library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ObjectFileName>$(IntDir)a\b\%(RelativeDir)</ObjectFileName>
+      <AdditionalIncludeDirectories>F:\Source\External\boost;F:\Source\External\zlib;F:\Source\External\libpng;F:\Source\External\libpng\projects\vstudio\Release Library;F:\Source\Repos\Entropy\win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Entropy.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -111,43 +120,20 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>F:\Source\External\boost;F:\Source\External\zlib;F:\Source\External\libpng;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ObjectFileName>$(IntDir)a\b\%(RelativeDir)</ObjectFileName>
+      <AdditionalIncludeDirectories>F:\Source\External\boost;F:\Source\External\zlib;F:\Source\External\libpng;F:\Source\Repos\Entropy\win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Entropy.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\Application.hh" />
-    <ClInclude Include="..\..\src\Event.hh" />
-    <ClInclude Include="..\..\src\Exception.hh" />
-    <ClInclude Include="..\..\src\Exception.impl.hh" />
-    <ClInclude Include="..\..\src\Import.hh" />
-    <ClInclude Include="..\..\src\Import.impl.hh" />
-    <ClInclude Include="..\..\src\Log.hh" />
-    <ClInclude Include="..\..\src\Log\Init.hh" />
-    <ClInclude Include="..\..\src\Log\Logger.hh" />
-    <ClInclude Include="..\..\src\Log\Severity.hh" />
-    <ClInclude Include="..\..\src\Module.hh" />
-    <ClInclude Include="..\..\src\Module.impl.hh" />
-    <ClInclude Include="..\..\src\Module\DllModule.hh" />
-    <ClInclude Include="..\..\src\Module\DllModule.impl.hh" />
-    <ClInclude Include="..\..\src\PNG.hh" />
-    <ClInclude Include="..\..\src\String.hh" />
+    <ClCompile Include="Module.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Application.cc" />
-    <ClCompile Include="..\..\src\Event.cc" />
-    <ClCompile Include="..\..\src\Exception.cc" />
-    <ClCompile Include="..\..\src\Log\Init.cc" />
-    <ClCompile Include="..\..\src\Log\Logger.cc" />
-    <ClCompile Include="..\..\src\Log\Severity.cc" />
-    <ClCompile Include="..\..\src\Module.cc" />
-    <ClCompile Include="..\..\src\Module\DllModule.cc" />
-    <ClCompile Include="..\..\src\PNG.cc" />
-    <ClCompile Include="..\..\src\String.cc" />
+    <ClInclude Include="Interface.hh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
