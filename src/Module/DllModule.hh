@@ -34,6 +34,19 @@
 
 #	include <unordered_map>
 
+#	define ENTROPY_MODULE(CLASS) ::std::unordered_map<void *, ::std::shared_ptr<CLASS>> _objects; \
+		extern "C" { \
+		__declspec(dllexport) CLASS *entropy_new() {\
+			::std::shared_ptr<CLASS> t = ::std::make_shared<CLASS>();\
+			_objects[t.get()] = t;\
+			return _objects[t.get()].get();\
+		}\
+		__declspec(dllexport) void entropy_delete(void *p) {\
+			auto i = _objects.find(p);\
+			if(i == _objects.end()) \
+				ENTROPY_THROW(::Entropy::DeleteError("failed to find object in objects array") << ::Entropy::ObjectAddress(p)); \
+			_objects.erase(i);}}
+
 #	include "DllModule.impl.hh"
 
 #endif

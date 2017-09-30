@@ -19,7 +19,7 @@
 			{
 				static std::function<R(A...)> create(const FARPROC addr)
 				{
-					return std::function<R(A...)>(reinterpret_cast<R(__stdcall *)(A...)>(addr));
+					return std::function<R(A...)>(reinterpret_cast<R(*)(A...)>(addr));
 				}
 			};
 		}
@@ -35,7 +35,7 @@
 					ModuleHandle(_handle)
 				);
 
-			return detail::FuncType<T>::create(addr);
+			return detail::FuncType<F>::create(addr);
 		}
 	}
 
