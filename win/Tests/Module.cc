@@ -8,7 +8,7 @@ using namespace Entropy::Test;
 
 namespace Tests
 {
-	TEST_CLASS(ModuleTests)
+	TEST_CLASS(Module)
 	{
 		public:
 			TEST_METHOD(Basic)

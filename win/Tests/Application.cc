@@ -6,24 +6,24 @@ using namespace std;
 
 namespace Tests
 {
-	class Application :
+	class TestApplication :
 		public Entropy::Application
 	{
 		public:
-			Application();
-			~Application() = default;
+			TestApplication();
+			~TestApplication() = default;
 			void operator () ();
 	};
 
 	ENTROPY_EXCEPTION_BASE(TestFailure, "Test Failure");
 	ENTROPY_EXCEPTION_BASE(TestSuccess, "Test Success");
 
-	TEST_CLASS(ApplicationTests)
+	TEST_CLASS(Application)
 	{
 		public:
 			TEST_METHOD(Run)
 			{
-				Application app;
+				TestApplication app;
 
 				try
 				{
@@ -38,11 +38,11 @@ namespace Tests
 			}
 	};
 
-	Application::Application()
+	TestApplication::TestApplication()
 		: Entropy::Application()
 	{}
 
-	void Application::operator () ()
+	void TestApplication::operator () ()
 	{
 		throw TestSuccess();
 	}
