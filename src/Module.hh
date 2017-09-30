@@ -5,7 +5,11 @@
 #if !defined ENTROPY_MODULE_INC
 #	define ENTROPY_MODULE_INC
 
-#	include "Module/DlModule.hh"
+#	ifdef _POSIX_VERSION
+#		include "Module/DlModule.hh"
+#	elif defined _WIN32
+#		include "Module/DllModule.hh"
+#	endif
 
 	namespace Entropy
 	{
@@ -19,7 +23,11 @@
 				void Load(const std::string &);
 				void Unload();
 			private:
-				DlModule _module;
+#				ifdef _POSIX_VERSION
+					DlModule _module;
+#				elif defined _WIN32
+					DllModule _module;
+#				endif
 		};
 	}
 
