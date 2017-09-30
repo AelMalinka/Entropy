@@ -90,28 +90,28 @@ check_PROGRAMS = \
 	module-import-copy
 
 log_trivial_SOURCES = test/Log/trivial.cc
-log_trivial_LDADD = -lentropy
+log_trivial_LDADD = libentropy.la
 
 log_exception_SOURCES = test/Log/exception.cc
-log_exception_LDADD = -lentropy
+log_exception_LDADD = libentropy.la
 
 application_run_SOURCES = test/Application/run.cc
-application_run_LDADD = -lentropy
+application_run_LDADD = libentropy.la
 
 module_run_SOURCES = test/Module/run.cc
-module_run_LDADD = -lentropy
+module_run_LDADD = libentropy.la
 module_run_DEPENDENCIES = module.so
 
 module_import_SOURCES = test/Module/import.cc
-module_import_LDADD = -lentropy
+module_import_LDADD = libentropy.la
 module_import_DEPENDENCIES = module.so
 
 module_import_twice_SOURCES = test/Module/import-twice.cc
-module_import_twice_LDADD = -lentropy
+module_import_twice_LDADD = libentropy.la
 module_import_twice_DEPENDENCIES = module.so
 
 module_import_copy_SOURCES = test/Module/import-copy.cc
-module_import_copy_LDADD = -lentropy
+module_import_copy_LDADD = libentropy.la
 module_import_copy_DEPENDENCIES = module.so
 
 module.so: $(srcdir)/test/Module/module.cc $(srcdir)/test/Module/interface.hh libentropy.la
@@ -134,37 +134,37 @@ event_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 event_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 exception_init_throw_SOURCES = test/Exception/init-throw.cc
-exception_init_throw_LDADD = -lentropy $(GTEST_LIBS)
+exception_init_throw_LDADD = libentropy.la $(GTEST_LIBS)
 exception_init_throw_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 exception_init_throw_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 string_basic_SOURCES = test/String/basic.cc
-string_basic_LDADD = -lentropy $(GTEST_LIBS)
+string_basic_LDADD = libentropy.la $(GTEST_LIBS)
 string_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 string_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 process_basic_SOURCES = test/Process/basic.cc
-process_basic_LDADD = -lentropy $(GTEST_LIBS)
+process_basic_LDADD = libentropy.la $(GTEST_LIBS)
 process_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 process_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 utility_defaulted_list_SOURCES = test/utility/defaulted-list.cc
-utility_defaulted_list_LDADD = -lentropy $(GTEST_LIBS)
+utility_defaulted_list_LDADD = libentropy.la $(GTEST_LIBS)
 utility_defaulted_list_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 utility_defaulted_list_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 utility_polymorphic_list_iterator_SOURCES = test/utility/polymorphic-list-iterator.cc
-utility_polymorphic_list_iterator_LDADD = -lentropy $(GTEST_LIBS)
+utility_polymorphic_list_iterator_LDADD = libentropy.la $(GTEST_LIBS)
 utility_polymorphic_list_iterator_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 utility_polymorphic_list_iterator_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 utility_polymorphic_list_SOURCES = test/utility/polymorphic-list.cc
-utility_polymorphic_list_LDADD = -lentropy $(GTEST_LIBS)
+utility_polymorphic_list_LDADD = libentropy.la $(GTEST_LIBS)
 utility_polymorphic_list_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 utility_polymorphic_list_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 utility_shared_data_SOURCES = test/utility/shared-data.cc
-utility_shared_data_LDADD = -lentropy $(GTEST_LIBS)
+utility_shared_data_LDADD = libentropy.la $(GTEST_LIBS)
 utility_shared_data_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 utility_shared_data_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
@@ -174,12 +174,12 @@ check_PROGRAMS += \
 	python-module
 
 python_object_SOURCES = test/Python/object.cc
-python_object_LDADD = -lentropy $(GTEST_LIBS)
+python_object_LDADD = libentropy.la $(GTEST_LIBS)
 python_object_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 python_object_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 
 python_module_SOURCES = test/Python/module.cc
-python_module_LDADD = -lentropy $(GTEST_LIBS)
+python_module_LDADD = libentropy.la $(GTEST_LIBS)
 python_module_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 python_module_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 endif
@@ -189,7 +189,7 @@ check_PROGRAMS += \
 	png-basic
 
 png_basic_SOURCES = test/PNG/basic.cc
-png_basic_LDADD = -lentropy $(GTEST_LIBS)
+png_basic_LDADD = libentropy.la $(GTEST_LIBS)
 png_basic_CPPFLAGS = $(AM_CPPFLAGS) $(GTEST_CPPFLAGS)
 png_basic_LDFLAGS = $(GTEST_LDFLAGS) $(PTHREAD_LDFLAGS)
 png_basic_DEPENDENCIES = pnglogo.png
@@ -203,7 +203,7 @@ if PYTHON
 check_PROGRAMS += module-import-python
 
 module_import_python_SOURCES = test/Module/python.cc
-module_import_python_LDADD = -lentropy
+module_import_python_LDADD = libentropy.la
 endif
 
 TESTSUITE = $(srcdir)/test/testsuite
