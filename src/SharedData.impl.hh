@@ -6,6 +6,7 @@
 #	define ENTROPY_SHAREDDATA_IMPL
 
 #	include "SharedData.hh"
+#	include <utility>
 
 	namespace Entropy
 	{
@@ -16,10 +17,11 @@
 		std::shared_ptr<T> SharedData<T>::_shared_data;
 
 		template<typename T>
-		SharedData<T>::SharedData()
+		template<typename ...Args>
+		SharedData<T>::SharedData(Args && ...args)
 		{
 			if(_count++ == 0) {
-				_shared_data = std::make_shared<T>();
+				_shared_data = std::make_shared<T>(std::forward<Args>(args)...);
 			}
 		}
 

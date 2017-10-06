@@ -13,7 +13,8 @@
 		class SharedData
 		{
 			public:
-				SharedData();
+				template<typename ...Args>
+				explicit SharedData(Args && ...);
 				virtual ~SharedData();
 			protected:
 				std::shared_ptr<T> shared() const;
