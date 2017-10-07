@@ -17,3 +17,6 @@
 #include <Entropy/Application.hh>
 #include "Interface.hh"
 #include <Entropy/PNG.hh>
+#include <Entropy/DefaultedList.hh>
+#include <Entropy/PolymorphicList.hh>
+#include <Entropy/SharedData.hh>

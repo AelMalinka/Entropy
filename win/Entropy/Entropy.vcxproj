@@ -121,6 +121,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application.hh" />
+    <ClInclude Include="..\..\src\DefaultedList.hh" />
+    <ClInclude Include="..\..\src\DefaultedList.impl.hh" />
     <ClInclude Include="..\..\src\Event.hh" />
     <ClInclude Include="..\..\src\Exception.hh" />
     <ClInclude Include="..\..\src\Exception.impl.hh" />
@@ -135,6 +137,12 @@
     <ClInclude Include="..\..\src\Module\DllModule.hh" />
     <ClInclude Include="..\..\src\Module\DllModule.impl.hh" />
     <ClInclude Include="..\..\src\PNG.hh" />
+    <ClInclude Include="..\..\src\PolymorphicList.hh" />
+    <ClInclude Include="..\..\src\PolymorphicList.impl.hh" />
+    <ClInclude Include="..\..\src\PolymorphicListIterator.hh" />
+    <ClInclude Include="..\..\src\PolymorphicListIterator.impl.hh" />
+    <ClInclude Include="..\..\src\SharedData.hh" />
+    <ClInclude Include="..\..\src\SharedData.impl.hh" />
     <ClInclude Include="..\..\src\String.hh" />
   </ItemGroup>
   <ItemGroup>

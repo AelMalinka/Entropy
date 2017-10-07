@@ -37,5 +37,8 @@
     <ClCompile Include="Exception.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utility.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
