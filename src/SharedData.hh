@@ -15,6 +15,8 @@
 			public:
 				template<typename ...Args>
 				explicit SharedData(Args && ...);
+				SharedData(const SharedData<T> &);
+				SharedData(SharedData<T> &&);
 				virtual ~SharedData();
 			protected:
 				std::shared_ptr<T> shared() const;

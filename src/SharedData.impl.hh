@@ -26,6 +26,18 @@
 		}
 
 		template<typename T>
+		SharedData<T>::SharedData(const SharedData<T> &)
+		{
+			++_count;
+		}
+
+		template<typename T>
+		SharedData<T>::SharedData(SharedData<T> &&)
+		{
+			++_count;
+		}
+
+		template<typename T>
 		SharedData<T>::~SharedData()
 		{
 			if(--_count == 0) {
