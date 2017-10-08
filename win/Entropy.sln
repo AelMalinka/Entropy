@@ -10,7 +10,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestModule", "TestModule\Te
 		{25B626B2-690C-4EEE-A3A9-2AA486E31542} = {25B626B2-690C-4EEE-A3A9-2AA486E31542}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EntropyTests", "C:\Users\malinka\Source\Repos\Entropy\win\EntropyTests\EntropyTests.vcxproj", "{8BC8D301-3589-4D4C-88E5-B641B6413EBA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EntropyTests", "EntropyTests\EntropyTests.vcxproj", "{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{262D8FDF-D69D-4204-9144-54F92756D021} = {262D8FDF-D69D-4204-9144-54F92756D021}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,14 +39,14 @@ Global
 		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x64.Build.0 = Release|x64
 		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x86.ActiveCfg = Release|Win32
 		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x86.Build.0 = Release|Win32
-		{8BC8D301-3589-4D4C-88E5-B641B6413EBA}.Debug|x64.ActiveCfg = Debug|x64
-		{8BC8D301-3589-4D4C-88E5-B641B6413EBA}.Debug|x64.Build.0 = Debug|x64
-		{8BC8D301-3589-4D4C-88E5-B641B6413EBA}.Debug|x86.ActiveCfg = Debug|Win32
-		{8BC8D301-3589-4D4C-88E5-B641B6413EBA}.Debug|x86.Build.0 = Debug|Win32
-		{8BC8D301-3589-4D4C-88E5-B641B6413EBA}.Release|x64.ActiveCfg = Release|x64
-		{8BC8D301-3589-4D4C-88E5-B641B6413EBA}.Release|x64.Build.0 = Release|x64
-		{8BC8D301-3589-4D4C-88E5-B641B6413EBA}.Release|x86.ActiveCfg = Release|Win32
-		{8BC8D301-3589-4D4C-88E5-B641B6413EBA}.Release|x86.Build.0 = Release|Win32
+		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Debug|x64.ActiveCfg = Debug|x64
+		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Debug|x64.Build.0 = Debug|x64
+		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Debug|x86.ActiveCfg = Debug|Win32
+		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Debug|x86.Build.0 = Debug|Win32
+		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Release|x64.ActiveCfg = Release|x64
+		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Release|x64.Build.0 = Release|x64
+		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Release|x86.ActiveCfg = Release|Win32
+		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

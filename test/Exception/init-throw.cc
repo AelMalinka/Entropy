@@ -68,8 +68,6 @@ namespace {
 #			endif
 
 			EXPECT_FALSE(e.has<SystemError>());
-
-			EXPECT_EQ(string(e.get<throw_function>()), "virtual void {anonymous}::ExceptionTest_ENTROPY_THROW_Test::TestBody()"s);
 			EXPECT_EQ(e.get<throw_line>(), 59);
 		}
 	}
@@ -91,9 +89,7 @@ namespace {
 #			endif
 
 			EXPECT_EQ(::boost::get_error_info<SystemError>(e), nullptr);
-
-			EXPECT_EQ(string(*::boost::get_error_info<throw_function>(e)), "virtual void {anonymous}::ExceptionTest_ENTROPY_THROW_NonEntropyException_Test::TestBody()"s);
-			EXPECT_EQ(*::boost::get_error_info<throw_line>(e), 82);
+			EXPECT_EQ(*::boost::get_error_info<throw_line>(e), 80);
 		}
 	}
 }
