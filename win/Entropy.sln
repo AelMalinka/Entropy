@@ -5,15 +5,12 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Entropy", "Entropy\Entropy.vcxproj", "{25B626B2-690C-4EEE-A3A9-2AA486E31542}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestModule", "TestModule\TestModule.vcxproj", "{262D8FDF-D69D-4204-9144-54F92756D021}"
-	ProjectSection(ProjectDependencies) = postProject
-		{25B626B2-690C-4EEE-A3A9-2AA486E31542} = {25B626B2-690C-4EEE-A3A9-2AA486E31542}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EntropyTests", "EntropyTests\EntropyTests.vcxproj", "{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{262D8FDF-D69D-4204-9144-54F92756D021} = {262D8FDF-D69D-4204-9144-54F92756D021}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EntropyTestsModule", "C:\Users\malinka\Source\Repos\Entropy\win\EntropyTestsModule\EntropyTestsModule.vcxproj", "{262D8FDF-D69D-4204-9144-54F92756D021}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +28,6 @@ Global
 		{25B626B2-690C-4EEE-A3A9-2AA486E31542}.Release|x64.Build.0 = Release|x64
 		{25B626B2-690C-4EEE-A3A9-2AA486E31542}.Release|x86.ActiveCfg = Release|Win32
 		{25B626B2-690C-4EEE-A3A9-2AA486E31542}.Release|x86.Build.0 = Release|Win32
-		{262D8FDF-D69D-4204-9144-54F92756D021}.Debug|x64.ActiveCfg = Debug|x64
-		{262D8FDF-D69D-4204-9144-54F92756D021}.Debug|x64.Build.0 = Debug|x64
-		{262D8FDF-D69D-4204-9144-54F92756D021}.Debug|x86.ActiveCfg = Debug|Win32
-		{262D8FDF-D69D-4204-9144-54F92756D021}.Debug|x86.Build.0 = Debug|Win32
-		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x64.ActiveCfg = Release|x64
-		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x64.Build.0 = Release|x64
-		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x86.ActiveCfg = Release|Win32
-		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x86.Build.0 = Release|Win32
 		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Debug|x64.ActiveCfg = Debug|x64
 		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Debug|x64.Build.0 = Debug|x64
 		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Debug|x86.ActiveCfg = Debug|Win32
@@ -47,6 +36,14 @@ Global
 		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Release|x64.Build.0 = Release|x64
 		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Release|x86.ActiveCfg = Release|Win32
 		{EB7B5B52-C171-4CC1-BA81-2D8DC788DADA}.Release|x86.Build.0 = Release|Win32
+		{262D8FDF-D69D-4204-9144-54F92756D021}.Debug|x64.ActiveCfg = Debug|x64
+		{262D8FDF-D69D-4204-9144-54F92756D021}.Debug|x64.Build.0 = Debug|x64
+		{262D8FDF-D69D-4204-9144-54F92756D021}.Debug|x86.ActiveCfg = Debug|Win32
+		{262D8FDF-D69D-4204-9144-54F92756D021}.Debug|x86.Build.0 = Debug|Win32
+		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x64.ActiveCfg = Release|x64
+		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x64.Build.0 = Release|x64
+		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x86.ActiveCfg = Release|Win32
+		{262D8FDF-D69D-4204-9144-54F92756D021}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
