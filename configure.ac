@@ -86,6 +86,9 @@ AC_CHECK_LIB([boost_iostreams-mt], [main], [LIBS="-lboost_iostreams-mt $LIBS"],
 	])
 ])
 
+dnl 2017-10-08 AMR NOTE: Hack to bypass undefined references in Visual Studio when v14{0,1}
+AC_DEFINE([HAVE_C11_WIDE_STRINGS], [1], [Define to 1 if C++11 Wide strings work])
+
 EX_WITH_GTEST
 EX_BASE_FLAGS
 EX_FLAGS

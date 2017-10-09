@@ -7,6 +7,10 @@
 #include <locale>
 #include <codecvt>
 
+#ifdef HAVE_CONFIG_H
+#	include "config.h"
+#endif
+
 using namespace std;
 
 namespace Entropy {
