@@ -31,14 +31,17 @@
 				typedef typename std::list<T>::iterator iterator;
 				typedef typename std::list<T>::const_iterator const_iterator;
 			public:
+				void setDefault(const iterator &);
+				void setDefault(const const_iterator &);
+				iterator current();
+				const_iterator current() const;
+			public:
 				T &get();
 				T &operator * ();
 				T *operator -> ();
 				const T &get() const;
 				const T &operator * () const;
 				const T *operator -> () const;
-				void setDefault(const iterator &);
-				void setDefault(const const_iterator &);
 			public:
 				T &front();
 				T &back();

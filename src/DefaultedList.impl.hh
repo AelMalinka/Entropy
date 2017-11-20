@@ -44,6 +44,18 @@
 		template<typename T> DefaultedList<T>::~DefaultedList() = default;
 
 		template<typename T>
+		typename DefaultedList<T>::iterator DefaultedList<T>::current()
+		{
+			return _default;
+		}
+
+		template<typename T>
+		typename DefaultedList<T>::const_iterator DefaultedList<T>::current() const
+		{
+			return _default;
+		}
+
+		template<typename T>
 		T &DefaultedList<T>::get()
 		{
 			return *_default;

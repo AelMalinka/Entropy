@@ -67,6 +67,22 @@ namespace {
 		EXPECT_EQ(*a, 5);
 	}
 
+	TEST(DefaultedList, SetDefault) {
+		DefaultedList<Item> a;
+		a.push_back(10);
+		auto i = a.current();
+
+		EXPECT_EQ(*a, 0);
+		EXPECT_EQ(a.current(), i);
+		EXPECT_EQ(*i, 0);
+
+		auto j = --a.end();
+		a.setDefault(j);
+		EXPECT_EQ(*a, 10);
+		EXPECT_EQ(j, a.current());
+		EXPECT_NE(i, j);
+	}
+
 	TEST(DefaultedList, MultipleConstructor) {
 		DefaultedList<Item> a(5, "Hello!"s);
 
