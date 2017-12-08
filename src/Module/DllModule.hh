@@ -28,7 +28,7 @@
 			protected:
 				void open(const std::string &);
 			private:
-				HMODULE _handle;
+				std::shared_ptr<HMODULE> _handle;
 		};
 	}
 

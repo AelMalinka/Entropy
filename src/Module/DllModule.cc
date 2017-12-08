@@ -7,12 +7,18 @@
 using namespace Entropy;
 using namespace std;
 
+void DllModule_close(void *p)
+{
+	if(p != nullptr)
+		FreeLibrary(p);
+}
+
 DllModule::DllModule()
-	: _handle(nullptr)
+	: _handle()
 {}
 
 DllModule::DllModule(const string &name)
-	: _handle(nullptr)
+	: _handle()
 {
 	Load(name);
 }
@@ -24,24 +30,26 @@ DllModule::~DllModule()
 
 void DllModule::Load(const string &name)
 {
-	Unload();
-
 	open(name);
 }
 
 void DllModule::Unload()
 {
-	if(_handle != nullptr)
-		FreeLibrary(_handle);
+	_handle.reset();
 }
 
 void DllModule::open(const string &name)
 {
-	_handle = LoadLibrary(name.c_str());
+	void *ret = LoadLibrary(name.c_str());
 
-	if(!_handle)
-		ENTROPY_THROW(ModuleError("Failed to Load DLL") <<
+	if(!_handle) {
+		auto s = GetLastError();
+
+		ENTROPY_THROW(ModuleError(s) <<
 			DllName(name) <<
-			DllError(GetLastError())
+			DllError(s)
 		);
+	}
+
+	_handle = shared_ptr<void>(ret, DllModule_close);
 }

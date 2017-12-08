@@ -39,11 +39,14 @@ void DlModule::open(const string &name)
 {
 	void *ret= dlopen(name.c_str(), RTLD_NOW);
 
-	if(ret == nullptr)
-		ENTROPY_THROW(ModuleError("dlopen error") <<
+	if(!ret) {
+		auto s = dlerror();
+
+		ENTROPY_THROW(ModuleError(s) <<
 			DlName(name) <<
-			DlOpenError(dlerror())
+			DlOpenError(s)
 		);
+	}
 
 	_handle = shared_ptr<void>(ret, DlModule_close);
 }

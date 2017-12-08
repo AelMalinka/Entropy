@@ -27,12 +27,12 @@
 		template<typename F>
 		std::function<F> DllModule::get(const std::string &name)
 		{
-			FARPROC addr = GetProcAddress(_handle, name.c_str());
+			FARPROC addr = GetProcAddress(_handle.get(), name.c_str());
 
 			if(!addr)
 				ENTROPY_THROW(ModuleError("GetProcAddress error") <<
 					DllError(GetLastError()) <<
-					ModuleHandle(_handle)
+					ModuleHandle(_handle.get())
 				);
 
 			return detail::FuncType<F>::create(addr);
