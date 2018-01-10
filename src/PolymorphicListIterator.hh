@@ -19,6 +19,7 @@
 			public:
 				T &operator * ();
 				T *operator -> ();
+				std::shared_ptr<T> &shared();
 			public:
 				PolymorphicListIterator<T> &operator ++();
 				PolymorphicListIterator<T> &operator --();
@@ -39,6 +40,7 @@
 			public:
 				const T &operator * ();
 				const T *operator -> ();
+				// 2018-01-10 AMR NOTE: const T * != const shared_ptr<T>
 			public:
 				PolymorphicListConstIterator<T> &operator ++();
 				PolymorphicListConstIterator<T> &operator --();

@@ -66,15 +66,22 @@ namespace {
 
 		EXPECT_EQ((*a).Value(), 10);
 		EXPECT_EQ(a->Value(), 10);
+		EXPECT_EQ(a.shared()->Value(), 10);
 
 		EXPECT_EQ((*b).Value(), 20);
 		EXPECT_EQ(b->Value(), 20);
+		EXPECT_EQ(b.shared()->Value(), 20);
+
 
 		EXPECT_NE((*a).Value(), 20);
 		EXPECT_NE(a->Value(), 20);
+		EXPECT_NE(a.shared()->Value(), 20);
+
 
 		EXPECT_NE((*b).Value(), 10);
 		EXPECT_NE(b->Value(), 10);
+		EXPECT_NE(b.shared()->Value(), 10);
+
 
 		PolymorphicListConstIterator<A> c = t.cbegin();
 		PolymorphicListConstIterator<A> d = ++t.cbegin();
