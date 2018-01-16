@@ -18,6 +18,8 @@
 				SharedData(const SharedData<T> &);
 				SharedData(SharedData<T> &&);
 				virtual ~SharedData();
+				SharedData<T> &operator = (const SharedData<T> &);
+				SharedData<T> &operator = (SharedData<T> &&);
 			protected:
 				std::shared_ptr<T> shared() const;
 			private:

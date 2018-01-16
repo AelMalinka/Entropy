@@ -46,6 +46,20 @@
 		}
 
 		template<typename T>
+		SharedData<T> &SharedData<T>::operator = (const SharedData<T> &)
+		{
+			++_count;
+			return *this;
+		}
+
+		template<typename T>
+		SharedData<T> &SharedData<T>::operator = (SharedData<T> &&)
+		{
+			++_count;
+			return *this;
+		}
+
+		template<typename T>
 		std::shared_ptr<T> SharedData<T>::shared() const
 		{
 			return _shared_data;
