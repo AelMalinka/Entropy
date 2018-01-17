@@ -27,7 +27,6 @@ namespace {
 			explicit TestData(const int);
 			int &Data();
 			const int &Data() const;
-		private:
 	};
 
 	TEST(SharedData, Basic) {
@@ -35,15 +34,46 @@ namespace {
 			TestData a;
 			TestData b;
 
+			TestData c = a;
+			TestData d = b;
+
+			TestData e(a);
+			TestData f = TestData();
+
+			const TestData g;
+			const TestData h(a);
+			const TestData i = a;
+
 			EXPECT_EQ(a.Data(), b.Data());
+			EXPECT_EQ(a.Data(), c.Data());
+			EXPECT_EQ(a.Data(), d.Data());
+			EXPECT_EQ(a.Data(), e.Data());
+			EXPECT_EQ(a.Data(), f.Data());
+			EXPECT_EQ(a.Data(), g.Data());
+			EXPECT_EQ(a.Data(), h.Data());
+			EXPECT_EQ(a.Data(), i.Data());
 
 			a.Data() = 20;
 
 			EXPECT_EQ(a.Data(), b.Data());
+			EXPECT_EQ(a.Data(), c.Data());
+			EXPECT_EQ(a.Data(), d.Data());
+			EXPECT_EQ(a.Data(), e.Data());
+			EXPECT_EQ(a.Data(), f.Data());
+			EXPECT_EQ(a.Data(), g.Data());
+			EXPECT_EQ(a.Data(), h.Data());
+			EXPECT_EQ(a.Data(), i.Data());
 
 			b.Data() = 30;
 
 			EXPECT_EQ(a.Data(), b.Data());
+			EXPECT_EQ(a.Data(), c.Data());
+			EXPECT_EQ(a.Data(), d.Data());
+			EXPECT_EQ(a.Data(), e.Data());
+			EXPECT_EQ(a.Data(), f.Data());
+			EXPECT_EQ(a.Data(), g.Data());
+			EXPECT_EQ(a.Data(), h.Data());
+			EXPECT_EQ(a.Data(), i.Data());
 		}
 
 		TestData a;
