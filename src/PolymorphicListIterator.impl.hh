@@ -37,6 +37,12 @@
 		}
 
 		template<typename T>
+		PolymorphicListIterator<T>::operator std::shared_ptr<T> &()
+		{
+			return *_me;
+		}
+
+		template<typename T>
 		PolymorphicListIterator<T> &PolymorphicListIterator<T>::operator ++ ()
 		{
 			++_me;

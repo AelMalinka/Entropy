@@ -20,6 +20,7 @@
 				T &operator * ();
 				T *operator -> ();
 				std::shared_ptr<T> &shared();
+				operator std::shared_ptr<T> &();
 			public:
 				PolymorphicListIterator<T> &operator ++();
 				PolymorphicListIterator<T> &operator --();

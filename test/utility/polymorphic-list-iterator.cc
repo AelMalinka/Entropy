@@ -82,6 +82,11 @@ namespace {
 		EXPECT_NE(b->Value(), 10);
 		EXPECT_NE(b.shared()->Value(), 10);
 
+		shared_ptr<A> e = a;
+		shared_ptr<A> f = b;
+
+		EXPECT_EQ(e->Value(), 10);
+		EXPECT_EQ(f->Value(), 20);
 
 		PolymorphicListConstIterator<A> c = t.cbegin();
 		PolymorphicListConstIterator<A> d = ++t.cbegin();
