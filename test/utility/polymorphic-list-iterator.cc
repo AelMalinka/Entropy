@@ -104,7 +104,7 @@ namespace {
 		EXPECT_NE(d->Value(), 15);
 	}
 
-	TEST(PolymorphicIterator, Iterate) {
+	TEST(PolymorphicListIterator, Iterate) {
 		list<shared_ptr<A>> t;
 
 		t.push_back(make_shared<B>());
