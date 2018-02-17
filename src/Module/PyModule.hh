@@ -6,13 +6,15 @@
 #	define ENTROPY_MODULE_PYMODULE_INC
 
 #	include "Exception.hh"
+#	include "SharedData.hh"
 #	include "../Python/Interpreter.hh"
 #	include "../Python/Module.hh"
 #	include <functional>
 
 	namespace Entropy
 	{
-		class PyModule
+		class PyModule :
+			private SharedData<Python::Interpreter>
 		{
 			public:
 				explicit PyModule(const std::string &);
@@ -20,7 +22,6 @@
 				template<typename F> std::function<F> get(const std::string &) const;
 			private:
 				Python::Module _module;
-				static Python::Interpreter _python;
 		};
 	}
 

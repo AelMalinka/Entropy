@@ -8,6 +8,7 @@
 #	include <Python.h>
 #	include <string>
 #	include "../Exception.hh"
+#	include "../SharedData.hh"
 #	include "Interpreter.hh"
 
 	namespace Entropy
@@ -20,7 +21,8 @@
 			ENTROPY_ERROR_INFO(PyUnicodeKind, unsigned int);
 			ENTROPY_ERROR_INFO(Pointer, void *);
 
-			class Object
+			class Object :
+				private SharedData<Interpreter>
 			{
 				public:
 					Object();
@@ -45,7 +47,6 @@
 				protected:
 					void Handle(PyObject *);
 				private:
-					static Interpreter _python;
 					PyObject *_obj;
 			};
 		}

@@ -4,20 +4,19 @@
 
 #include "Object.hh"
 
+using namespace Entropy;
 using namespace Entropy::Python;
 using namespace std;
 
-Interpreter Object::_python;
-
 Object::Object()
-	: _obj(Py_None)
+	: SharedData<Interpreter>(), _obj(Py_None)
 {
 	// 2018-02-16 AMR TODO: is this right?
 	Py_INCREF(_obj);
 }
 
 Object::Object(PyObject *p)
-	: _obj(p)
+	: SharedData<Interpreter>(), _obj(p)
 {
 	if(_obj == nullptr)
 		ENTROPY_THROW(PythonError("can't have a null python object, use emtpy constructor for None"));
@@ -26,7 +25,7 @@ Object::Object(PyObject *p)
 }
 
 Object::Object(const long &v)
-	: _obj(nullptr)
+	: SharedData<Interpreter>(), _obj(nullptr)
 {
 	// 2018-02-16 AMR TODO: should incref be called?
 	_obj = PyLong_FromLong(v);
@@ -36,7 +35,7 @@ Object::Object(const long &v)
 }
 
 Object::Object(const double &v)
-	: _obj(nullptr)
+	: SharedData<Interpreter>(), _obj(nullptr)
 {
 	// 2018-02-16 AMR TODO: should incref be called?
 	_obj = PyFloat_FromDouble(v);
@@ -46,7 +45,7 @@ Object::Object(const double &v)
 }
 
 Object::Object(const string &v)
-	: _obj(nullptr)
+	: SharedData<Interpreter>(), _obj(nullptr)
 {
 	// 2018-02-16 AMR TODO: should incref be called?
 	_obj = PyUnicode_FromKindAndData(PyUnicode_1BYTE_KIND, static_cast<const void *>(v.c_str()), v.size());
@@ -56,13 +55,13 @@ Object::Object(const string &v)
 }
 
 Object::Object(const Object &o)
-	: _obj(o._obj)
+	: SharedData<Interpreter>(), _obj(o._obj)
 {
 	Py_INCREF(_obj);
 }
 
 Object::Object(Object &&o)
-	: _obj(o._obj)
+	: SharedData<Interpreter>(), _obj(o._obj)
 {
 	Py_INCREF(_obj);
 }

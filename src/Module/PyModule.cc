@@ -8,10 +8,8 @@ using namespace Entropy;
 using namespace Entropy::Python;
 using namespace std;
 
-Interpreter PyModule::_python;
-
 PyModule::PyModule(const string &name)
-	: _module(name)
+	: SharedData<Interpreter>(), _module(name)
 {}
 
 PyModule::~PyModule() = default;

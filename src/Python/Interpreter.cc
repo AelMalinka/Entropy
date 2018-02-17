@@ -7,16 +7,12 @@
 using namespace Entropy::Python;
 using namespace std;
 
-size_t Interpreter::_count = 0;
-
 Interpreter::Interpreter()
 {
-	if(_count++ == 0)
-		Py_Initialize();
+	Py_Initialize();
 }
 
 Interpreter::~Interpreter()
 {
-	if(--_count == 0)
-		Py_Finalize();
+	Py_Finalize();
 }

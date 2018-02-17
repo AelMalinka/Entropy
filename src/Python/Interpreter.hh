@@ -17,8 +17,6 @@
 				public:
 					Interpreter();
 					~Interpreter();
-				private:
-					static std::size_t _count;
 			};
 		}
 	}
