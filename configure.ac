@@ -35,6 +35,8 @@ EX_PYTHON
 AC_CHECK_LIB(dl, dlopen, [], [AC_MSG_FAILURE(["failed to find -ldl"])])
 
 AC_PROG_CXX
+EX_BASE_FLAGS
+
 AC_LANG_PUSH([C++])
 
 AC_CHECK_HEADERS([boost/exception/diagnostic_information.hpp \
@@ -91,7 +93,6 @@ dnl 2017-10-08 AMR NOTE: Hack to bypass undefined references in Visual Studio wh
 AC_DEFINE([HAVE_C11_WIDE_STRINGS], [1], [Define to 1 if C++11 Wide strings work])
 
 EX_WITH_GTEST
-EX_BASE_FLAGS
 EX_FLAGS
 
 AC_LANG_POP([C++])
