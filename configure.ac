@@ -37,22 +37,23 @@ AC_CHECK_LIB(dl, dlopen, [], [AC_MSG_FAILURE(["failed to find -ldl"])])
 AC_PROG_CXX
 AC_LANG_PUSH([C++])
 
-dnl		boost/log/sources/severity_channel_logger.hpp \ dnl fails to compile by itself, or without -std=c++11
-AC_CHECK_HEADERS(
-	[	boost/algorithm/string/classification.hpp \
-		boost/algorithm/string/split.hpp \
-		boost/any.hpp \
-		boost/exception/all.hpp \
-		boost/filesystem.hpp \
+AC_CHECK_HEADERS([boost/exception/diagnostic_information.hpp \
+		boost/exception/enable_error_info.hpp \
+		boost/exception/exception.hpp \
+		boost/exception/get_error_info.hpp \
 		boost/iostreams/device/file_descriptor.hpp \
 		boost/iostreams/stream.hpp \
+		boost/lexical_cast.hpp \
 		boost/log/attributes/constant.hpp \
 		boost/log/common.hpp \
 		boost/log/expressions.hpp \
 		boost/log/expressions/keyword.hpp \
+		boost/log/sources/severity_channel_logger.hpp \
 		boost/log/support/date_time.hpp \
+		boost/log/utility/manipulators/add_value.hpp \
 		boost/log/utility/setup/common_attributes.hpp \
 		boost/log/utility/setup/console.hpp \
+		boost/log/utility/setup/file.hpp \
 		boost/log/utility/setup/formatter_parser.hpp \
 		boost/throw_exception.hpp \
 	],
