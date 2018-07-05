@@ -38,8 +38,6 @@
 						int Read();
 						int Write();
 					private:
-						bool _read;
-						bool _write;
 						int _pipes[2];
 				};
 				void _iam_child(const std::function<void ()> &); 

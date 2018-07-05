@@ -150,7 +150,6 @@ void Process::_iam_parent()
 }
 
 Process::Pipe::Pipe()
-	: _read(true), _write(true)
 {
 	if(pipe(_pipes) < 0)
 		ENTROPY_THROW(
@@ -168,12 +167,10 @@ Process::Pipe::~Pipe()
 
 int Process::Pipe::Read()
 {
-	_read = false;
 	return _pipes[0];
 }
 
 int Process::Pipe::Write()
 {
-	_write = false;
 	return _pipes[1];
 }
