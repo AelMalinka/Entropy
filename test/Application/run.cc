@@ -27,9 +27,9 @@ int main(int argc, char *argv[]) {
 
 	try {
 		app();
-	} catch(TestSuccess) {
+	} catch(const TestSuccess &) {
 		return EXIT_SUCCESS;
-	} catch(TestFailure) {}
+	} catch(const TestFailure &) {}
 
 	return EXIT_FAILURE;
 }
