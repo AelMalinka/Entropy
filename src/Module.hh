@@ -5,6 +5,7 @@
 #if !defined ENTROPY_MODULE_INC
 #	define ENTROPY_MODULE_INC
 
+//	2018-05-29 AMR TODO: cleanup
 #	if defined(__unix__) || defined(__linux__)
 #		include <unistd.h>
 #	endif

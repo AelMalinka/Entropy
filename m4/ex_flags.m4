@@ -3,6 +3,7 @@ dnl Distributed under the terms of the GNU General Public License v3
 
 AC_DEFUN([EX_BASE_FLAGS], [
 	AC_LANG_PUSH([C])
+	dnl 2018-06-15 AMR TODO: do we want gnu11?
 	AX_APPEND_COMPILE_FLAGS([-std=c11], [CFLAGS])
 	AC_LANG_POP([C])
 
